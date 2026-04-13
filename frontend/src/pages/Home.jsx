@@ -66,6 +66,13 @@ const LIVE_TOOLS = [
     color: "#0a84ff",
     to: "/tools/base64",
   },
+  {
+    nameKey: "tools.idPhoto.name",
+    descKey: "tools.idPhoto.desc",
+    icon: "📸",
+    color: "#f59e0b",
+    to: "/tools/id-photo",
+  },
 ];
 
 const UPCOMING_TOOLS = [

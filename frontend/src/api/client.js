@@ -62,4 +62,22 @@ export async function aiExplain(tool, content, context, lang) {
   return res.data;
 }
 
+export async function aiFlowchart(description, lang) {
+  const res = await api.post(
+    "/ai/flowchart",
+    { description, lang },
+    { timeout: 60000 }
+  );
+  return res.data;
+}
+
+export async function aiSummarizePdf(text, lang) {
+  const res = await api.post(
+    "/ai/summarize-pdf",
+    { text, lang },
+    { timeout: 90000 }
+  );
+  return res.data;
+}
+
 export default api;
