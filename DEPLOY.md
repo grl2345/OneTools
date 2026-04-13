@@ -1,157 +1,156 @@
-# OneTools 部署指南
+# OneTools 部署指南（全 Vercel 方案）
 
-前端：Vercel（静态站） · 后端：Railway（FastAPI 容器）  
-AI 提供方：Groq / OpenAI / SiliconFlow 任选（OpenAI 协议兼容即可）
+前端和 AI 后端**统一跑在 Vercel 上**，无须 Railway / 其他托管平台。
+AI 后端是 `frontend/api/` 下的 Vercel Edge Functions（Node.js / Edge Runtime）。
 
 ---
 
 ## 架构
 
 ```
-                          ┌────────────────────────┐
-浏览器 ── HTTPS ──►  Vercel │ 前端静态资源 (Vite build) │
-                          │ /api/* 透明转发 (rewrite) │
-                          └────────────┬───────────┘
-                                       ▼
-                          ┌────────────────────────┐
-                          │ Railway · FastAPI       │
-                          │ /api/ai/parse-time      │
-                          │ /api/ai/json/query      │
-                          │ /api/ai/json/schema     │
-                          │ /api/ai/markdown/rewrite│
-                          └────────────┬───────────┘
-                                       ▼
-                                  Groq API
+                       ┌─────────────────────────────────────┐
+浏览器 ── HTTPS ──►     │ Vercel（一个项目）                   │
+                       │  ├─ 前端静态资源（Vite build）         │
+                       │  └─ /api/* Edge Functions             │
+                       │       ├─ /api/ai/json/query           │
+                       │       ├─ /api/ai/json/schema          │
+                       │       └─ /api/ai/markdown/rewrite     │
+                       └────────────────────┬────────────────┘
+                                            ▼
+                             Groq / OpenAI / SiliconFlow
+                                （任选 OpenAI 协议兼容）
 ```
-
-浏览器看到的永远是同一个域名（Vercel），不需要 CORS。
 
 ---
 
-## Step 1 · 部署后端到 Railway
-
-1. 打开 https://railway.app/new
-2. 选 **Deploy from GitHub repo** → 授权并选 `grl2345/OneTools`
-3. 进入项目后：
-   - 顶部 ⚙️ **Settings** → **Source** → **Root Directory** 改为 `backend`
-   - **Settings** → **Deploy** → **Start Command** 保持空白（`railway.json` 已定义）
-4. **Variables** 标签添加三个环境变量：
-   ```env
-   OPENAI_API_KEY=gsk_你的Groq密钥
-   OPENAI_BASE_URL=https://api.groq.com/openai/v1
-   OPENAI_MODEL=llama-3.3-70b-versatile
-   ```
-   > Groq Key 的形式：`gsk_xxxxxxxxxx...`  
-   > 用 SiliconFlow 就换对应的 `BASE_URL=https://api.siliconflow.cn/v1` 和模型名  
-   > 用 OpenAI 原生把 Key 和 Model 换成 `sk-...` 与 `gpt-4o-mini`
-
-5. Railway 会自动触发部署，约 2-3 分钟。完成后顶部会显示 **Active** 状态
-6. **Settings** → **Networking** → **Generate Domain**  
-   会得到一个类似 `onetools-production.up.railway.app` 的公开地址
-7. 用浏览器访问 `https://你的后端域名/api/health` 应返回：
-   ```json
-   {"status":"ok"}
-   ```
-   → ✅ 后端已就绪
-
----
-
-## Step 2 · 把 Railway 地址写到 vercel.json
-
-编辑本仓库的 `frontend/vercel.json`，把占位域名替换成你在 Step 1 拿到的：
-
-```json
-{
-  "rewrites": [
-    {
-      "source": "/api/:path*",
-      "destination": "https://onetools-production.up.railway.app/api/:path*"
-    }
-  ]
-}
-```
-
-然后提交推送：
-
-```bash
-git add frontend/vercel.json
-git commit -m "chore: point /api/* rewrites to Railway backend"
-git push origin main
-```
-
-Vercel 会监听到 push 自动重新部署前端，约 1 分钟完成。
-
----
-
-## Step 3 · 部署前端到 Vercel（如果还没部署过）
-
-如果前端已在 Vercel 跑了，Step 2 的 push 之后就自动更新，跳过这步。
-
-首次部署：
+## Step 1 · 首次部署到 Vercel
 
 1. 打开 https://vercel.com/new
-2. 选 `grl2345/OneTools`
-3. **Root Directory** 设为 `frontend`
-4. Framework Preset 自动识别为 Vite，保持默认
-5. 点 **Deploy**，约 1 分钟拿到 `xxx.vercel.app` 域名
+2. 选 GitHub 仓库 `grl2345/OneTools` → 点 **Import**
+3. **Root Directory** 改为 `frontend`
+4. Framework Preset 会自动识别为 **Vite** —— 保持默认
+5. 点 **Deploy**
+
+首次部署不配 env vars 也能成功，但 AI 功能会返回 503 提示"Server not configured"。下一步填 Key。
 
 ---
 
-## Step 4 · 验证
+## Step 2 · 配置 API Key（必须）
 
-在前端页面上：
+1. 进入 Vercel 项目 → **Settings** → **Environment Variables**
+2. 添加以下三个（作用域默认全选 Production / Preview / Development）：
 
-- 打开 **JSON 工具** → 粘贴任意合法 JSON → 切到 "Schema 推断" 点按钮  
-  → 应该返回字段字典表格
-- 打开 **Markdown 预览** → 选中一段文字 → 点 "简化" / "翻译"  
-  → 选中区域应被改写
-- 打开 **时间戳转换** → 输入 "下周五下午 3 点" → 点"解析"  
-  → **这个用的是 chrono-node，不依赖后端，永远能用**
+| Name | Value | 备注 |
+|---|---|---|
+| `OPENAI_API_KEY` | `gsk_你的Groq密钥` | Groq 控制台创建 |
+| `OPENAI_BASE_URL` | `https://api.groq.com/openai/v1` | 换 SiliconFlow 就写它的地址 |
+| `OPENAI_MODEL` | `llama-3.3-70b-versatile` | 按模型服务商换 |
+
+3. **Settings → Deployments** 找到最新部署 → 右上角 **⋯** → **Redeploy**（不勾 "Use existing Build Cache"）→ 让新 env 生效
+
+> Vercel 改完 env 不会自动重新部署，**必须手动 Redeploy 一次**。
 
 ---
 
-## 常见问题
+## Step 3 · 验证
 
-### Q1 Railway 部署报 `ModuleNotFoundError: No module named 'app'`
-Root Directory 没设成 `backend`，Railway 在仓库根找不到 `app/` 目录。在 Railway 的 Service Settings 里改 Root Directory 为 `backend`，触发 redeploy。
+在你的 Vercel 域名（如 `onetools-xxx.vercel.app`）测：
 
-### Q2 访问 `/api/ai/...` 返回 404
-说明 `vercel.json` 里的 rewrite destination 写错了或者没部署成功。
-- 直接 `curl https://你的后端/api/health` 确认后端活着
-- 然后检查 vercel.json 的 URL 有没有拼错
+| 工具 | 预期 |
+|---|---|
+| `/api/health` | `{"status":"ok"}`（任何时候都该返回） |
+| 时间戳转换 · 自然语言 | 本地 chrono-node，不需要 Key 就能用 |
+| JSON 自然语言查询 | 返回 expression + result + 解释 |
+| JSON Schema 推断 | 返回字段字典表格 |
+| Markdown 改写 | 选中段落被替换为改写版 |
 
-### Q3 AI 返回 500 `"AI call failed: ..."`
-- Groq Key 没写进 Railway Variables，或者写错了 → 后端启动时没读到
-- 或者你的 Groq 账号被限频 → 看 Railway Logs 标签具体报什么
+---
 
-### Q4 想换模型服务
-只要对方**兼容 OpenAI Chat Completions 协议**，改 Railway 上的 `OPENAI_BASE_URL` 和 `OPENAI_MODEL` 两个变量，重启服务即可。LangChain 的代码不用动。
+## 切换模型服务
 
-兼容清单：
-- Groq · `https://api.groq.com/openai/v1` · `llama-3.3-70b-versatile`
-- SiliconFlow · `https://api.siliconflow.cn/v1` · `Qwen/Qwen2.5-72B-Instruct`
-- OpenRouter · `https://openrouter.ai/api/v1` · `openai/gpt-4o-mini`
-- 官方 OpenAI · `https://api.openai.com/v1` · `gpt-4o-mini`
+只要对方**兼容 OpenAI Chat Completions 协议**，改 Vercel env 两个变量即可，代码不用动：
+
+| 服务 | `OPENAI_BASE_URL` | 推荐 Model | 免费额度 |
+|---|---|---|---|
+| **Groq** | `https://api.groq.com/openai/v1` | `llama-3.3-70b-versatile` | 14k req/day |
+| **SiliconFlow** | `https://api.siliconflow.cn/v1` | `Qwen/Qwen2.5-72B-Instruct` | 14 元试用 |
+| **OpenRouter** | `https://openrouter.ai/api/v1` | `meta-llama/llama-3.3-70b-instruct:free` | 有免费模型 |
+| **OpenAI 原生** | `https://api.openai.com/v1` | `gpt-4o-mini` | 付费 |
+
+> ⚠️ Groq 的模型 Key 必须要开启 JSON mode。`llama-3.3-70b-versatile` 支持，`llama-guard` 系列不支持。
 
 ---
 
 ## 本地开发
 
-同时跑前后端：
+### 场景 A · 不需要调试 AI 功能
+直接 `npm run dev` 即可，页面照跑。AI 接口会 503，时间戳 / 图片 / Markdown 预览等**纯前端**工具不受影响。
 
 ```bash
-# Terminal 1 — 后端
-cd backend
-cp .env.example .env  # 填 OPENAI_* 三个变量
-pip install -r requirements.txt
-uvicorn app.main:app --reload
-# http://localhost:8000/api/health
-
-# Terminal 2 — 前端
 cd frontend
 npm install
 npm run dev
-# http://localhost:3000
+# 打开 http://localhost:3000
 ```
 
-Vite 配置里已经把 `/api/*` 代理到 `localhost:8000`，所以开发时 `vercel.json` 不生效，不会冲突。
+### 场景 B · 需要本地调试 AI
+用 Vercel CLI 在本地把 Edge Functions 和 Vite 一起跑起来：
+
+```bash
+# 一次性装 CLI
+npm i -g vercel
+
+# 关联本地到 Vercel 项目（第一次问几个问题，一路回车）
+cd frontend
+vercel link
+
+# 把 Vercel 上的 env 变量拉到本地（生成 .env.local）
+vercel env pull
+
+# 启动开发服务器（同时跑 Vite + Edge Functions）
+vercel dev
+# 打开 http://localhost:3000
+```
+
+`vercel dev` 会用你的 Vercel env 真跑 API 调用，所以能本地试 AI。
+
+---
+
+## 常见问题
+
+### Q1. AI 返回 503 `Server not configured`
+Vercel 的 env 没配 `OPENAI_API_KEY`，或者配了但没 Redeploy。按 Step 2 手动触发一次新部署。
+
+### Q2. AI 返回 502 `LLM HTTP 401`
+Key 写错了（复制时带了空格 / 前缀错 / 用错了服务商的 Key）。重新去 Groq 创建一个新 Key 粘贴进 Vercel。
+
+### Q3. AI 返回 502 `LLM HTTP 429`
+速率超限。免费档 Groq 每分钟 30 次，JSON Schema 这种单次大请求更容易触发。稍等再试，或换模型。
+
+### Q4. 返回 502 `LLM content is not valid JSON`
+换的模型不支持 JSON mode。改用 `llama-3.3-70b-versatile` 或 `qwen2.5-72b-instruct` 这类明确支持 response_format 的模型。
+
+### Q5. 构建失败 `Module not found: api/...`
+检查 `frontend/api/` 目录结构，文件名必须是 `.js`，路径对应 URL 路径（如 `api/ai/json/query.js` → `/api/ai/json/query`）。
+
+---
+
+## 文件约定
+
+```
+frontend/
+├── api/                          ← Vercel Edge Functions
+│   ├── _lib/
+│   │   └── llm.js                ← 共享 LLM 调用辅助
+│   ├── health.js                 ← /api/health
+│   └── ai/
+│       ├── json/
+│       │   ├── query.js          ← /api/ai/json/query
+│       │   └── schema.js         ← /api/ai/json/schema
+│       └── markdown/
+│           └── rewrite.js        ← /api/ai/markdown/rewrite
+├── src/                          ← React 前端
+└── vercel.json                   ← 留空占位，保留 $schema
+```
+
+下划线开头的目录（如 `_lib`）不会被 Vercel 暴露为 URL 路由，专用于共享代码。
