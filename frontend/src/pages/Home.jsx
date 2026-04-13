@@ -136,6 +136,41 @@ const LIVE_TOOLS = [
     color: "#ef4444",
     to: "/tools/video-compress",
   },
+  {
+    nameKey: "tools.pdf.name",
+    descKey: "tools.pdf.desc",
+    icon: "📑",
+    color: "#dc2626",
+    to: "/tools/pdf",
+  },
+  {
+    nameKey: "tools.qrcode.name",
+    descKey: "tools.qrcode.desc",
+    icon: "▣",
+    color: "#0f172a",
+    to: "/tools/qrcode",
+  },
+  {
+    nameKey: "tools.videoToGif.name",
+    descKey: "tools.videoToGif.desc",
+    icon: "🎞",
+    color: "#db2777",
+    to: "/tools/video-to-gif",
+  },
+  {
+    nameKey: "tools.fileEncrypt.name",
+    descKey: "tools.fileEncrypt.desc",
+    icon: "🔒",
+    color: "#059669",
+    to: "/tools/file-encrypt",
+  },
+  {
+    nameKey: "tools.palette.name",
+    descKey: "tools.palette.desc",
+    icon: "🎨",
+    color: "#7c3aed",
+    to: "/tools/palette",
+  },
 ];
 
 const UPCOMING_TOOLS = [

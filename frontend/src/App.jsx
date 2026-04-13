@@ -20,6 +20,11 @@ import ExifTool from "./pages/tools/Exif";
 import Whisper from "./pages/tools/Whisper";
 import Upscale from "./pages/tools/Upscale";
 import VideoCompress from "./pages/tools/VideoCompress";
+import Pdf from "./pages/tools/Pdf";
+import QrCode from "./pages/tools/QrCode";
+import VideoToGif from "./pages/tools/VideoToGif";
+import FileEncrypt from "./pages/tools/FileEncrypt";
+import Palette from "./pages/tools/Palette";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import About from "./pages/About";
@@ -48,6 +53,11 @@ export default function App() {
         <Route path="/tools/whisper" element={<Whisper />} />
         <Route path="/tools/upscale" element={<Upscale />} />
         <Route path="/tools/video-compress" element={<VideoCompress />} />
+        <Route path="/tools/pdf" element={<Pdf />} />
+        <Route path="/tools/qrcode" element={<QrCode />} />
+        <Route path="/tools/video-to-gif" element={<VideoToGif />} />
+        <Route path="/tools/file-encrypt" element={<FileEncrypt />} />
+        <Route path="/tools/palette" element={<Palette />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/about" element={<About />} />
