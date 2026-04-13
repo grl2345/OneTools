@@ -1,5 +1,6 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
+import { aiParseTime } from "../../api/client";
 
 const pad = (n) => String(n).padStart(2, "0");
 
@@ -138,7 +139,7 @@ function CopyField({ label, value, mono }) {
 }
 
 export default function Timestamp() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [now, setNow] = useState(() => new Date());
   const [unit, setUnit] = useState("s"); // 's' or 'ms'
 
@@ -151,6 +152,13 @@ export default function Timestamp() {
   const [tsInput, setTsInput] = useState(() =>
     String(Math.floor(Date.now() / 1000))
   );
+
+  // AI parser
+  const [aiQuery, setAiQuery] = useState("");
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiResult, setAiResult] = useState(null); // { iso, explanation, confidence, alternatives, typed }
+  const [aiError, setAiError] = useState(null);
+  const typingTimer = useRef(null);
 
   useEffect(() => {
     const i = setInterval(() => setNow(new Date()), 1000);
@@ -194,6 +202,52 @@ export default function Timestamp() {
         ? String(Math.floor(Date.now() / 1000))
         : String(Date.now())
     );
+
+  const animateExplanation = (text) => {
+    if (typingTimer.current) clearInterval(typingTimer.current);
+    let i = 0;
+    const step = Math.max(1, Math.floor(text.length / 60));
+    typingTimer.current = setInterval(() => {
+      i = Math.min(text.length, i + step);
+      setAiResult((prev) => (prev ? { ...prev, typed: text.slice(0, i) } : prev));
+      if (i >= text.length) {
+        clearInterval(typingTimer.current);
+        typingTimer.current = null;
+      }
+    }, 18);
+  };
+
+  const handleAiParse = async () => {
+    const q = aiQuery.trim();
+    if (!q || aiLoading) return;
+    setAiLoading(true);
+    setAiError(null);
+    setAiResult(null);
+    try {
+      const res = await aiParseTime(q, tz, i18n.language || "zh");
+      const date = new Date(res.iso);
+      if (isNaN(date.getTime())) throw new Error("invalid iso");
+      // Populate both panels
+      setDateInput(toLocalInputValue(date));
+      setTsInput(
+        unit === "s" ? String(res.timestamp_s) : String(res.timestamp_ms)
+      );
+      setAiResult({ ...res, typed: "" });
+      animateExplanation(res.explanation || "");
+    } catch (e) {
+      const msg =
+        e?.response?.data?.detail || e?.message || "AI parse failed";
+      setAiError(msg);
+    } finally {
+      setAiLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (typingTimer.current) clearInterval(typingTimer.current);
+    };
+  }, []);
 
   const switchUnit = (u) => {
     if (u === unit) return;
@@ -406,6 +460,300 @@ export default function Timestamp() {
             {unit}
           </div>
         </div>
+      </div>
+
+      {/* ── AI Natural-language parser ───────────── */}
+      <div
+        style={{
+          marginTop: 20,
+          padding: 18,
+          borderRadius: "var(--radius)",
+          background: "#ffffff",
+          border: "1px solid var(--border)",
+          boxShadow: "var(--shadow-md)",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        {/* accent corner glow */}
+        <div
+          style={{
+            position: "absolute",
+            top: -60,
+            right: -60,
+            width: 180,
+            height: 180,
+            background:
+              "radial-gradient(closest-side, rgba(139,92,246,0.22), transparent)",
+            pointerEvents: "none",
+          }}
+        />
+
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, position: "relative" }}>
+          <span
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: 24,
+              height: 24,
+              borderRadius: 7,
+              background: "var(--gradient-brand)",
+              color: "#fff",
+              fontSize: 13,
+              fontWeight: 700,
+            }}
+          >
+            ✦
+          </span>
+          <div style={{ flex: 1 }}>
+            <div
+              style={{
+                fontSize: 13.5,
+                fontWeight: 600,
+                color: "var(--text-primary)",
+                letterSpacing: -0.2,
+              }}
+            >
+              {t("tools.timestamp.ai.title")}
+            </div>
+            <div
+              style={{
+                fontSize: 12,
+                color: "var(--text-muted)",
+                marginTop: 1,
+                letterSpacing: -0.1,
+              }}
+            >
+              {t("tools.timestamp.ai.subtitle")}
+            </div>
+          </div>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            gap: 8,
+            position: "relative",
+          }}
+        >
+          <input
+            value={aiQuery}
+            onChange={(e) => setAiQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleAiParse();
+            }}
+            placeholder={t("tools.timestamp.ai.placeholder")}
+            style={{
+              flex: 1,
+              padding: "10px 14px",
+              borderRadius: "var(--radius-sm)",
+              border: "1px solid var(--border-strong)",
+              background: "#ffffff",
+              fontSize: 14,
+              color: "var(--text-primary)",
+              outline: "none",
+            }}
+          />
+          <button
+            onClick={handleAiParse}
+            disabled={aiLoading || !aiQuery.trim()}
+            style={{
+              padding: "10px 18px",
+              borderRadius: "var(--radius-sm)",
+              border: "none",
+              background:
+                aiLoading || !aiQuery.trim()
+                  ? "#d8d8e0"
+                  : "var(--gradient-brand)",
+              color: "#fff",
+              fontSize: 13,
+              fontWeight: 600,
+              letterSpacing: -0.1,
+              boxShadow:
+                aiLoading || !aiQuery.trim()
+                  ? "none"
+                  : "0 4px 14px rgba(91,91,245,0.35)",
+              cursor:
+                aiLoading || !aiQuery.trim() ? "not-allowed" : "pointer",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {aiLoading ? t("tools.timestamp.ai.parsing") : t("tools.timestamp.ai.parse")}
+          </button>
+        </div>
+
+        {/* Suggestion chips */}
+        <div
+          style={{
+            display: "flex",
+            gap: 6,
+            flexWrap: "wrap",
+            marginTop: 10,
+            position: "relative",
+          }}
+        >
+          {[
+            t("tools.timestamp.ai.s1"),
+            t("tools.timestamp.ai.s2"),
+            t("tools.timestamp.ai.s3"),
+            t("tools.timestamp.ai.s4"),
+          ].map((s, i) => (
+            <button
+              key={i}
+              onClick={() => setAiQuery(s)}
+              style={{
+                padding: "4px 10px",
+                borderRadius: 999,
+                border: "1px solid var(--border)",
+                background: "rgba(91,91,245,0.04)",
+                color: "var(--text-secondary)",
+                fontSize: 11.5,
+                fontWeight: 500,
+                letterSpacing: -0.1,
+              }}
+            >
+              {s}
+            </button>
+          ))}
+        </div>
+
+        {/* Result */}
+        {aiError && (
+          <div
+            style={{
+              marginTop: 12,
+              padding: "10px 12px",
+              borderRadius: "var(--radius-sm)",
+              background: "rgba(239,68,68,0.08)",
+              border: "1px solid rgba(239,68,68,0.25)",
+              fontSize: 12.5,
+              color: "var(--red)",
+              position: "relative",
+            }}
+          >
+            {aiError}
+          </div>
+        )}
+
+        {aiResult && !aiError && (
+          <div
+            style={{
+              marginTop: 12,
+              padding: "12px 14px",
+              borderRadius: "var(--radius-sm)",
+              background: "rgba(91,91,245,0.06)",
+              border: "1px solid rgba(91,91,245,0.2)",
+              position: "relative",
+              animation: "fadeIn 0.25s ease both",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginBottom: 4,
+              }}
+            >
+              <span
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  color: "var(--brand)",
+                  letterSpacing: 1,
+                  textTransform: "uppercase",
+                }}
+              >
+                {aiResult.iso}
+              </span>
+              <span
+                style={{
+                  fontSize: 11,
+                  color: "var(--text-muted)",
+                  fontFamily: "var(--font-mono)",
+                }}
+              >
+                {t("tools.timestamp.ai.confidence")}:{" "}
+                {Math.round(aiResult.confidence * 100)}%
+              </span>
+            </div>
+            <div
+              style={{
+                fontSize: 13,
+                color: "var(--text-primary)",
+                lineHeight: 1.55,
+                letterSpacing: -0.1,
+                minHeight: 20,
+              }}
+            >
+              {aiResult.typed}
+              {typingTimer.current && (
+                <span
+                  style={{
+                    display: "inline-block",
+                    width: 7,
+                    height: 14,
+                    background: "var(--brand)",
+                    marginLeft: 2,
+                    verticalAlign: "-2px",
+                    animation: "pulse 0.9s ease infinite",
+                  }}
+                />
+              )}
+            </div>
+            {aiResult.alternatives && aiResult.alternatives.length > 0 && (
+              <div
+                style={{
+                  marginTop: 8,
+                  display: "flex",
+                  gap: 6,
+                  flexWrap: "wrap",
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: 11,
+                    color: "var(--text-muted)",
+                    marginRight: 2,
+                  }}
+                >
+                  {t("tools.timestamp.ai.alts")}:
+                </span>
+                {aiResult.alternatives.map((alt, i) => {
+                  const d = new Date(alt);
+                  const valid = !isNaN(d.getTime());
+                  return (
+                    <button
+                      key={i}
+                      disabled={!valid}
+                      onClick={() => {
+                        setDateInput(toLocalInputValue(d));
+                        setTsInput(
+                          unit === "s"
+                            ? String(Math.floor(d.getTime() / 1000))
+                            : String(d.getTime())
+                        );
+                      }}
+                      style={{
+                        padding: "3px 8px",
+                        borderRadius: 999,
+                        border: "1px solid var(--border)",
+                        background: "#ffffff",
+                        color: "var(--text-secondary)",
+                        fontSize: 11,
+                        fontFamily: "var(--font-mono)",
+                        cursor: valid ? "pointer" : "not-allowed",
+                      }}
+                    >
+                      {alt}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Converters */}

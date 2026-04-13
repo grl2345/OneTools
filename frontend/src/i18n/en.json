@@ -105,6 +105,19 @@
         "now": "Now",
         "startOfDay": "Start of day",
         "endOfDay": "End of day"
+      },
+      "ai": {
+        "title": "Natural-language time parser",
+        "subtitle": "Describe a time in plain words — AI converts it to a precise timestamp",
+        "placeholder": "e.g. next Friday 3pm, three days ago, 1 billion seconds after epoch",
+        "parse": "Parse",
+        "parsing": "Parsing...",
+        "confidence": "Confidence",
+        "alts": "Alternatives",
+        "s1": "next Friday 3pm",
+        "s2": "three days ago at this time",
+        "s3": "three days before Christmas",
+        "s4": "1 billion seconds after epoch"
       }
     }
   },

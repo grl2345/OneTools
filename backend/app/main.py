@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.routers import ai
+
 app = FastAPI(title="OneTools API", version="1.0.0")
 
 app.add_middleware(
@@ -10,6 +12,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(ai.router)
 
 
 @app.get("/api/health")
