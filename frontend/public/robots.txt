@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Disallow API endpoints from being indexed
+Disallow: /api/
+
+Sitemap: https://onetools.dev/sitemap.xml

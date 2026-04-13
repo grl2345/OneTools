@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { aiJsonQuery, aiJsonSchema } from "../../api/client";
+import SEO, { schema } from "../../components/SEO";
 
 const SAMPLE_JSON = `{
   "name": "OneTools",
@@ -282,13 +283,24 @@ export default function JsonFormatter() {
   };
 
   return (
-    <div
-      style={{
-        maxWidth: "var(--max-width)",
-        margin: "0 auto",
-        padding: "0 24px",
-      }}
-    >
+    <>
+      <SEO
+        title={t("tools.jsonFormatter.name")}
+        description={t("tools.jsonFormatter.desc")}
+        path="/tools/json"
+        structuredData={schema.softwareApp({
+          name: "OneTools JSON Formatter",
+          description: t("tools.jsonFormatter.desc"),
+          url: "https://onetools.dev/tools/json",
+        })}
+      />
+      <div
+        style={{
+          maxWidth: "var(--max-width)",
+          margin: "0 auto",
+          padding: "0 24px",
+        }}
+      >
       {/* Header */}
       <div
         style={{
@@ -1062,7 +1074,8 @@ export default function JsonFormatter() {
           </div>
         ))}
       </div>
-    </div>
+      </div>
+    </>
   );
 }
 

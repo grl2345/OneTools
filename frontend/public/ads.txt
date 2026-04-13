@@ -1,0 +1,3 @@
+# Google AdSense — replace PUB-XXXXXXXXXX with your actual publisher ID
+# after AdSense approves your account.
+# google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0

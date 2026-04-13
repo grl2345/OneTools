@@ -213,6 +213,27 @@
     "freeDesc": "无限制，无需注册"
   },
   "footer": {
-    "builtWith": "基于 Claude Code 构建"
+    "builtWith": "基于 Claude Code 构建",
+    "about": "关于",
+    "privacy": "隐私政策",
+    "terms": "服务条款"
+  },
+  "legal": {
+    "lastUpdated": "最后更新：{{date}}",
+    "privacy": {
+      "title": "隐私政策",
+      "subtitle": "我们如何收集与处理你的数据。核心立场：所有工具尽可能在你的浏览器本地运行，你的内容不会被上传、不会被留存。",
+      "body": "<h2>1. 我们收集什么</h2><p>OneTools 是一个开发者工具集合站。在你使用过程中，以下数据可能被涉及：</p><ul><li><strong>浏览行为统计</strong>：我们使用 Google Analytics 记录匿名的访问数据（如页面浏览量、停留时长、来源），用于改进产品。GA 会写入少量 Cookie。</li><li><strong>你主动提交给 AI 工具的内容</strong>：当你在 JSON 自然语言查询、Markdown 改写等功能里提交内容时，这些内容会通过我们的 Vercel Edge Function 转发给大语言模型服务（目前使用 Groq）。我们<strong>不会</strong>在服务器上存储这些内容，但模型提供方可能根据其政策短暂保留（详见下文）。</li><li><strong>本地运行的工具</strong>：图片压缩、抠图、去水印、时间戳转换、Markdown 渲染等全部在你的浏览器里执行，<strong>数据完全不离开你的设备</strong>。</li></ul><h2>2. 我们不收集</h2><ul><li>注册信息（本站不需要账号）</li><li>你处理过的图片、文档或敏感数据的服务器副本</li><li>任何个人身份识别信息（PII）</li></ul><h2>3. 第三方服务</h2><ul><li><strong>Google Analytics</strong>：匿名流量统计。可参考 <a href=\"https://policies.google.com/privacy\" target=\"_blank\" rel=\"noopener\">Google 隐私政策</a>。</li><li><strong>Groq / OpenAI 等 LLM 服务商</strong>：AI 功能通过他们的 API。Groq 的政策详见 <a href=\"https://groq.com/privacy-policy/\" target=\"_blank\" rel=\"noopener\">Groq Privacy Policy</a>。</li><li><strong>Hugging Face</strong>：抠图 / 去水印功能首次使用时会从 Hugging Face 下载 AI 模型文件到你的浏览器。此过程 Hugging Face 会得到一次 HTTP 请求的 IP 和 User-Agent。</li><li><strong>Google AdSense（计划中）</strong>：本站计划展示 Google 广告，届时 Google 会使用 Cookie 个性化广告。你可以访问 <a href=\"https://adssettings.google.com\" target=\"_blank\" rel=\"noopener\">Google Ad Settings</a> 控制广告偏好。</li><li><strong>Vercel / jsDelivr / Google Fonts</strong>：静态资源与脚本的 CDN，会看到你的 IP 地址。</li></ul><h2>4. Cookie 使用</h2><p>我们使用以下 Cookie：</p><ul><li><code>_ga</code> / <code>_ga_*</code>：Google Analytics 身份标识。</li><li><code>onetools-lang</code>：记住你的语言偏好（中文 / 英文）。完全本地，不上传。</li></ul><h2>5. 你的权利</h2><p>你有权：</p><ul><li>清除浏览器 Cookie 以重置 GA 标识；</li><li>使用浏览器隐私模式访问本站；</li><li>通过邮件联系我们，要求停止追踪（见\"关于\"页）。</li></ul><h2>6. 儿童隐私</h2><p>本站不面向 13 岁以下儿童。如果你是未成年人的监护人并发现对方使用了本站，请联系我们。</p><h2>7. 政策变更</h2><p>如本政策有实质性变更，我们会在站内醒目位置公告。最新版本以本页顶部\"最后更新\"日期为准。</p>"
+    },
+    "terms": {
+      "title": "服务条款",
+      "subtitle": "使用 OneTools 前请阅读。简而言之：免费、按原样提供、请合法使用。",
+      "body": "<h2>1. 服务介绍</h2><p>OneTools（本站）是一组面向开发者和创作者的在线工具，由一位个人开发者维护，免费向公众开放。</p><h2>2. 接受条款</h2><p>访问或使用本站即表示你同意遵守本条款。如不同意，请停止使用。</p><h2>3. 使用限制</h2><p>你同意<strong>不</strong>：</p><ul><li>利用本站从事任何违法活动（包括但不限于去除他人版权水印、篡改他人内容）；</li><li>恶意自动化刷请求、扫描、攻击本站或其背后的第三方 API；</li><li>逆向工程、反编译或尝试绕过本站的任何限制；</li><li>将本站嵌入到侵犯本站品牌或诱骗用户的第三方应用中。</li></ul><h2>4. 内容责任</h2><p>你通过本站处理的所有内容（JSON、Markdown、图片等）由<strong>你自己</strong>全权负责。本站不审核、不备份、不对内容的合法性做任何担保。尤其：</p><ul><li>图片处理类工具只应对你拥有权利的素材使用；</li><li>AI 生成 / 改写的文本可能不准确，使用前请自行核验；</li><li>因使用本站造成的任何损失（数据丢失、法律纠纷等），本站不承担责任。</li></ul><h2>5. 服务可用性</h2><p>本站按\"原样（as-is）\"提供，不保证 7×24 不间断可用、不保证 AI 功能始终可用、不保证任何结果的准确性。我们可能随时新增、修改或下线功能而不提前通知。</p><h2>6. 免责声明</h2><p>在法律允许的最大范围内，本站不对任何直接或间接的损害承担责任。</p><h2>7. 知识产权</h2><p>本站的代码 MIT 开源（详见 GitHub 仓库）。品牌名称与设计归站点所有者所有。你在本站处理的内容仍归你所有。</p><h2>8. 条款变更</h2><p>条款可能随服务演进而更新。最新版本以本页顶部\"最后更新\"日期为准。重大变更会在站内公告。</p><h2>9. 适用法律</h2><p>本条款的解释与执行适用中华人民共和国（不含港澳台）法律。</p>"
+    },
+    "about": {
+      "title": "关于 OneTools",
+      "subtitle": "为什么会有这个工具箱，以及它的设计理念。",
+      "body": "<h2>产品定位</h2><p>OneTools 是一个开发者和内容创作者的<strong>浏览器本地工具集</strong>。区别于传统的 \"在线工具\" 站点，本站最大的差异点是：</p><ul><li><strong>隐私优先</strong>：能本地跑的绝不上传。图片压缩、抠图、去水印、Markdown 渲染、时间戳转换——这些都完全在你的浏览器里运行。</li><li><strong>AI 能力增强</strong>：对于需要语义理解的场景（JSON 自然语言查询、Markdown 智能改写），我们通过轻量级的 Edge Function 转发到开源大模型，保持体验流畅。</li><li><strong>开源免费</strong>：代码托管在 GitHub，任何人都能审计、贡献、fork。</li></ul><h2>技术栈</h2><ul><li>前端：React 18 + Vite + react-router</li><li>AI 后端：Vercel Edge Functions（Node.js Runtime），调用 Groq / OpenAI 兼容接口</li><li>客户端 AI：onnxruntime-web（图像修复）、@imgly/background-removal（抠图）、chrono-node（时间解析）、marked（Markdown）</li></ul><h2>工具清单</h2><ul><li><a href=\"/tools/json\">JSON 格式化 · AI 查询 · Schema 推断</a></li><li><a href=\"/tools/markdown\">Markdown 实时预览 · AI 改写</a></li><li><a href=\"/tools/image-compress\">图片压缩（JPEG / WebP / PNG）</a></li><li><a href=\"/tools/timestamp\">时间戳 ↔ 日期 · 自然语言解析</a></li><li><a href=\"/tools/remove-bg\">AI 智能抠图</a></li><li><a href=\"/tools/remove-watermark\">AI 去水印（本地推理）</a></li></ul><h2>开源协议</h2><p>本项目以 MIT 协议开源：<a href=\"https://github.com/grl2345/OneTools\" target=\"_blank\" rel=\"noopener\">GitHub 仓库</a>。欢迎提 Issue 或 Pull Request。</p><h2>联系我们</h2><p>问题反馈 / 合作 / 建议请通过 GitHub Issues 提交。</p>"
+    }
   }
 }

@@ -336,3 +336,42 @@ a {
 .md-preview tr:nth-child(even) td { background: rgba(17,24,39,0.02); }
 
 .md-preview input[type="checkbox"] { accent-color: var(--brand); margin-right: 4px; }
+
+/* ── Legal / static pages typography ───────────────── */
+.legal-prose {
+  color: var(--text-secondary);
+  font-size: 15px;
+  line-height: 1.72;
+  letter-spacing: -0.1px;
+}
+.legal-prose h2 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+  margin: 36px 0 10px;
+}
+.legal-prose h3 {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  color: var(--text-primary);
+  margin: 24px 0 6px;
+}
+.legal-prose p { margin: 10px 0; }
+.legal-prose ul { margin: 10px 0 10px 1.3em; }
+.legal-prose li { margin: 5px 0; }
+.legal-prose a {
+  color: var(--brand);
+  border-bottom: 1px dashed rgba(91,91,245,0.4);
+}
+.legal-prose a:hover { border-bottom-style: solid; }
+.legal-prose code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+  background: rgba(91,91,245,0.08);
+  color: var(--brand);
+}
+.legal-prose strong { color: var(--text-primary); font-weight: 600; }

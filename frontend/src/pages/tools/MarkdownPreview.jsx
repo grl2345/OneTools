@@ -2,6 +2,7 @@ import { useState, useMemo, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { marked } from "marked";
 import { aiMarkdownRewrite } from "../../api/client";
+import SEO, { schema } from "../../components/SEO";
 
 const SAMPLE_MD = `# Welcome to OneTools
 
@@ -223,13 +224,24 @@ export default function MarkdownPreview() {
   };
 
   return (
-    <div
-      style={{
-        maxWidth: "var(--max-width)",
-        margin: "0 auto",
-        padding: "0 24px",
-      }}
-    >
+    <>
+      <SEO
+        title={t("tools.markdownPreview.name")}
+        description={t("tools.markdownPreview.desc")}
+        path="/tools/markdown"
+        structuredData={schema.softwareApp({
+          name: "OneTools Markdown Preview",
+          description: t("tools.markdownPreview.desc"),
+          url: "https://onetools.dev/tools/markdown",
+        })}
+      />
+      <div
+        style={{
+          maxWidth: "var(--max-width)",
+          margin: "0 auto",
+          padding: "0 24px",
+        }}
+      >
       {/* Header */}
       <div
         style={{
@@ -627,6 +639,7 @@ export default function MarkdownPreview() {
           </div>
         ))}
       </div>
-    </div>
+      </div>
+    </>
   );
 }

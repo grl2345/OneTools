@@ -7,6 +7,9 @@ import ImageCompress from "./pages/tools/ImageCompress";
 import Timestamp from "./pages/tools/Timestamp";
 import RemoveBg from "./pages/tools/RemoveBg";
 import RemoveWatermark from "./pages/tools/RemoveWatermark";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
+import About from "./pages/About";
 
 export default function App() {
   return (
@@ -19,6 +22,9 @@ export default function App() {
         <Route path="/tools/timestamp" element={<Timestamp />} />
         <Route path="/tools/remove-bg" element={<RemoveBg />} />
         <Route path="/tools/remove-watermark" element={<RemoveWatermark />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/about" element={<About />} />
       </Routes>
     </Layout>
   );

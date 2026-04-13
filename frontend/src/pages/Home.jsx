@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import ToolCard from "../components/ToolCard";
+import SEO, { schema } from "../components/SEO";
 
 const LIVE_TOOLS = [
   {
@@ -59,6 +60,13 @@ export default function Home() {
   const { t } = useTranslation();
 
   return (
+    <>
+      <SEO
+        title={t("home.title")}
+        description={t("home.subtitle")}
+        path="/"
+        structuredData={schema.website({ url: "https://onetools.dev" })}
+      />
     <div
       style={{
         maxWidth: "var(--max-width)",
@@ -275,6 +283,7 @@ export default function Home() {
         </div>
       </section>
     </div>
+    </>
   );
 }
 

@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import SEO, { schema } from "../../components/SEO";
 
 function formatSize(bytes) {
   if (!bytes) return "0 B";
@@ -170,6 +171,17 @@ export default function ImageCompress() {
   };
 
   return (
+    <>
+      <SEO
+        title={t("tools.imageCompress.name")}
+        description={t("tools.imageCompress.desc")}
+        path="/tools/image-compress"
+        structuredData={schema.softwareApp({
+          name: "OneTools Image Compress",
+          description: t("tools.imageCompress.desc"),
+          url: "https://onetools.dev/tools/image-compress",
+        })}
+      />
     <div style={{ maxWidth: "var(--max-width)", margin: "0 auto", padding: "0 24px" }}>
       {/* Header */}
       <div
@@ -477,6 +489,7 @@ export default function ImageCompress() {
         </div>
       )}
     </div>
+    </>
   );
 }
 

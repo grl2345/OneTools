@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import * as chrono from "chrono-node";
+import SEO, { schema } from "../../components/SEO";
 
 const pad = (n) => String(n).padStart(2, "0");
 
@@ -391,6 +392,17 @@ export default function Timestamp() {
   };
 
   return (
+    <>
+      <SEO
+        title={t("tools.timestamp.name")}
+        description={t("tools.timestamp.desc")}
+        path="/tools/timestamp"
+        structuredData={schema.softwareApp({
+          name: "OneTools Timestamp Converter",
+          description: t("tools.timestamp.desc"),
+          url: "https://onetools.dev/tools/timestamp",
+        })}
+      />
     <div
       style={{
         maxWidth: "var(--max-width)",
@@ -1088,5 +1100,6 @@ export default function Timestamp() {
         ))}
       </div>
     </div>
+    </>
   );
 }

@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
+import SEO, { schema } from "../../components/SEO";
 
 // ── LaMa ONNX model hosted on Hugging Face (free, permissive CORS) ──
 const MODEL_URL =
@@ -461,6 +462,17 @@ export default function RemoveWatermark() {
   };
 
   return (
+    <>
+      <SEO
+        title={t("tools.removeWatermark.name")}
+        description={t("tools.removeWatermark.desc")}
+        path="/tools/remove-watermark"
+        structuredData={schema.softwareApp({
+          name: "OneTools AI Remove Watermark",
+          description: t("tools.removeWatermark.desc"),
+          url: "https://onetools.dev/tools/remove-watermark",
+        })}
+      />
     <div
       style={{
         maxWidth: "var(--max-width)",
@@ -984,5 +996,6 @@ export default function RemoveWatermark() {
         </div>
       )}
     </div>
+    </>
   );
 }
