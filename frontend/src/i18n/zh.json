@@ -14,7 +14,7 @@
   "tools": {
     "jsonFormatter": {
       "name": "JSON 格式化",
-      "desc": "格式化、校验和压缩 JSON，支持 AI 智能修复",
+      "desc": "在浏览器中格式化、校验与压缩 JSON",
       "inputLabel": "输入",
       "outputLabel": "输出",
       "placeholder": "在此粘贴 JSON...",
@@ -27,10 +27,6 @@
       "validJson": "JSON 合法",
       "invalidJson": "JSON 不合法",
       "parseError": "解析错误",
-      "fixWithAi": "AI 智能修复",
-      "aiFixing": "AI 分析中...",
-      "aiFixedCount": "AI 修复了 {{count}} 个问题",
-      "fixHint": "支持修复尾逗号、未加引号的键名、Python 布尔值等",
       "lines": "行",
       "depth": "深度"
     }
@@ -47,8 +43,8 @@
   "features": {
     "instant": "即时处理",
     "instantDesc": "输入即格式化",
-    "aiFix": "AI 修复",
-    "aiFixDesc": "自动修复错误 JSON",
+    "validate": "即时校验",
+    "validateDesc": "边输入边检查是否合法",
     "private": "隐私安全",
     "privateDesc": "数据不离开浏览器",
     "free": "免费使用",
@@ -56,14 +52,5 @@
   },
   "footer": {
     "builtWith": "基于 Claude Code 构建"
-  },
-  "fixes": {
-    "removed_trailing_commas": "移除了尾部逗号",
-    "quoted_keys": "为未加引号的键名添加了引号",
-    "replaced_single_quotes": "将单引号替换为双引号",
-    "python_true": "将 Python True 转换为 true",
-    "python_false": "将 Python False 转换为 false",
-    "python_none": "将 Python None 转换为 null",
-    "llm_repair": "通过大模型智能修复"
   }
 }

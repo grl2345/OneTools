@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { aiFixJson } from "../../api/client";
 
 const SAMPLE_JSON = `{
   "name": "OneTools",
@@ -10,8 +9,7 @@ const SAMPLE_JSON = `{
     { "id": "regex-tester", "status": "coming-soon" }
   ],
   "config": {
-    "theme": "light",
-    "ai_fix": true
+    "theme": "light"
   }
 }`;
 
@@ -115,18 +113,7 @@ function Pill({ children, color, bg, border }) {
   );
 }
 
-function StatusPill({ valid, fixing, t }) {
-  if (fixing)
-    return (
-      <Pill
-        color="var(--purple)"
-        bg="rgba(139,92,246,0.1)"
-        border="rgba(139,92,246,0.25)"
-      >
-        <Dot color="var(--purple)" pulse />
-        {t("tools.jsonFormatter.aiFixing")}
-      </Pill>
-    );
+function StatusPill({ valid, t }) {
   if (valid === null) return null;
   return valid ? (
     <Pill
@@ -156,18 +143,13 @@ export default function JsonFormatter() {
   const [indent, setIndent] = useState(2);
   const [error, setError] = useState(null);
   const [isValid, setIsValid] = useState(null);
-  const [fixing, setFixing] = useState(false);
-  const [fixes, setFixes] = useState([]);
   const [copied, setCopied] = useState(false);
-  const [showFixes, setShowFixes] = useState(false);
 
   const processJson = useCallback((val, ind) => {
     if (!val.trim()) {
       setOutput("");
       setError(null);
       setIsValid(null);
-      setFixes([]);
-      setShowFixes(false);
       return;
     }
     const err = getJsonError(val);
@@ -178,8 +160,6 @@ export default function JsonFormatter() {
     } else {
       setError(null);
       setIsValid(true);
-      setFixes([]);
-      setShowFixes(false);
       try {
         setOutput(formatJson(val, ind));
       } catch {
@@ -191,28 +171,6 @@ export default function JsonFormatter() {
   useEffect(() => {
     processJson(input, indent);
   }, [input, indent, processJson]);
-
-  const handleAiFix = async () => {
-    setFixing(true);
-    setShowFixes(false);
-    try {
-      const result = await aiFixJson(input);
-      setFixing(false);
-      if (result.fixed_json) {
-        setInput(result.fixed_json);
-        setFixes(result.fixes || []);
-        setShowFixes(true);
-        processJson(result.fixed_json, indent);
-      } else {
-        setFixes(["error: " + (result.error || "Unknown error")]);
-        setShowFixes(true);
-      }
-    } catch (e) {
-      setFixing(false);
-      setFixes(["error: " + (e.message || "Network error")]);
-      setShowFixes(true);
-    }
-  };
 
   const handleMinify = () => {
     if (!isValid) return;
@@ -234,8 +192,6 @@ export default function JsonFormatter() {
     setOutput("");
     setError(null);
     setIsValid(null);
-    setFixes([]);
-    setShowFixes(false);
   };
 
   const handleLoadSample = () => {
@@ -322,16 +278,6 @@ export default function JsonFormatter() {
             }}
           >
             {t("tools.jsonFormatter.name")}
-            <span
-              style={{
-                background: "var(--gradient-brand)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              {" "}& Fixer
-            </span>
           </h1>
           <p
             style={{
@@ -345,7 +291,7 @@ export default function JsonFormatter() {
             {t("tools.jsonFormatter.desc")}
           </p>
         </div>
-        <StatusPill valid={isValid} fixing={fixing} t={t} />
+        <StatusPill valid={isValid} t={t} />
       </div>
 
       {/* Toolbar */}
@@ -502,57 +448,6 @@ export default function JsonFormatter() {
                     {error}
                   </div>
                 </div>
-
-                {/* AI Fix — gradient primary button */}
-                <button
-                  onClick={handleAiFix}
-                  disabled={fixing}
-                  style={{
-                    width: "100%",
-                    padding: "13px 18px",
-                    borderRadius: "var(--radius-sm)",
-                    border: "none",
-                    background: fixing
-                      ? "linear-gradient(90deg, rgba(91,91,245,0.3) 0%, rgba(236,72,153,0.6) 50%, rgba(91,91,245,0.3) 100%)"
-                      : "var(--gradient-brand)",
-                    backgroundSize: fixing ? "200% 100%" : "100% 100%",
-                    animation: fixing ? "shimmer 1.5s ease infinite" : "none",
-                    color: "#fff",
-                    cursor: fixing ? "wait" : "pointer",
-                    fontSize: 14,
-                    fontWeight: 600,
-                    letterSpacing: -0.1,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: 8,
-                    boxShadow:
-                      "0 1px 0 rgba(255,255,255,0.18) inset, 0 6px 20px rgba(91,91,245,0.35)",
-                  }}
-                >
-                  {fixing ? (
-                    <>
-                      <Dot color="#fff" pulse />
-                      {t("tools.jsonFormatter.aiFixing")}
-                    </>
-                  ) : (
-                    <>
-                      <span style={{ fontSize: 15 }}>✦</span>
-                      {t("tools.jsonFormatter.fixWithAi")}
-                    </>
-                  )}
-                </button>
-                <p
-                  style={{
-                    fontSize: 11.5,
-                    color: "var(--text-faint)",
-                    marginTop: 10,
-                    textAlign: "center",
-                    letterSpacing: -0.1,
-                  }}
-                >
-                  {t("tools.jsonFormatter.fixHint")}
-                </p>
               </div>
             ) : (
               <textarea
@@ -575,57 +470,6 @@ export default function JsonFormatter() {
         </div>
       </div>
 
-      {/* AI Fix Results */}
-      {showFixes && fixes.length > 0 && (
-        <div style={{ paddingBottom: 20, animation: "fadeIn 0.3s ease both" }}>
-          <div
-            style={{
-              background: "rgba(16,185,129,0.08)",
-              border: "1px solid rgba(16,185,129,0.22)",
-              borderRadius: "var(--radius)",
-              padding: "14px 18px",
-              display: "flex",
-              alignItems: "flex-start",
-              gap: 12,
-            }}
-          >
-            <span
-              style={{ fontSize: 15, color: "var(--green)", marginTop: 1 }}
-            >
-              ✦
-            </span>
-            <div>
-              <div
-                style={{
-                  fontSize: 13,
-                  fontWeight: 600,
-                  color: "var(--green)",
-                  marginBottom: 6,
-                  letterSpacing: -0.1,
-                }}
-              >
-                {t("tools.jsonFormatter.aiFixedCount", { count: fixes.length })}
-              </div>
-              {fixes.map((f, i) => (
-                <div
-                  key={i}
-                  style={{
-                    fontSize: 12.5,
-                    color: "var(--text-secondary)",
-                    lineHeight: 1.6,
-                  }}
-                >
-                  <span style={{ color: "var(--green)", marginRight: 8 }}>
-                    →
-                  </span>
-                  {t(`fixes.${f}`, f)}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Features */}
       <div
         style={{
@@ -643,10 +487,10 @@ export default function JsonFormatter() {
             descKey: "features.instantDesc",
           },
           {
-            icon: "✦",
-            color: "var(--purple)",
-            titleKey: "features.aiFix",
-            descKey: "features.aiFixDesc",
+            icon: "✓",
+            color: "var(--green)",
+            titleKey: "features.validate",
+            descKey: "features.validateDesc",
           },
           {
             icon: "◈",

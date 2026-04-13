@@ -14,7 +14,7 @@
   "tools": {
     "jsonFormatter": {
       "name": "JSON Formatter",
-      "desc": "Format, validate, and minify JSON with AI-powered fixing",
+      "desc": "Format, validate, and minify JSON in your browser",
       "inputLabel": "INPUT",
       "outputLabel": "OUTPUT",
       "placeholder": "Paste your JSON here...",
@@ -27,10 +27,6 @@
       "validJson": "Valid JSON",
       "invalidJson": "Invalid JSON",
       "parseError": "Parse Error",
-      "fixWithAi": "Fix with AI",
-      "aiFixing": "AI analyzing...",
-      "aiFixedCount": "AI fixed {{count}} issue(s)",
-      "fixHint": "Fixes trailing commas, unquoted keys, Python booleans & more",
       "lines": "lines",
       "depth": "depth"
     }
@@ -47,8 +43,8 @@
   "features": {
     "instant": "Instant",
     "instantDesc": "Formats as you type",
-    "aiFix": "AI Fix",
-    "aiFixDesc": "Auto-repair broken JSON",
+    "validate": "Live validation",
+    "validateDesc": "Checks syntax while you edit",
     "private": "Private",
     "privateDesc": "100% client-side",
     "free": "Free",
@@ -56,14 +52,5 @@
   },
   "footer": {
     "builtWith": "Built with Claude Code"
-  },
-  "fixes": {
-    "removed_trailing_commas": "Removed trailing commas",
-    "quoted_keys": "Added quotes to unquoted keys",
-    "replaced_single_quotes": "Replaced single quotes with double quotes",
-    "python_true": "Converted Python True → true",
-    "python_false": "Converted Python False → false",
-    "python_none": "Converted Python None → null",
-    "llm_repair": "Repaired by AI model"
   }
 }
