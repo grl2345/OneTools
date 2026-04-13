@@ -6,29 +6,54 @@ const MODEL_URL =
   "https://huggingface.co/Carve/LaMa-ONNX/resolve/main/lama_fp32.onnx";
 const MODEL_SIZE = 512; // LaMa requires dims divisible by 8; 512 is a good default
 
+// Use onnxruntime-web 1.17.3 via <script> tag (not npm import).
+//
+// Why script tag instead of `import('onnxruntime-web')`?
+// The npm import approach was intermittently throwing
+// "t.getValue is not a function" — a known issue where the JS bundle
+// built by Vite doesn't match the WASM sidecar the runtime downloads
+// separately. Loading the pre-built UMD bundle directly from jsDelivr
+// guarantees the JS and its WASM helpers are byte-identical matches.
+//
+// 1.17.3 is the last pre-JSEP release and rock solid for WASM-only use.
+const ORT_VERSION = "1.17.3";
+const ORT_CDN = `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ORT_VERSION}/dist`;
+
 let ortPromise = null;
 let sessionCache = null;
 
-async function getORT() {
-  if (!ortPromise) {
-    ortPromise = import("onnxruntime-web").then((m) => {
-      // Load WASM sidecar files from jsDelivr so we don't need to copy them
-      // into /public — works out of the box on Vercel.
-      m.env.wasm.wasmPaths =
-        "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.19.2/dist/";
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    // Reuse an already-loaded script if one exists
+    if (document.querySelector(`script[data-ort="${ORT_VERSION}"]`)) {
+      resolve();
+      return;
+    }
+    const s = document.createElement("script");
+    s.src = src;
+    s.async = true;
+    s.dataset.ort = ORT_VERSION;
+    s.onload = () => resolve();
+    s.onerror = () =>
+      reject(new Error("Failed to load onnxruntime-web from CDN"));
+    document.head.appendChild(s);
+  });
+}
 
-      // IMPORTANT: disable multi-threading and proxy.
-      //
-      // Multi-threaded WASM requires SharedArrayBuffer, which in turn needs
-      // COOP/COEP headers that Vercel doesn't send by default. Without it,
-      // ORT's threaded runtime silently half-initializes and later blows up
-      // with cryptic errors like "t.getValue is not a function".
-      // Single-threaded mode is slower but works everywhere.
-      m.env.wasm.numThreads = 1;
-      m.env.wasm.proxy = false;
-      // Keep SIMD on — broadly supported and a big speedup.
-      m.env.wasm.simd = true;
-      return m;
+async function getORT() {
+  if (window.ort) return window.ort;
+  if (!ortPromise) {
+    ortPromise = loadScript(`${ORT_CDN}/ort.min.js`).then(() => {
+      const ort = window.ort;
+      if (!ort) throw new Error("window.ort missing after script load");
+      // Match WASM sidecar files to the same version and directory
+      ort.env.wasm.wasmPaths = `${ORT_CDN}/`;
+      // Single-thread + no proxy — works everywhere, including Vercel
+      // deployments without COOP/COEP headers.
+      ort.env.wasm.numThreads = 1;
+      ort.env.wasm.proxy = false;
+      ort.env.wasm.simd = true;
+      return ort;
     });
   }
   return ortPromise;
@@ -56,10 +81,9 @@ async function getSession(onProgress) {
   }
   const modelBuf = await new Blob(chunks).arrayBuffer();
 
-  // No session options — let ORT pick safe defaults. Passing
-  // `graphOptimizationLevel: "all"` has been observed to trip up the
-  // minified runtime in 1.19.x.
-  sessionCache = await ort.InferenceSession.create(modelBuf);
+  sessionCache = await ort.InferenceSession.create(modelBuf, {
+    executionProviders: ["wasm"],
+  });
   if (typeof console !== "undefined") {
     console.log(
       "[RemoveWatermark] ORT session ready:",
