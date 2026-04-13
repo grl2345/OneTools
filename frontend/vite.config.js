@@ -12,4 +12,9 @@ export default defineConfig({
       },
     },
   },
+  // onnxruntime-web ships its own .wasm files that Vite's dep pre-bundler
+  // can't handle — exclude it so the browser loads them at runtime.
+  optimizeDeps: {
+    exclude: ["onnxruntime-web"],
+  },
 });
