@@ -9,6 +9,13 @@ const LIVE_TOOLS = [
     color: "#5b5bf5",
     to: "/tools/json",
   },
+  {
+    nameKey: "tools.markdownPreview.name",
+    descKey: "tools.markdownPreview.desc",
+    icon: "MD",
+    color: "#14b8a6",
+    to: "/tools/markdown",
+  },
 ];
 
 const UPCOMING_TOOLS = [

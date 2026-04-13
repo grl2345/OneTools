@@ -29,6 +29,30 @@
       "parseError": "Parse Error",
       "lines": "lines",
       "depth": "depth"
+    },
+    "markdownPreview": {
+      "name": "Markdown Preview",
+      "desc": "Render Markdown in real time with GFM tables, task lists and code",
+      "editorLabel": "EDITOR",
+      "previewLabel": "PREVIEW",
+      "placeholder": "Type or paste Markdown here...",
+      "copyMd": "Copy Markdown",
+      "copyHtml": "Copy HTML",
+      "copied": "Copied",
+      "clear": "Clear",
+      "sample": "Load sample",
+      "lines": "lines",
+      "chars": "chars",
+      "words": "words",
+      "readMin": "{{min}} min read",
+      "f1": "Live render",
+      "f1Desc": "Renders as you type, synced scroll",
+      "f2": "GFM support",
+      "f2Desc": "Tables, task lists, strikethrough",
+      "f3": "Code blocks",
+      "f3Desc": "Fenced & inline code styled",
+      "f4": "One-click export",
+      "f4Desc": "Copy rendered HTML or raw Markdown"
     }
   },
   "upcoming": {
