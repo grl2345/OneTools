@@ -6,18 +6,18 @@ const LIVE_TOOLS = [
     nameKey: "tools.jsonFormatter.name",
     descKey: "tools.jsonFormatter.desc",
     icon: "{ }",
-    color: "#64d2ff",
+    color: "#5b5bf5",
     to: "/tools/json",
   },
 ];
 
 const UPCOMING_TOOLS = [
-  { nameKey: "upcoming.regexTester", icon: "/./", color: "#bf5af2" },
-  { nameKey: "upcoming.base64Codec", icon: "B64", color: "#0a84ff" },
-  { nameKey: "upcoming.jwtDecoder", icon: "JWT", color: "#ff9f0a" },
-  { nameKey: "upcoming.hashGenerator", icon: "#", color: "#30d158" },
-  { nameKey: "upcoming.urlParser", icon: "://", color: "#ff6482" },
-  { nameKey: "upcoming.diffChecker", icon: "≠", color: "#ff453a" },
+  { nameKey: "upcoming.regexTester", icon: "/./", color: "#8b5cf6" },
+  { nameKey: "upcoming.base64Codec", icon: "B64", color: "#2563eb" },
+  { nameKey: "upcoming.jwtDecoder", icon: "JWT", color: "#f59e0b" },
+  { nameKey: "upcoming.hashGenerator", icon: "#", color: "#10b981" },
+  { nameKey: "upcoming.urlParser", icon: "://", color: "#ec4899" },
+  { nameKey: "upcoming.diffChecker", icon: "≠", color: "#ef4444" },
 ];
 
 export default function Home() {
@@ -29,66 +29,115 @@ export default function Home() {
         maxWidth: "var(--max-width)",
         margin: "0 auto",
         padding: "0 24px",
+        position: "relative",
       }}
     >
-      {/* ── Hero ─────────────────────────────────── */}
+      {/* ── Hero ──────────────────────────────── */}
       <section
         style={{
-          padding: "96px 0 72px",
+          padding: "100px 0 72px",
           textAlign: "center",
+          position: "relative",
         }}
       >
+        {/* floating orbs */}
+        <div
+          style={{
+            position: "absolute",
+            top: 60,
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: 560,
+            height: 320,
+            background:
+              "radial-gradient(closest-side, rgba(91,91,245,0.18), transparent)",
+            filter: "blur(12px)",
+            pointerEvents: "none",
+            zIndex: -1,
+          }}
+        />
+
         <div
           style={{
             display: "inline-flex",
             alignItems: "center",
             gap: 8,
-            padding: "5px 12px",
+            padding: "5px 5px 5px 12px",
             borderRadius: 999,
             border: "1px solid var(--border)",
-            background: "rgba(255,255,255,0.03)",
-            fontSize: 12,
+            background: "rgba(255,255,255,0.7)",
+            backdropFilter: "blur(8px)",
+            fontSize: 12.5,
             color: "var(--text-secondary)",
             fontWeight: 500,
-            marginBottom: 28,
+            marginBottom: 32,
             letterSpacing: -0.1,
+            boxShadow: "var(--shadow-sm)",
           }}
         >
           <span
             style={{
-              width: 5,
-              height: 5,
+              width: 6,
+              height: 6,
               borderRadius: "50%",
               background: "var(--green)",
-              boxShadow: "0 0 0 3px rgba(48,209,88,0.15)",
+              boxShadow: "0 0 0 3px rgba(16,185,129,0.18)",
             }}
           />
           v1.0 · Now available
+          <span
+            style={{
+              padding: "2px 10px",
+              borderRadius: 999,
+              background: "var(--gradient-brand)",
+              color: "#fff",
+              fontSize: 11,
+              fontWeight: 600,
+              letterSpacing: 0.1,
+            }}
+          >
+            New
+          </span>
         </div>
 
         <h1
           style={{
-            fontSize: 68,
+            fontSize: 76,
             fontWeight: 700,
-            letterSpacing: -2.2,
+            letterSpacing: -2.8,
             lineHeight: 1.02,
-            background:
-              "linear-gradient(180deg, #ffffff 0%, #ffffff 55%, #a1a1a6 100%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text",
+            color: "var(--text-primary)",
           }}
         >
-          {t("home.title")}
+          {t("home.title").split("").map((ch, i, arr) => {
+            // Colorize the last ~3 chars with gradient (feels "tech")
+            const gradientStart = Math.max(0, arr.length - 3);
+            if (i >= gradientStart) {
+              return (
+                <span
+                  key={i}
+                  style={{
+                    background: "var(--gradient-brand)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                  }}
+                >
+                  {ch}
+                </span>
+              );
+            }
+            return <span key={i}>{ch}</span>;
+          })}
         </h1>
 
         <p
           style={{
-            fontSize: 17,
+            fontSize: 17.5,
             color: "var(--text-secondary)",
-            marginTop: 20,
-            maxWidth: 560,
-            margin: "20px auto 0",
+            marginTop: 22,
+            maxWidth: 580,
+            margin: "22px auto 0",
             lineHeight: 1.55,
             fontWeight: 400,
             letterSpacing: -0.2,
@@ -96,13 +145,64 @@ export default function Home() {
         >
           {t("home.subtitle")}
         </p>
+
+        {/* CTA */}
+        <div
+          style={{
+            display: "flex",
+            gap: 10,
+            justifyContent: "center",
+            marginTop: 32,
+            flexWrap: "wrap",
+          }}
+        >
+          <a
+            href="#live"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 6,
+              padding: "10px 20px",
+              borderRadius: 999,
+              background: "var(--text-primary)",
+              color: "#fff",
+              fontSize: 14,
+              fontWeight: 600,
+              letterSpacing: -0.1,
+              boxShadow:
+                "0 1px 0 rgba(255,255,255,0.15) inset, 0 4px 14px rgba(10,11,16,0.2)",
+            }}
+          >
+            Get started →
+          </a>
+          <a
+            href="#upcoming"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 6,
+              padding: "10px 20px",
+              borderRadius: 999,
+              background: "rgba(255,255,255,0.7)",
+              backdropFilter: "blur(8px)",
+              color: "var(--text-primary)",
+              fontSize: 14,
+              fontWeight: 600,
+              letterSpacing: -0.1,
+              border: "1px solid var(--border)",
+            }}
+          >
+            Roadmap
+          </a>
+        </div>
       </section>
 
       {/* ── Live Tools ─────────────────────────── */}
-      <section style={{ paddingBottom: 56 }}>
+      <section id="live" style={{ paddingBottom: 56 }}>
         <SectionHeading
           title={t("home.liveTools")}
           badge={`${LIVE_TOOLS.length} active`}
+          accent="var(--green)"
         />
         <div
           style={{
@@ -126,6 +226,7 @@ export default function Home() {
 
       {/* ── Upcoming ───────────────────────────── */}
       <section
+        id="upcoming"
         style={{
           paddingBottom: 96,
           paddingTop: 36,
@@ -160,7 +261,7 @@ export default function Home() {
   );
 }
 
-function SectionHeading({ title, desc, badge }) {
+function SectionHeading({ title, desc, badge, accent }) {
   return (
     <div
       style={{
@@ -175,10 +276,10 @@ function SectionHeading({ title, desc, badge }) {
       <div>
         <h2
           style={{
-            fontSize: 22,
-            fontWeight: 600,
+            fontSize: 24,
+            fontWeight: 700,
             color: "var(--text-primary)",
-            letterSpacing: -0.6,
+            letterSpacing: -0.8,
           }}
         >
           {title}
@@ -186,7 +287,7 @@ function SectionHeading({ title, desc, badge }) {
         {desc && (
           <p
             style={{
-              fontSize: 13.5,
+              fontSize: 14,
               color: "var(--text-muted)",
               marginTop: 4,
               fontWeight: 400,
@@ -202,12 +303,13 @@ function SectionHeading({ title, desc, badge }) {
           style={{
             padding: "4px 10px",
             borderRadius: 999,
-            background: "rgba(255,255,255,0.04)",
-            border: "1px solid var(--border)",
+            background: accent ? `${accent}14` : "rgba(255,255,255,0.7)",
+            border: `1px solid ${accent ? accent + "33" : "var(--border)"}`,
             fontSize: 11.5,
-            color: "var(--text-muted)",
-            fontWeight: 500,
-            letterSpacing: -0.1,
+            color: accent || "var(--text-muted)",
+            fontWeight: 600,
+            letterSpacing: -0.05,
+            backdropFilter: "blur(8px)",
           }}
         >
           {badge}

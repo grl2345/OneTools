@@ -5,49 +5,61 @@ export default function ToolCard({ name, desc, icon, color, to, comingSoon }) {
     <div
       style={{
         position: "relative",
-        padding: "20px 20px",
+        padding: "18px 18px",
         borderRadius: "var(--radius)",
-        background: comingSoon ? "rgba(19,19,22,0.5)" : "var(--bg-card)",
+        background: comingSoon
+          ? "rgba(255,255,255,0.55)"
+          : "rgba(255,255,255,0.82)",
+        backdropFilter: "blur(10px)",
+        WebkitBackdropFilter: "blur(10px)",
         border: "1px solid var(--border)",
+        boxShadow: comingSoon ? "none" : "var(--shadow-sm)",
         display: "flex",
         alignItems: "center",
         gap: 14,
-        opacity: comingSoon ? 0.55 : 1,
+        opacity: comingSoon ? 0.7 : 1,
         cursor: comingSoon ? "default" : "pointer",
-        transition:
-          "background 0.2s ease, border-color 0.2s ease, transform 0.2s ease",
+        transition: "all 0.2s ease",
         overflow: "hidden",
       }}
       onMouseEnter={(e) => {
         if (!comingSoon) {
-          e.currentTarget.style.background = "var(--bg-subtle)";
+          e.currentTarget.style.boxShadow = "var(--shadow-lg)";
+          e.currentTarget.style.transform = "translateY(-2px)";
           e.currentTarget.style.borderColor = "var(--border-strong)";
           const arrow = e.currentTarget.querySelector("[data-arrow]");
-          if (arrow) arrow.style.transform = "translateX(3px)";
+          if (arrow) {
+            arrow.style.transform = "translateX(3px)";
+            arrow.style.color = color;
+          }
         }
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.background = comingSoon
-          ? "rgba(19,19,22,0.5)"
-          : "var(--bg-card)";
+        e.currentTarget.style.boxShadow = comingSoon
+          ? "none"
+          : "var(--shadow-sm)";
+        e.currentTarget.style.transform = "translateY(0)";
         e.currentTarget.style.borderColor = "var(--border)";
         const arrow = e.currentTarget.querySelector("[data-arrow]");
-        if (arrow) arrow.style.transform = "translateX(0)";
+        if (arrow) {
+          arrow.style.transform = "translateX(0)";
+          arrow.style.color = "var(--text-faint)";
+        }
       }}
     >
       <div
         style={{
-          width: 40,
-          height: 40,
+          width: 42,
+          height: 42,
           borderRadius: 10,
-          background: `${color}18`,
+          background: `linear-gradient(135deg, ${color}20 0%, ${color}08 100%)`,
           border: `1px solid ${color}30`,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           fontSize: 13,
           color: color,
-          fontWeight: 600,
+          fontWeight: 700,
           fontFamily: "var(--font-mono)",
           flexShrink: 0,
           letterSpacing: -0.3,
@@ -74,10 +86,11 @@ export default function ToolCard({ name, desc, icon, color, to, comingSoon }) {
               style={{
                 fontSize: 10,
                 color: "var(--green)",
-                padding: "2px 7px",
+                padding: "2px 8px",
                 borderRadius: 999,
-                background: "var(--green-soft)",
-                letterSpacing: 0,
+                background: "rgba(16,185,129,0.12)",
+                border: "1px solid rgba(16,185,129,0.25)",
+                letterSpacing: 0.2,
                 fontWeight: 600,
               }}
             >
@@ -104,9 +117,10 @@ export default function ToolCard({ name, desc, icon, color, to, comingSoon }) {
         <span
           data-arrow
           style={{
-            color: "var(--text-muted)",
-            fontSize: 16,
-            transition: "transform 0.2s ease",
+            color: "var(--text-faint)",
+            fontSize: 17,
+            transition: "transform 0.2s ease, color 0.2s ease",
+            fontWeight: 300,
           }}
         >
           →

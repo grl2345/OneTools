@@ -19,13 +19,12 @@ export default function Footer() {
         style={{
           fontSize: 12.5,
           color: "var(--text-muted)",
-          fontWeight: 400,
           letterSpacing: -0.1,
         }}
       >
         © 2026 OneTools · {t("footer.builtWith")}
       </span>
-      <div style={{ display: "flex", gap: 20 }}>
+      <div style={{ display: "flex", gap: 18 }}>
         <a
           href="#"
           style={{

@@ -16,9 +16,9 @@ export default function Navbar() {
         position: "sticky",
         top: 0,
         zIndex: 50,
-        background: "rgba(10, 10, 11, 0.72)",
-        backdropFilter: "saturate(180%) blur(20px)",
-        WebkitBackdropFilter: "saturate(180%) blur(20px)",
+        background: "rgba(250, 251, 252, 0.72)",
+        backdropFilter: "saturate(180%) blur(16px)",
+        WebkitBackdropFilter: "saturate(180%) blur(16px)",
       }}
     >
       <Link
@@ -32,39 +32,36 @@ export default function Navbar() {
       >
         <div
           style={{
-            width: 26,
-            height: 26,
-            borderRadius: 7,
-            background:
-              "linear-gradient(135deg, #ffffff 0%, #c9c9cc 100%)",
+            width: 28,
+            height: 28,
+            borderRadius: 8,
+            background: "var(--gradient-brand)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            fontSize: 12,
+            fontSize: 13,
             fontWeight: 700,
-            color: "#0a0a0b",
-            fontFamily: "var(--font-sans)",
+            color: "#fff",
             letterSpacing: -0.5,
             boxShadow:
-              "0 1px 0 rgba(255,255,255,0.2) inset, 0 2px 8px rgba(0,0,0,0.4)",
+              "0 1px 0 rgba(255,255,255,0.25) inset, 0 4px 12px rgba(91,91,245,0.35)",
           }}
         >
           ◎
         </div>
         <span
           style={{
-            fontSize: 15,
-            fontWeight: 600,
+            fontSize: 15.5,
+            fontWeight: 700,
             color: "var(--text-primary)",
-            fontFamily: "var(--font-sans)",
-            letterSpacing: -0.3,
+            letterSpacing: -0.4,
           }}
         >
           {t("nav.brand")}
         </span>
       </Link>
 
-      <div style={{ display: "flex", gap: 24, alignItems: "center" }}>
+      <div style={{ display: "flex", gap: 22, alignItems: "center" }}>
         <Link
           to="/"
           style={{

@@ -10,7 +10,7 @@ const SAMPLE_JSON = `{
     { "id": "regex-tester", "status": "coming-soon" }
   ],
   "config": {
-    "theme": "dark",
+    "theme": "light",
     "ai_fix": true
   }
 }`;
@@ -50,7 +50,7 @@ function LineNumbers({ count }) {
         left: 0,
         top: 0,
         bottom: 0,
-        width: 42,
+        width: 44,
         background: "transparent",
         padding: "16px 0",
         overflow: "hidden",
@@ -78,49 +78,6 @@ function LineNumbers({ count }) {
   );
 }
 
-function StatusPill({ valid, fixing, t }) {
-  if (fixing)
-    return (
-      <Pill color="var(--purple)" bg="var(--purple-soft)">
-        <Dot color="var(--purple)" pulse />
-        {t("tools.jsonFormatter.aiFixing")}
-      </Pill>
-    );
-  if (valid === null) return null;
-  return valid ? (
-    <Pill color="var(--green)" bg="var(--green-soft)">
-      <Dot color="var(--green)" />
-      {t("tools.jsonFormatter.validJson")}
-    </Pill>
-  ) : (
-    <Pill color="var(--red)" bg="var(--red-soft)">
-      <Dot color="var(--red)" />
-      {t("tools.jsonFormatter.invalidJson")}
-    </Pill>
-  );
-}
-
-function Pill({ children, color, bg }) {
-  return (
-    <span
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: 7,
-        padding: "4px 10px",
-        borderRadius: 999,
-        fontSize: 12,
-        fontWeight: 500,
-        background: bg,
-        color: color,
-        letterSpacing: -0.1,
-      }}
-    >
-      {children}
-    </span>
-  );
-}
-
 function Dot({ color, pulse }) {
   return (
     <span
@@ -133,6 +90,62 @@ function Dot({ color, pulse }) {
         animation: pulse ? "pulse 1s ease infinite" : "none",
       }}
     />
+  );
+}
+
+function Pill({ children, color, bg, border }) {
+  return (
+    <span
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 7,
+        padding: "4px 10px",
+        borderRadius: 999,
+        fontSize: 12,
+        fontWeight: 600,
+        background: bg,
+        color,
+        border: `1px solid ${border}`,
+        letterSpacing: -0.1,
+      }}
+    >
+      {children}
+    </span>
+  );
+}
+
+function StatusPill({ valid, fixing, t }) {
+  if (fixing)
+    return (
+      <Pill
+        color="var(--purple)"
+        bg="rgba(139,92,246,0.1)"
+        border="rgba(139,92,246,0.25)"
+      >
+        <Dot color="var(--purple)" pulse />
+        {t("tools.jsonFormatter.aiFixing")}
+      </Pill>
+    );
+  if (valid === null) return null;
+  return valid ? (
+    <Pill
+      color="var(--green)"
+      bg="rgba(16,185,129,0.1)"
+      border="rgba(16,185,129,0.25)"
+    >
+      <Dot color="var(--green)" />
+      {t("tools.jsonFormatter.validJson")}
+    </Pill>
+  ) : (
+    <Pill
+      color="var(--red)"
+      bg="rgba(239,68,68,0.1)"
+      border="rgba(239,68,68,0.25)"
+    >
+      <Dot color="var(--red)" />
+      {t("tools.jsonFormatter.invalidJson")}
+    </Pill>
   );
 }
 
@@ -246,19 +259,26 @@ export default function JsonFormatter() {
     padding: "6px 12px",
     borderRadius: "var(--radius-sm)",
     border: "1px solid var(--border)",
-    background: active ? "rgba(255,255,255,0.08)" : "transparent",
-    color: active ? "var(--text-primary)" : "var(--text-secondary)",
+    background: active ? "var(--text-primary)" : "rgba(255,255,255,0.7)",
+    color: active ? "#fff" : "var(--text-secondary)",
     fontSize: 12.5,
     fontWeight: 500,
     letterSpacing: -0.1,
+    backdropFilter: "blur(8px)",
     transition: "all 0.15s ease",
+    boxShadow: active
+      ? "0 1px 2px rgba(10,11,16,0.2)"
+      : "0 1px 2px rgba(10,11,16,0.03)",
   });
 
   const panel = (danger) => ({
-    background: "var(--bg-card)",
-    border: `1px solid ${danger ? "rgba(255,69,58,0.35)" : "var(--border)"}`,
+    background: "rgba(255,255,255,0.82)",
+    backdropFilter: "blur(10px)",
+    WebkitBackdropFilter: "blur(10px)",
+    border: `1px solid ${danger ? "rgba(239,68,68,0.35)" : "var(--border)"}`,
     borderRadius: "var(--radius)",
     overflow: "hidden",
+    boxShadow: "var(--shadow-md)",
     transition: "border-color 0.2s ease",
   });
 
@@ -271,6 +291,7 @@ export default function JsonFormatter() {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    background: "rgba(247,248,250,0.6)",
     letterSpacing: -0.1,
   };
 
@@ -285,7 +306,7 @@ export default function JsonFormatter() {
       {/* Header */}
       <div
         style={{
-          padding: "48px 0 0",
+          padding: "56px 0 0",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "flex-start",
@@ -296,21 +317,28 @@ export default function JsonFormatter() {
         <div>
           <h1
             style={{
-              fontSize: 38,
+              fontSize: 42,
               fontWeight: 700,
-              letterSpacing: -1.2,
-              lineHeight: 1.1,
+              letterSpacing: -1.4,
+              lineHeight: 1.08,
               color: "var(--text-primary)",
             }}
           >
             {t("tools.jsonFormatter.name")}
-            <span style={{ color: "var(--text-muted)", fontWeight: 500 }}>
+            <span
+              style={{
+                background: "var(--gradient-brand)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
               {" "}& Fixer
             </span>
           </h1>
           <p
             style={{
-              fontSize: 14.5,
+              fontSize: 15,
               color: "var(--text-secondary)",
               marginTop: 8,
               fontWeight: 400,
@@ -326,7 +354,7 @@ export default function JsonFormatter() {
       {/* Toolbar */}
       <div
         style={{
-          padding: "24px 0 14px",
+          padding: "28px 0 14px",
           display: "flex",
           justifyContent: "space-between",
           flexWrap: "wrap",
@@ -361,15 +389,14 @@ export default function JsonFormatter() {
           <button
             onClick={handleMinify}
             disabled={!isValid}
-            style={{
-              ...btn(false),
-              opacity: isValid ? 1 : 0.4,
-            }}
+            style={{ ...btn(false), opacity: isValid ? 1 : 0.4 }}
           >
             {t("tools.jsonFormatter.minify")}
           </button>
           <button onClick={handleCopy} style={btn(copied)}>
-            {copied ? "✓ " + t("tools.jsonFormatter.copied") : t("tools.jsonFormatter.copy")}
+            {copied
+              ? "✓ " + t("tools.jsonFormatter.copied")
+              : t("tools.jsonFormatter.copy")}
           </button>
           <button onClick={handleClear} style={btn(false)}>
             {t("tools.jsonFormatter.clear")}
@@ -380,14 +407,14 @@ export default function JsonFormatter() {
           style={{
             padding: "6px 12px",
             borderRadius: "var(--radius-sm)",
-            border: "1px solid var(--border)",
+            border: "1px dashed var(--border-strong)",
             background: "transparent",
             color: "var(--text-muted)",
             fontSize: 12.5,
             fontWeight: 500,
           }}
         >
-          {t("tools.jsonFormatter.loadSample")}
+          ↻ {t("tools.jsonFormatter.loadSample")}
         </button>
       </div>
 
@@ -418,7 +445,7 @@ export default function JsonFormatter() {
               style={{
                 width: "100%",
                 minHeight: 440,
-                padding: "16px 16px 16px 52px",
+                padding: "16px 16px 16px 54px",
                 background: "transparent",
                 border: "none",
                 color: "var(--text-primary)",
@@ -444,11 +471,12 @@ export default function JsonFormatter() {
           <div style={{ position: "relative" }}>
             <LineNumbers count={isValid ? outputLines : 1} />
             {isValid === false ? (
-              <div style={{ padding: "20px 20px 20px 52px", minHeight: 440 }}>
+              <div style={{ padding: "20px 20px 20px 54px", minHeight: 440 }}>
+                {/* Error card */}
                 <div
                   style={{
-                    background: "var(--red-soft)",
-                    border: "1px solid rgba(255,69,58,0.22)",
+                    background: "rgba(239,68,68,0.06)",
+                    border: "1px solid rgba(239,68,68,0.22)",
                     borderRadius: "var(--radius-sm)",
                     padding: "12px 14px",
                     marginBottom: 14,
@@ -456,7 +484,7 @@ export default function JsonFormatter() {
                 >
                   <div
                     style={{
-                      fontSize: 12,
+                      fontSize: 12.5,
                       fontWeight: 600,
                       color: "var(--red)",
                       marginBottom: 4,
@@ -468,9 +496,9 @@ export default function JsonFormatter() {
                   <div
                     style={{
                       fontSize: 12,
-                      color: "#ff8e85",
+                      color: "#c43030",
                       fontFamily: "var(--font-mono)",
-                      lineHeight: 1.55,
+                      lineHeight: 1.6,
                       wordBreak: "break-word",
                     }}
                   >
@@ -478,23 +506,23 @@ export default function JsonFormatter() {
                   </div>
                 </div>
 
-                {/* AI Fix */}
+                {/* AI Fix — gradient primary button */}
                 <button
                   onClick={handleAiFix}
                   disabled={fixing}
                   style={{
                     width: "100%",
-                    padding: "12px 16px",
+                    padding: "13px 18px",
                     borderRadius: "var(--radius-sm)",
-                    border: "1px solid var(--border-strong)",
+                    border: "none",
                     background: fixing
-                      ? "linear-gradient(90deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.14) 50%, rgba(255,255,255,0.06) 100%)"
-                      : "linear-gradient(180deg, #1c1c1f 0%, #141416 100%)",
+                      ? "linear-gradient(90deg, rgba(91,91,245,0.3) 0%, rgba(236,72,153,0.6) 50%, rgba(91,91,245,0.3) 100%)"
+                      : "var(--gradient-brand)",
                     backgroundSize: fixing ? "200% 100%" : "100% 100%",
                     animation: fixing ? "shimmer 1.5s ease infinite" : "none",
-                    color: "var(--text-primary)",
+                    color: "#fff",
                     cursor: fixing ? "wait" : "pointer",
-                    fontSize: 13.5,
+                    fontSize: 14,
                     fontWeight: 600,
                     letterSpacing: -0.1,
                     display: "flex",
@@ -502,17 +530,17 @@ export default function JsonFormatter() {
                     justifyContent: "center",
                     gap: 8,
                     boxShadow:
-                      "0 1px 0 rgba(255,255,255,0.06) inset, 0 1px 2px rgba(0,0,0,0.3)",
+                      "0 1px 0 rgba(255,255,255,0.18) inset, 0 6px 20px rgba(91,91,245,0.35)",
                   }}
                 >
                   {fixing ? (
                     <>
-                      <Dot color="var(--purple)" pulse />
+                      <Dot color="#fff" pulse />
                       {t("tools.jsonFormatter.aiFixing")}
                     </>
                   ) : (
                     <>
-                      <span style={{ color: "var(--purple)", fontSize: 15 }}>✦</span>
+                      <span style={{ fontSize: 15 }}>✦</span>
                       {t("tools.jsonFormatter.fixWithAi")}
                     </>
                   )}
@@ -536,7 +564,7 @@ export default function JsonFormatter() {
                 style={{
                   width: "100%",
                   minHeight: 440,
-                  padding: "16px 16px 16px 52px",
+                  padding: "16px 16px 16px 54px",
                   background: "transparent",
                   border: "none",
                   color: "var(--text-primary)",
@@ -555,8 +583,8 @@ export default function JsonFormatter() {
         <div style={{ paddingBottom: 20, animation: "fadeIn 0.3s ease both" }}>
           <div
             style={{
-              background: "var(--green-soft)",
-              border: "1px solid rgba(48,209,88,0.22)",
+              background: "rgba(16,185,129,0.08)",
+              border: "1px solid rgba(16,185,129,0.22)",
               borderRadius: "var(--radius)",
               padding: "14px 18px",
               display: "flex",
@@ -564,7 +592,11 @@ export default function JsonFormatter() {
               gap: 12,
             }}
           >
-            <span style={{ fontSize: 15, color: "var(--green)", marginTop: 1 }}>✦</span>
+            <span
+              style={{ fontSize: 15, color: "var(--green)", marginTop: 1 }}
+            >
+              ✦
+            </span>
             <div>
               <div
                 style={{
@@ -586,7 +618,9 @@ export default function JsonFormatter() {
                     lineHeight: 1.6,
                   }}
                 >
-                  <span style={{ color: "var(--green)", marginRight: 8 }}>→</span>
+                  <span style={{ color: "var(--green)", marginRight: 8 }}>
+                    →
+                  </span>
                   {t(`fixes.${f}`, f)}
                 </div>
               ))}
@@ -619,7 +653,7 @@ export default function JsonFormatter() {
           },
           {
             icon: "◈",
-            color: "var(--teal)",
+            color: "var(--cyan)",
             titleKey: "features.private",
             descKey: "features.privateDesc",
           },
@@ -635,17 +669,19 @@ export default function JsonFormatter() {
             style={{
               padding: 18,
               borderRadius: "var(--radius)",
-              background: "var(--bg-card)",
+              background: "rgba(255,255,255,0.75)",
+              backdropFilter: "blur(8px)",
               border: "1px solid var(--border)",
-              transition: "border-color 0.2s ease, background 0.2s ease",
+              boxShadow: "var(--shadow-sm)",
+              transition: "all 0.2s ease",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "var(--border-strong)";
-              e.currentTarget.style.background = "var(--bg-subtle)";
+              e.currentTarget.style.boxShadow = "var(--shadow-lg)";
+              e.currentTarget.style.transform = "translateY(-2px)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = "var(--border)";
-              e.currentTarget.style.background = "var(--bg-card)";
+              e.currentTarget.style.boxShadow = "var(--shadow-sm)";
+              e.currentTarget.style.transform = "translateY(0)";
             }}
           >
             <div
