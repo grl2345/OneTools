@@ -45,6 +45,20 @@ const LIVE_TOOLS = [
     color: "#2563eb",
     to: "/tools/remove-watermark",
   },
+  {
+    nameKey: "tools.naming.name",
+    descKey: "tools.naming.desc",
+    icon: "Aa",
+    color: "#8b5cf6",
+    to: "/tools/naming",
+  },
+  {
+    nameKey: "tools.cron.name",
+    descKey: "tools.cron.desc",
+    icon: "* *",
+    color: "#10b981",
+    to: "/tools/cron",
+  },
 ];
 
 const UPCOMING_TOOLS = [

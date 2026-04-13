@@ -37,5 +37,15 @@ export async function aiMarkdownRewrite(text, action, lang) {
   return res.data;
 }
 
+export async function aiNaming(description, lang) {
+  const res = await api.post("/ai/naming", { description, lang });
+  return res.data;
+}
+
+export async function aiCron(input, mode, lang, ref_time, timezone) {
+  const res = await api.post("/ai/cron", { input, mode, lang, ref_time, timezone });
+  return res.data;
+}
+
 export default api;
 
