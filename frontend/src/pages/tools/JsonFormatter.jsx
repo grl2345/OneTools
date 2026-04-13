@@ -259,12 +259,11 @@ export default function JsonFormatter() {
     padding: "6px 12px",
     borderRadius: "var(--radius-sm)",
     border: "1px solid var(--border)",
-    background: active ? "var(--text-primary)" : "rgba(255,255,255,0.7)",
+    background: active ? "var(--text-primary)" : "#ffffff",
     color: active ? "#fff" : "var(--text-secondary)",
     fontSize: 12.5,
     fontWeight: 500,
     letterSpacing: -0.1,
-    backdropFilter: "blur(8px)",
     transition: "all 0.15s ease",
     boxShadow: active
       ? "0 1px 2px rgba(10,11,16,0.2)"
@@ -272,9 +271,7 @@ export default function JsonFormatter() {
   });
 
   const panel = (danger) => ({
-    background: "rgba(255,255,255,0.82)",
-    backdropFilter: "blur(10px)",
-    WebkitBackdropFilter: "blur(10px)",
+    background: "#ffffff",
     border: `1px solid ${danger ? "rgba(239,68,68,0.35)" : "var(--border)"}`,
     borderRadius: "var(--radius)",
     overflow: "hidden",
@@ -285,13 +282,13 @@ export default function JsonFormatter() {
   const panelHeader = {
     padding: "10px 14px",
     fontSize: 12,
-    color: "var(--text-muted)",
+    color: "var(--text-secondary)",
     fontWeight: 500,
     borderBottom: "1px solid var(--border-light)",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    background: "rgba(247,248,250,0.6)",
+    background: "#fafbfc",
     letterSpacing: -0.1,
   };
 
@@ -669,8 +666,7 @@ export default function JsonFormatter() {
             style={{
               padding: 18,
               borderRadius: "var(--radius)",
-              background: "rgba(255,255,255,0.75)",
-              backdropFilter: "blur(8px)",
+              background: "#ffffff",
               border: "1px solid var(--border)",
               boxShadow: "var(--shadow-sm)",
               transition: "all 0.2s ease",

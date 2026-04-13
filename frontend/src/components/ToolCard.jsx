@@ -7,11 +7,7 @@ export default function ToolCard({ name, desc, icon, color, to, comingSoon }) {
         position: "relative",
         padding: "18px 18px",
         borderRadius: "var(--radius)",
-        background: comingSoon
-          ? "rgba(255,255,255,0.55)"
-          : "rgba(255,255,255,0.82)",
-        backdropFilter: "blur(10px)",
-        WebkitBackdropFilter: "blur(10px)",
+        background: comingSoon ? "#fcfcfd" : "#ffffff",
         border: "1px solid var(--border)",
         boxShadow: comingSoon ? "none" : "var(--shadow-sm)",
         display: "flex",
@@ -27,6 +23,7 @@ export default function ToolCard({ name, desc, icon, color, to, comingSoon }) {
           e.currentTarget.style.boxShadow = "var(--shadow-lg)";
           e.currentTarget.style.transform = "translateY(-2px)";
           e.currentTarget.style.borderColor = "var(--border-strong)";
+          e.currentTarget.style.background = "#ffffff";
           const arrow = e.currentTarget.querySelector("[data-arrow]");
           if (arrow) {
             arrow.style.transform = "translateX(3px)";
@@ -38,6 +35,7 @@ export default function ToolCard({ name, desc, icon, color, to, comingSoon }) {
         e.currentTarget.style.boxShadow = comingSoon
           ? "none"
           : "var(--shadow-sm)";
+        e.currentTarget.style.background = comingSoon ? "#fcfcfd" : "#ffffff";
         e.currentTarget.style.transform = "translateY(0)";
         e.currentTarget.style.borderColor = "var(--border)";
         const arrow = e.currentTarget.querySelector("[data-arrow]");
@@ -101,8 +99,9 @@ export default function ToolCard({ name, desc, icon, color, to, comingSoon }) {
         <div
           style={{
             fontSize: 12.5,
-            color: "var(--text-muted)",
+            color: "var(--text-secondary)",
             marginTop: 3,
+            fontWeight: 450,
             letterSpacing: -0.1,
             whiteSpace: "nowrap",
             overflow: "hidden",

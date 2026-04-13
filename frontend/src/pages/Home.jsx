@@ -40,23 +40,6 @@ export default function Home() {
           position: "relative",
         }}
       >
-        {/* floating orbs */}
-        <div
-          style={{
-            position: "absolute",
-            top: 60,
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: 560,
-            height: 320,
-            background:
-              "radial-gradient(closest-side, rgba(91,91,245,0.18), transparent)",
-            filter: "blur(12px)",
-            pointerEvents: "none",
-            zIndex: -1,
-          }}
-        />
-
         <div
           style={{
             display: "inline-flex",
@@ -65,8 +48,7 @@ export default function Home() {
             padding: "5px 5px 5px 12px",
             borderRadius: 999,
             border: "1px solid var(--border)",
-            background: "rgba(255,255,255,0.7)",
-            backdropFilter: "blur(8px)",
+            background: "#ffffff",
             fontSize: 12.5,
             color: "var(--text-secondary)",
             fontWeight: 500,
@@ -139,7 +121,7 @@ export default function Home() {
             maxWidth: 580,
             margin: "22px auto 0",
             lineHeight: 1.55,
-            fontWeight: 400,
+            fontWeight: 450,
             letterSpacing: -0.2,
           }}
         >
@@ -183,13 +165,13 @@ export default function Home() {
               gap: 6,
               padding: "10px 20px",
               borderRadius: 999,
-              background: "rgba(255,255,255,0.7)",
-              backdropFilter: "blur(8px)",
+              background: "#ffffff",
               color: "var(--text-primary)",
               fontSize: 14,
               fontWeight: 600,
               letterSpacing: -0.1,
-              border: "1px solid var(--border)",
+              border: "1px solid var(--border-strong)",
+              boxShadow: "var(--shadow-sm)",
             }}
           >
             Roadmap
@@ -303,13 +285,12 @@ function SectionHeading({ title, desc, badge, accent }) {
           style={{
             padding: "4px 10px",
             borderRadius: 999,
-            background: accent ? `${accent}14` : "rgba(255,255,255,0.7)",
+            background: accent ? `${accent}14` : "#ffffff",
             border: `1px solid ${accent ? accent + "33" : "var(--border)"}`,
             fontSize: 11.5,
-            color: accent || "var(--text-muted)",
+            color: accent || "var(--text-secondary)",
             fontWeight: 600,
             letterSpacing: -0.05,
-            backdropFilter: "blur(8px)",
           }}
         >
           {badge}

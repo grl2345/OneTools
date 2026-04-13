@@ -16,9 +16,9 @@ export default function Navbar() {
         position: "sticky",
         top: 0,
         zIndex: 50,
-        background: "rgba(250, 251, 252, 0.72)",
-        backdropFilter: "saturate(180%) blur(16px)",
-        WebkitBackdropFilter: "saturate(180%) blur(16px)",
+        background: "rgba(250, 251, 252, 0.92)",
+        backdropFilter: "saturate(180%) blur(8px)",
+        WebkitBackdropFilter: "saturate(180%) blur(8px)",
       }}
     >
       <Link
