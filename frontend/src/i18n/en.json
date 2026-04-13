@@ -1,0 +1,69 @@
+{
+  "nav": {
+    "brand": "DevKit",
+    "allTools": "All Tools",
+    "github": "GitHub"
+  },
+  "home": {
+    "title": "Developer Toolbox",
+    "subtitle": "Simple, fast, and free online developer tools",
+    "liveTools": "Available Tools",
+    "upcomingTools": "Coming Soon",
+    "upcomingDesc": "One new tool every week"
+  },
+  "tools": {
+    "jsonFormatter": {
+      "name": "JSON Formatter",
+      "desc": "Format, validate, and minify JSON with AI-powered fixing",
+      "inputLabel": "INPUT",
+      "outputLabel": "OUTPUT",
+      "placeholder": "Paste your JSON here...",
+      "spaces": "spaces",
+      "minify": "Minify",
+      "copy": "Copy",
+      "copied": "Copied",
+      "clear": "Clear",
+      "loadSample": "Load broken sample",
+      "validJson": "Valid JSON",
+      "invalidJson": "Invalid JSON",
+      "parseError": "Parse Error",
+      "fixWithAi": "Fix with AI",
+      "aiFixing": "AI analyzing...",
+      "aiFixedCount": "AI fixed {{count}} issue(s)",
+      "fixHint": "Fixes trailing commas, unquoted keys, Python booleans & more",
+      "lines": "lines",
+      "depth": "depth"
+    }
+  },
+  "upcoming": {
+    "regexTester": "Regex Tester",
+    "base64Codec": "Base64 Codec",
+    "jwtDecoder": "JWT Decoder",
+    "hashGenerator": "Hash Generator",
+    "urlParser": "URL Parser",
+    "diffChecker": "Diff Checker",
+    "comingSoon": "Coming soon"
+  },
+  "features": {
+    "instant": "Instant",
+    "instantDesc": "Formats as you type",
+    "aiFix": "AI Fix",
+    "aiFixDesc": "Auto-repair broken JSON",
+    "private": "Private",
+    "privateDesc": "100% client-side",
+    "free": "Free",
+    "freeDesc": "No limits, no signup"
+  },
+  "footer": {
+    "builtWith": "Built with Claude Code"
+  },
+  "fixes": {
+    "removed_trailing_commas": "Removed trailing commas",
+    "quoted_keys": "Added quotes to unquoted keys",
+    "replaced_single_quotes": "Replaced single quotes with double quotes",
+    "python_true": "Converted Python True → true",
+    "python_false": "Converted Python False → false",
+    "python_none": "Converted Python None → null",
+    "llm_repair": "Repaired by AI model"
+  }
+}
