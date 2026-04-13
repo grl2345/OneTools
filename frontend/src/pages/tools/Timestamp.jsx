@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { aiParseTime } from "../../api/client";
+import * as chrono from "chrono-node";
 
 const pad = (n) => String(n).padStart(2, "0");
 
@@ -223,21 +223,116 @@ export default function Timestamp() {
     setAiLoading(true);
     setAiError(null);
     setAiResult(null);
+
+    // Brief async tick so the spinner actually shows — chrono is synchronous
+    await new Promise((r) => setTimeout(r, 120));
+
     try {
-      const res = await aiParseTime(q, tz, i18n.language || "zh");
-      const date = new Date(res.iso);
-      if (isNaN(date.getTime())) throw new Error("invalid iso");
-      // Populate both panels
+      const lang = i18n.language || "zh";
+      const zhFirst = lang === "zh";
+      const primary = zhFirst ? chrono.zh : chrono;
+      const fallback = zhFirst ? chrono : chrono.zh;
+
+      // 1) Try natural-language parsing with the user's language first.
+      let results = primary.parse(q, new Date(), { forwardDate: true });
+      if (!results.length) {
+        results = fallback.parse(q, new Date(), { forwardDate: true });
+      }
+
+      // 2) If still nothing, try a numeric-only timestamp interpretation.
+      if (!results.length && /^-?\d{9,14}$/.test(q)) {
+        const n = Number(q);
+        const ms = Math.abs(n) >= 1e12 ? n : n * 1000;
+        const d = new Date(ms);
+        if (!isNaN(d.getTime())) {
+          setDateInput(toLocalInputValue(d));
+          setTsInput(
+            unit === "s" ? String(Math.floor(d.getTime() / 1000)) : String(d.getTime())
+          );
+          const explanation = zhFirst
+            ? `把 ${q} 当作 Unix 时间戳 → ${formatLocal(d)}`
+            : `Interpreted ${q} as Unix timestamp → ${formatLocal(d)}`;
+          setAiResult({
+            iso: d.toISOString(),
+            confidence: 0.9,
+            explanation,
+            alternatives: [],
+            typed: "",
+          });
+          animateExplanation(explanation);
+          return;
+        }
+      }
+
+      // 3) Epoch-offset phrases like "纪元后 10 亿秒" / "1 billion seconds after epoch"
+      if (!results.length) {
+        const m = q.match(/(\d+(?:[.,]\d+)?)\s*(亿|万|million|billion|thousand)?\s*(秒|second|seconds|sec)/i);
+        if (m) {
+          let n = parseFloat(m[1].replace(",", ""));
+          const unit2 = (m[2] || "").toLowerCase();
+          if (unit2 === "亿") n *= 1e8;
+          else if (unit2 === "万") n *= 1e4;
+          else if (unit2 === "billion") n *= 1e9;
+          else if (unit2 === "million") n *= 1e6;
+          else if (unit2 === "thousand") n *= 1e3;
+          const d = new Date(n * 1000);
+          if (!isNaN(d.getTime())) {
+            setDateInput(toLocalInputValue(d));
+            setTsInput(
+              unit === "s" ? String(Math.floor(d.getTime() / 1000)) : String(d.getTime())
+            );
+            const explanation = zhFirst
+              ? `Unix 纪元 + ${n} 秒 → ${formatLocal(d)}`
+              : `Unix epoch + ${n} seconds → ${formatLocal(d)}`;
+            setAiResult({
+              iso: d.toISOString(),
+              confidence: 0.85,
+              explanation,
+              alternatives: [],
+              typed: "",
+            });
+            animateExplanation(explanation);
+            return;
+          }
+        }
+      }
+
+      if (!results.length) {
+        throw new Error(
+          zhFirst
+            ? "无法解析这句时间描述，换个说法试试？"
+            : "Couldn't parse this expression — try rephrasing?"
+        );
+      }
+
+      // Use the first result as primary, the rest as alternatives
+      const first = results[0];
+      const date = first.start.date();
       setDateInput(toLocalInputValue(date));
       setTsInput(
-        unit === "s" ? String(res.timestamp_s) : String(res.timestamp_ms)
+        unit === "s"
+          ? String(Math.floor(date.getTime() / 1000))
+          : String(date.getTime())
       );
-      setAiResult({ ...res, typed: "" });
-      animateExplanation(res.explanation || "");
+
+      const matched = first.text || q;
+      const explanation = zhFirst
+        ? `识别为 "${matched}" → ${formatLocal(date)}（${tz}）`
+        : `Matched "${matched}" → ${formatLocal(date)} (${tz})`;
+      const alternatives = results
+        .slice(1, 4)
+        .map((r) => r.start.date().toISOString());
+
+      setAiResult({
+        iso: date.toISOString(),
+        confidence: results.length > 1 ? 0.75 : 0.95,
+        explanation,
+        alternatives,
+        typed: "",
+      });
+      animateExplanation(explanation);
     } catch (e) {
-      const msg =
-        e?.response?.data?.detail || e?.message || "AI parse failed";
-      setAiError(msg);
+      setAiError(e?.message || "Parse failed");
     } finally {
       setAiLoading(false);
     }
