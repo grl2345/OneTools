@@ -17,17 +17,13 @@
     "statSignup": "signup",
     "statFree": "free forever",
     "cat": {
-      "ai_text": "AI · Text & Data",
-      "ai_text_desc": "JSON / Markdown / Naming / Cron / Time / Flowchart — semantic understanding and formatting",
-      "ai_doc": "AI · Document OCR",
-      "ai_doc_desc": "PDF summary, OCR, image-to-table, handwriting — turn unstructured content into structured data",
-      "ai_media": "AI · Image & Audio",
-      "ai_media_desc": "Background removal, watermark removal, ID photo, upscale, speech-to-text — WASM models run locally",
-      "media": "Media Processing",
-      "media_desc": "Image / video compression, GIF, palette, EXIF — pure local, zero upload",
-      "dev": "Dev & Utilities",
-      "dev_desc": "Base64, QR, file encryption, PDF merge — everyday developer tools"
-    }
+      "text": "Text & Data",
+      "doc": "Document OCR",
+      "image": "Image",
+      "av": "Audio & Video",
+      "util": "Utilities"
+    },
+    "eyebrow": "{{n}} tools · no uploads · no signup · free forever"
   },
   "tools": {
     "jsonFormatter": {
@@ -170,7 +166,7 @@
       }
     },
     "removeBg": {
-      "name": "AI Remove Background",
+      "name": "Remove Background",
       "desc": "Cut out image background with a WASM AI model running 100% in your browser",
       "badge": "On-device AI",
       "original": "Original",
@@ -187,7 +183,7 @@
       "privacyDesc": "The AI model runs in your browser via WebAssembly — your images never leave your device."
     },
     "flowchart": {
-      "name": "AI Flowchart",
+      "name": "Flowchart Generator",
       "desc": "Describe a process in plain words — AI generates a Mermaid flowchart and renders it, exportable as SVG / PNG",
       "placeholder": "Describe a process, e.g. user registration: phone number, OTP, verify, set password, done",
       "generate": "Generate",
@@ -201,7 +197,7 @@
       "howDesc": "Describe any process — registration, orders, code review, algorithm steps, business logic. The left pane is editable Mermaid code; the right pane renders live. Export to SVG or PNG with one click."
     },
     "pdfSummary": {
-      "name": "AI PDF Summary",
+      "name": "PDF Summary",
       "desc": "Upload a PDF — text is extracted locally, then AI produces a structured summary (title, key points, entities, doc type)",
       "dropHere": "Drop or choose a PDF",
       "hint": "Text extraction is 100% local (pdfjs-dist); only the text goes to the cloud LLM",
@@ -223,7 +219,7 @@
       "privacyDesc": "The PDF file itself is never uploaded. pdfjs-dist extracts plain text in your browser; only the text is sent to Groq for summarization. Fine for non-sensitive docs. For contracts or confidential material, use your own judgement."
     },
     "ocr": {
-      "name": "AI OCR",
+      "name": "Image OCR",
       "desc": "Upload a screenshot or photo — AI extracts text; code-mode preserves indentation and line breaks, CJK + English supported",
       "mode_general": "General text",
       "mode_code": "Code screenshot",
@@ -240,7 +236,7 @@
       "notImage": "Please choose an image file"
     },
     "imageToTable": {
-      "name": "AI Image to Table",
+      "name": "Image to Table",
       "desc": "Upload an image of a table (financial screenshot, scanned paper table) and AI returns editable CSV / Excel-ready data",
       "dropHere": "Drop or choose a table image",
       "hint": "Perfect for screenshots, financial statements, scanned paper tables. Export to CSV.",
@@ -254,7 +250,7 @@
       "notImage": "Please choose an image file"
     },
     "handwriting": {
-      "name": "AI Handwriting OCR",
+      "name": "Handwriting OCR",
       "desc": "Upload a photo of handwritten notes — AI recognizes mixed Chinese + English content as editable text",
       "dropHere": "Drop or choose handwriting photo",
       "hint": "Supports mixed zh/en script, meeting notes, drafts, whiteboard photos",
@@ -288,7 +284,7 @@
       "privacyDesc": "Images are never uploaded. Both parsing and re-encoding (for metadata stripping) happen in your browser."
     },
     "whisper": {
-      "name": "AI Speech to Text",
+      "name": "Speech to Text",
       "desc": "Whisper running locally via WebAssembly — transcribe meetings, podcasts, lectures; Chinese + English mixed",
       "badge": "On-device AI",
       "modelLabel": "Model",
@@ -312,7 +308,7 @@
       "privacyDesc": "Whisper runs in your browser via WebAssembly. Audio files are never uploaded. First use downloads the model from Hugging Face (then cached). Great for sensitive recordings like meetings."
     },
     "upscale": {
-      "name": "AI Image Upscale",
+      "name": "Image Upscale",
       "desc": "Swin2SR upscales small images 2x / 4x — restore old photos, enlarge web images for print",
       "badge": "On-device AI",
       "modelLabel": "Model",
@@ -362,7 +358,7 @@
       "privacyDesc": "FFmpeg runs in your browser via WebAssembly — videos are never uploaded. Large files may take a few minutes (single-threaded WASM is 2-4x slower than native). FFmpeg core is downloaded once from CDN and cached."
     },
     "idPhoto": {
-      "name": "AI ID Photo",
+      "name": "ID Photo",
       "desc": "Upload a casual photo — auto cutout, change background color, crop to standard sizes (1-inch / 2-inch / visa / passport). 100% local WASM.",
       "badge": "On-device AI",
       "size": "Size",
@@ -406,7 +402,7 @@
       "clear": "Clear"
     },
     "removeWatermark": {
-      "name": "AI Remove Watermark",
+      "name": "Remove Watermark",
       "desc": "Brush over a watermark and let LaMa inpainting reconstruct what was behind it",
       "badge": "On-device · LaMa",
       "legalTitle": "Only use on content you own.",
@@ -430,7 +426,7 @@
       "privacyDesc": "The LaMa model runs entirely in your browser via WebAssembly. Images and inference never leave your device. The model file is downloaded once from Hugging Face and then cached."
     },
     "naming": {
-      "name": "AI Naming Assistant",
+      "name": "Naming Assistant",
       "desc": "Describe a feature, get variable, function, class, and project name suggestions in camelCase, snake_case, kebab-case and more",
       "inputLabel": "Feature description",
       "placeholder": "Describe what you need to name, e.g. fetch user's cart items and calculate total price",
@@ -444,7 +440,7 @@
       "s3": "auto-compress images after upload"
     },
     "cron": {
-      "name": "AI Cron Expression",
+      "name": "Cron Expression",
       "desc": "Convert natural language to cron expressions, or parse cron into readable descriptions with next 5 execution times",
       "mode_to_cron": "Natural Language → Cron",
       "mode_to_human": "Cron → Natural Language",

@@ -17,17 +17,13 @@
     "statSignup": "注册",
     "statFree": "永久免费",
     "cat": {
-      "ai_text": "AI · 文本与数据",
-      "ai_text_desc": "JSON / Markdown / 命名 / Cron / 时间 / 流程图 — 语义理解和格式化",
-      "ai_doc": "AI · 文档识别",
-      "ai_doc_desc": "PDF 摘要、OCR、图片转表格、手写识别 — 把非结构化内容转成结构化数据",
-      "ai_media": "AI · 图像与音频",
-      "ai_media_desc": "抠图、去水印、证件照、画面放大、语音转文字 — 本地 WASM 模型运行",
-      "media": "媒体处理",
-      "media_desc": "图片 / 视频压缩、GIF、色板、EXIF — 纯本地，不上传",
-      "dev": "开发与效率",
-      "dev_desc": "Base64、QR、文件加密、PDF 合并 — 常用工具集合"
-    }
+      "text": "文本与数据",
+      "doc": "文档识别",
+      "image": "图像处理",
+      "av": "音视频",
+      "util": "实用工具"
+    },
+    "eyebrow": "{{n}} 个工具 · 零上传 · 零注册 · 永久免费"
   },
   "tools": {
     "jsonFormatter": {
@@ -170,7 +166,7 @@
       }
     },
     "removeBg": {
-      "name": "AI 抠图",
+      "name": "智能抠图",
       "desc": "浏览器本地 WASM 模型移除图片背景，不上传服务器",
       "badge": "本地 AI",
       "original": "原图",
@@ -187,7 +183,7 @@
       "privacyDesc": "模型在你的浏览器中通过 WebAssembly 运行，图片永远不会离开你的设备。"
     },
     "flowchart": {
-      "name": "AI 流程图",
+      "name": "流程图生成",
       "desc": "用自然语言描述流程，AI 自动生成 Mermaid 流程图，可导出 SVG / PNG",
       "placeholder": "描述一个流程，例如：用户注册流程填写手机号、发送验证码、验证、设置密码、完成",
       "generate": "生成流程图",
@@ -201,7 +197,7 @@
       "howDesc": "支持描述任何流程：用户注册、订单、代码审查、算法步骤、业务逻辑等。左侧代码可以手动编辑，右侧实时渲染。点 SVG 或 PNG 按钮即可导出。"
     },
     "pdfSummary": {
-      "name": "AI PDF 摘要",
+      "name": "PDF 摘要",
       "desc": "上传 PDF，本地抽取文本后 AI 生成结构化摘要（标题、关键点、命名实体、文档类型）",
       "dropHere": "拖入或选择一份 PDF",
       "hint": "文本解析 100% 本地（pdfjs-dist），仅文本摘要走云端 LLM",
@@ -223,7 +219,7 @@
       "privacyDesc": "PDF 文件本身不上传任何服务器——pdfjs-dist 在你的浏览器里抽取纯文本，然后只把文本送到 Groq LLM 做摘要。适合非敏感文档；合同 / 涉密材料请自行判断。"
     },
     "ocr": {
-      "name": "AI 图片识字 OCR",
+      "name": "图片识字 OCR",
       "desc": "上传截图或照片，AI 提取文字；代码截图模式保留缩进和换行，中英文混合可识别",
       "mode_general": "通用文字",
       "mode_code": "代码截图",
@@ -240,7 +236,7 @@
       "notImage": "请选择图片文件"
     },
     "imageToTable": {
-      "name": "AI 图片转表格",
+      "name": "图片转表格",
       "desc": "上传包含表格的图片（财报截图、纸质表格拍照），AI 识别为 CSV / Excel 可用结构",
       "dropHere": "拖入或选择表格图片",
       "hint": "适合表格截图、财务报表、纸质表格拍照，支持导出 CSV",
@@ -254,7 +250,7 @@
       "notImage": "请选择图片文件"
     },
     "handwriting": {
-      "name": "AI 手写识别",
+      "name": "手写识别",
       "desc": "上传手写笔记照片，AI 识别中英文混合内容转为可编辑文本",
       "dropHere": "拖入或选择手写笔记照片",
       "hint": "支持中英文混写、会议纪要、草稿、白板拍照",
@@ -288,7 +284,7 @@
       "privacyDesc": "图片不上传任何服务器。解析和重新编码（清除元数据）都在你的浏览器里完成。"
     },
     "whisper": {
-      "name": "AI 语音转文字",
+      "name": "语音转文字",
       "desc": "Whisper 本地 WASM 模型，会议录音 / 播客 / 讲座转为文字和字幕；支持中英文混合",
       "badge": "本地 AI",
       "modelLabel": "模型",
@@ -312,7 +308,7 @@
       "privacyDesc": "Whisper 模型在你的浏览器中通过 WebAssembly 运行。音频文件不会上传任何服务器。首次使用会从 Hugging Face 下载模型（之后缓存）。适合会议录音等敏感内容。"
     },
     "upscale": {
-      "name": "AI 图片放大",
+      "name": "图片放大",
       "desc": "Swin2SR 本地模型把小图放大 2x / 4x，老照片修复、素材放大、打印质量提升",
       "badge": "本地 AI",
       "modelLabel": "模型",
@@ -362,7 +358,7 @@
       "privacyDesc": "FFmpeg 在你的浏览器中通过 WebAssembly 运行，视频从不上传服务器。体积较大的视频处理可能需要几分钟（单线程 WASM 比原生慢 2-4 倍）。首次使用会从 CDN 下载 FFmpeg 核心文件。"
     },
     "idPhoto": {
-      "name": "AI 证件照",
+      "name": "证件照",
       "desc": "上传生活照自动抠图、换底色、生成标准尺寸证件照（一寸 / 二寸 / 签证 / 护照），本地 WASM 处理不上传",
       "badge": "本地 AI",
       "size": "尺寸",
@@ -406,7 +402,7 @@
       "clear": "清空"
     },
     "removeWatermark": {
-      "name": "AI 去水印",
+      "name": "去水印",
       "desc": "用画笔涂抹水印区域，LaMa 模型智能补全被遮挡的像素",
       "badge": "本地 AI · LaMa",
       "legalTitle": "仅限处理你自己的内容。",
@@ -430,7 +426,7 @@
       "privacyDesc": "LaMa 模型在你的浏览器中通过 WebAssembly 运行，图片和模型推理全程不离开你的设备。首次使用会从 Hugging Face 下载模型文件。"
     },
     "naming": {
-      "name": "AI 命名助手",
+      "name": "命名助手",
       "desc": "输入功能描述，AI 生成变量名、函数名、类名等建议，支持 camelCase、snake_case、kebab-case 等风格",
       "inputLabel": "功能描述",
       "placeholder": "描述你要命名的功能，例如：获取用户的购物车列表并计算总价",
@@ -444,7 +440,7 @@
       "s3": "图片上传后自动压缩的工具类"
     },
     "cron": {
-      "name": "AI Cron 表达式",
+      "name": "Cron 表达式",
       "desc": "自然语言生成 cron 表达式，或解析 cron 为可读描述 + 可视化下次执行时间",
       "mode_to_cron": "自然语言 → Cron",
       "mode_to_human": "Cron → 自然语言",
