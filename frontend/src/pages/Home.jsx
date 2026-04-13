@@ -108,6 +108,34 @@ const LIVE_TOOLS = [
     color: "#d946ef",
     to: "/tools/handwriting",
   },
+  {
+    nameKey: "tools.exif.name",
+    descKey: "tools.exif.desc",
+    icon: "🔍",
+    color: "#f97316",
+    to: "/tools/exif",
+  },
+  {
+    nameKey: "tools.whisper.name",
+    descKey: "tools.whisper.desc",
+    icon: "🎤",
+    color: "#06b6d4",
+    to: "/tools/whisper",
+  },
+  {
+    nameKey: "tools.upscale.name",
+    descKey: "tools.upscale.desc",
+    icon: "🔎",
+    color: "#8b5cf6",
+    to: "/tools/upscale",
+  },
+  {
+    nameKey: "tools.videoCompress.name",
+    descKey: "tools.videoCompress.desc",
+    icon: "🎬",
+    color: "#ef4444",
+    to: "/tools/video-compress",
+  },
 ];
 
 const UPCOMING_TOOLS = [

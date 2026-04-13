@@ -16,6 +16,10 @@ import PdfSummary from "./pages/tools/PdfSummary";
 import Ocr from "./pages/tools/Ocr";
 import ImageToTable from "./pages/tools/ImageToTable";
 import Handwriting from "./pages/tools/Handwriting";
+import ExifTool from "./pages/tools/Exif";
+import Whisper from "./pages/tools/Whisper";
+import Upscale from "./pages/tools/Upscale";
+import VideoCompress from "./pages/tools/VideoCompress";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import About from "./pages/About";
@@ -40,6 +44,10 @@ export default function App() {
         <Route path="/tools/ocr" element={<Ocr />} />
         <Route path="/tools/image-to-table" element={<ImageToTable />} />
         <Route path="/tools/handwriting" element={<Handwriting />} />
+        <Route path="/tools/exif" element={<ExifTool />} />
+        <Route path="/tools/whisper" element={<Whisper />} />
+        <Route path="/tools/upscale" element={<Upscale />} />
+        <Route path="/tools/video-compress" element={<VideoCompress />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/about" element={<About />} />
