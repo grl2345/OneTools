@@ -168,6 +168,22 @@
       "privacyTitle": "100% 本地运行",
       "privacyDesc": "模型在你的浏览器中通过 WebAssembly 运行，图片永远不会离开你的设备。"
     },
+    "base64": {
+      "name": "Base64 编解码",
+      "desc": "编码、解码 Base64，AI 自动识别解码内容是 JSON / JWT / 图片 / 文本等类型",
+      "mode": "模式",
+      "mode_auto": "自动",
+      "mode_encode": "编码",
+      "mode_decode": "解码",
+      "inputLabel": "输入",
+      "encoded": "Base64 结果",
+      "decoded": "解码结果",
+      "placeholder": "粘贴要编码的文本，或粘贴 Base64 字符串进行解码...",
+      "swap": "交换到输入",
+      "copy": "复制",
+      "copied": "已复制",
+      "clear": "清空"
+    },
     "removeWatermark": {
       "name": "AI 去水印",
       "desc": "用画笔涂抹水印区域，LaMa 模型智能补全被遮挡的像素",
@@ -250,6 +266,13 @@
     "privateDesc": "数据不离开浏览器",
     "free": "免费使用",
     "freeDesc": "无限制，无需注册"
+  },
+  "ai": {
+    "title": "AI 分析",
+    "subtitle": "用大模型解释这段内容、标注要点、给出建议",
+    "analyze": "✦ AI 分析",
+    "analyzing": "分析中...",
+    "suggestions": "建议"
   },
   "footer": {
     "builtWith": "基于 Claude Code 构建",

@@ -168,6 +168,22 @@
       "privacyTitle": "100% on-device",
       "privacyDesc": "The AI model runs in your browser via WebAssembly — your images never leave your device."
     },
+    "base64": {
+      "name": "Base64",
+      "desc": "Encode / decode Base64; AI auto-detects whether decoded content is JSON, JWT, image, text, etc.",
+      "mode": "Mode",
+      "mode_auto": "Auto",
+      "mode_encode": "Encode",
+      "mode_decode": "Decode",
+      "inputLabel": "Input",
+      "encoded": "Base64 output",
+      "decoded": "Decoded output",
+      "placeholder": "Paste text to encode, or a Base64 string to decode...",
+      "swap": "Swap to input",
+      "copy": "Copy",
+      "copied": "Copied",
+      "clear": "Clear"
+    },
     "removeWatermark": {
       "name": "AI Remove Watermark",
       "desc": "Brush over a watermark and let LaMa inpainting reconstruct what was behind it",
@@ -250,6 +266,13 @@
     "privateDesc": "100% client-side",
     "free": "Free",
     "freeDesc": "No limits, no signup"
+  },
+  "ai": {
+    "title": "AI analysis",
+    "subtitle": "Use a large model to explain this content, highlight key points, and suggest next steps",
+    "analyze": "✦ AI analyze",
+    "analyzing": "Analyzing...",
+    "suggestions": "Suggestions"
   },
   "footer": {
     "builtWith": "Built with Claude Code",

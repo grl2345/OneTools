@@ -59,6 +59,13 @@ const LIVE_TOOLS = [
     color: "#10b981",
     to: "/tools/cron",
   },
+  {
+    nameKey: "tools.base64.name",
+    descKey: "tools.base64.desc",
+    icon: "B64",
+    color: "#0a84ff",
+    to: "/tools/base64",
+  },
 ];
 
 const UPCOMING_TOOLS = [

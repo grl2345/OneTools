@@ -43,9 +43,23 @@ export async function aiNaming(description, lang) {
 }
 
 export async function aiCron(input, mode, lang, ref_time, timezone) {
-  const res = await api.post("/ai/cron", { input, mode, lang, ref_time, timezone });
+  const res = await api.post("/ai/cron", {
+    input,
+    mode,
+    lang,
+    ref_time,
+    timezone,
+  });
+  return res.data;
+}
+
+export async function aiExplain(tool, content, context, lang) {
+  const res = await api.post(
+    "/ai/explain",
+    { tool, content, context, lang },
+    { timeout: 60000 }
+  );
   return res.data;
 }
 
 export default api;
-

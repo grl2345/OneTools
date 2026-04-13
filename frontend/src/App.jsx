@@ -9,6 +9,7 @@ import RemoveBg from "./pages/tools/RemoveBg";
 import RemoveWatermark from "./pages/tools/RemoveWatermark";
 import NamingAssistant from "./pages/tools/NamingAssistant";
 import CronTool from "./pages/tools/CronTool";
+import Base64Tool from "./pages/tools/Base64";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import About from "./pages/About";
@@ -26,6 +27,7 @@ export default function App() {
         <Route path="/tools/remove-watermark" element={<RemoveWatermark />} />
         <Route path="/tools/naming" element={<NamingAssistant />} />
         <Route path="/tools/cron" element={<CronTool />} />
+        <Route path="/tools/base64" element={<Base64Tool />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/about" element={<About />} />
