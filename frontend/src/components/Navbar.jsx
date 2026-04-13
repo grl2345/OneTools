@@ -16,9 +16,9 @@ export default function Navbar() {
         position: "sticky",
         top: 0,
         zIndex: 50,
-        background: "rgba(250, 251, 252, 0.92)",
-        backdropFilter: "saturate(180%) blur(8px)",
-        WebkitBackdropFilter: "saturate(180%) blur(8px)",
+        background: "rgba(250, 251, 252, 0.88)",
+        backdropFilter: "saturate(180%) blur(12px)",
+        WebkitBackdropFilter: "saturate(180%) blur(12px)",
       }}
     >
       <Link
@@ -26,35 +26,33 @@ export default function Navbar() {
         style={{
           display: "flex",
           alignItems: "center",
-          gap: 10,
+          gap: 9,
           textDecoration: "none",
         }}
       >
-        <div
-          style={{
-            width: 28,
-            height: 28,
-            borderRadius: 8,
-            background: "var(--gradient-brand)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: 13,
-            fontWeight: 700,
-            color: "#fff",
-            letterSpacing: -0.5,
-            boxShadow:
-              "0 1px 0 rgba(255,255,255,0.25) inset, 0 4px 12px rgba(91,91,245,0.35)",
-          }}
+        {/* Simple monochrome mark — a ring, evokes "One" */}
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 22 22"
+          fill="none"
+          style={{ flexShrink: 0 }}
         >
-          ◎
-        </div>
+          <circle
+            cx="11"
+            cy="11"
+            r="9.5"
+            stroke="var(--text-primary)"
+            strokeWidth="2"
+          />
+          <circle cx="11" cy="11" r="2.5" fill="var(--text-primary)" />
+        </svg>
         <span
           style={{
-            fontSize: 15.5,
-            fontWeight: 700,
+            fontSize: 16,
+            fontWeight: 600,
             color: "var(--text-primary)",
-            letterSpacing: -0.4,
+            letterSpacing: -0.5,
           }}
         >
           {t("nav.brand")}

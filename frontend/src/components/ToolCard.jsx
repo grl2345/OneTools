@@ -1,59 +1,71 @@
 import { Link } from "react-router-dom";
+import ToolIcon from "./ToolIcon";
 
-export default function ToolCard({ name, desc, icon, color, to, comingSoon }) {
+/**
+ * Monochrome, Apple-like tool card. All tools share the same icon treatment
+ * (stroke-drawn SF-Symbols-style, neutral color at rest, brand color on
+ * hover). No pastel tinted backgrounds per tool.
+ */
+export default function ToolCard({ name, desc, iconName, to, comingSoon }) {
   const content = (
     <div
       style={{
         position: "relative",
-        padding: "16px 16px",
-        borderRadius: 10,
+        padding: "16px 18px",
+        borderRadius: 14,
         background: "#ffffff",
         border: "1px solid var(--border)",
         display: "flex",
         alignItems: "center",
-        gap: 12,
-        opacity: comingSoon ? 0.55 : 1,
+        gap: 14,
+        opacity: comingSoon ? 0.5 : 1,
         cursor: comingSoon ? "default" : "pointer",
-        transition: "border-color 0.12s ease, background 0.12s ease",
+        transition: "border-color 0.18s ease",
       }}
       onMouseEnter={(e) => {
         if (!comingSoon) {
-          e.currentTarget.style.borderColor = "var(--border-strong)";
-          e.currentTarget.style.background = "#fbfbfc";
+          e.currentTarget.style.borderColor = "rgba(17,24,39,0.22)";
+          const ic = e.currentTarget.querySelector("[data-icon-wrap]");
+          if (ic) {
+            ic.style.background = "var(--text-primary)";
+            ic.style.color = "#ffffff";
+          }
         }
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.borderColor = "var(--border)";
-        e.currentTarget.style.background = "#ffffff";
+        const ic = e.currentTarget.querySelector("[data-icon-wrap]");
+        if (ic) {
+          ic.style.background = "var(--bg-subtle)";
+          ic.style.color = "var(--text-primary)";
+        }
       }}
     >
       <div
+        data-icon-wrap
         style={{
-          width: 36,
-          height: 36,
-          borderRadius: 8,
-          background: `${color}14`,
+          width: 40,
+          height: 40,
+          borderRadius: 10,
+          background: "var(--bg-subtle)",
+          color: "var(--text-primary)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontSize: 12.5,
-          color: color,
-          fontWeight: 700,
-          fontFamily: "var(--font-mono)",
           flexShrink: 0,
-          letterSpacing: -0.3,
+          transition: "background 0.18s ease, color 0.18s ease",
         }}
       >
-        {icon}
+        <ToolIcon name={iconName} />
       </div>
 
       <div style={{ flex: 1, minWidth: 0 }}>
         <div
           style={{
-            fontSize: 14,
+            fontSize: 14.5,
             fontWeight: 600,
             color: "var(--text-primary)",
-            letterSpacing: -0.15,
+            letterSpacing: -0.25,
             whiteSpace: "nowrap",
             overflow: "hidden",
             textOverflow: "ellipsis",
@@ -65,7 +77,7 @@ export default function ToolCard({ name, desc, icon, color, to, comingSoon }) {
           style={{
             fontSize: 12.5,
             color: "var(--text-muted)",
-            marginTop: 2,
+            marginTop: 3,
             fontWeight: 400,
             letterSpacing: -0.05,
             whiteSpace: "nowrap",
