@@ -167,6 +167,30 @@
       "processing": "处理中",
       "privacyTitle": "100% 本地运行",
       "privacyDesc": "模型在你的浏览器中通过 WebAssembly 运行，图片永远不会离开你的设备。"
+    },
+    "removeWatermark": {
+      "name": "AI 去水印",
+      "desc": "用画笔涂抹水印区域，LaMa 模型智能补全被遮挡的像素",
+      "badge": "本地 AI · LaMa",
+      "legalTitle": "仅限处理你自己的内容。",
+      "legalDesc": "去除他人水印或版权标识可能违反知识产权法规，请确认你有权处理该图片。",
+      "dropHere": "拖入或选择一张图片",
+      "modelHint": "首次使用会下载 ~215 MB 的 LaMa 模型（浏览器缓存）",
+      "editLabel": "编辑器（涂抹要去除的区域）",
+      "editMode": "编辑",
+      "compareMode": "对比",
+      "brushSize": "画笔粗细",
+      "clearMask": "清除涂抹",
+      "replace": "换一张",
+      "run": "开始去水印",
+      "download": "下载 PNG",
+      "before": "处理前",
+      "after": "处理后",
+      "loadingModel": "加载模型",
+      "processing": "AI 正在修复",
+      "processingHint": "正在分析涂抹区域并重建像素，通常需要 5-15 秒",
+      "privacyTitle": "100% 本地运行",
+      "privacyDesc": "LaMa 模型在你的浏览器中通过 WebAssembly 运行，图片和模型推理全程不离开你的设备。首次使用会从 Hugging Face 下载模型文件。"
     }
   },
   "upcoming": {

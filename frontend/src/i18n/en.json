@@ -167,6 +167,30 @@
       "processing": "Processing",
       "privacyTitle": "100% on-device",
       "privacyDesc": "The AI model runs in your browser via WebAssembly — your images never leave your device."
+    },
+    "removeWatermark": {
+      "name": "AI Remove Watermark",
+      "desc": "Brush over a watermark and let LaMa inpainting reconstruct what was behind it",
+      "badge": "On-device · LaMa",
+      "legalTitle": "Only use on content you own.",
+      "legalDesc": "Removing other people's watermarks or copyright marks may violate IP laws. Make sure you have the right to edit this image.",
+      "dropHere": "Drop or choose an image",
+      "modelHint": "First use downloads the ~215 MB LaMa model (browser-cached)",
+      "editLabel": "Editor (brush over the region to remove)",
+      "editMode": "Edit",
+      "compareMode": "Compare",
+      "brushSize": "Brush",
+      "clearMask": "Clear mask",
+      "replace": "Replace",
+      "run": "Run inpaint",
+      "download": "Download PNG",
+      "before": "Before",
+      "after": "After",
+      "loadingModel": "Loading model",
+      "processing": "AI inpainting",
+      "processingHint": "Analyzing the masked region and reconstructing pixels — usually 5-15 seconds",
+      "privacyTitle": "100% on-device",
+      "privacyDesc": "The LaMa model runs entirely in your browser via WebAssembly. Images and inference never leave your device. The model file is downloaded once from Hugging Face and then cached."
     }
   },
   "upcoming": {

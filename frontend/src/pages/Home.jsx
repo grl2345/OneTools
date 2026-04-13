@@ -37,6 +37,13 @@ const LIVE_TOOLS = [
     color: "#8b5cf6",
     to: "/tools/remove-bg",
   },
+  {
+    nameKey: "tools.removeWatermark.name",
+    descKey: "tools.removeWatermark.desc",
+    icon: "WM",
+    color: "#2563eb",
+    to: "/tools/remove-watermark",
+  },
 ];
 
 const UPCOMING_TOOLS = [
