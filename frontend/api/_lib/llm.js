@@ -94,3 +94,70 @@ export async function callLLM({ system, user, temperature = 0 }) {
     );
   }
 }
+
+/**
+ * Lower-level variant of callLLM for multimodal calls (vision, etc.).
+ * Caller provides the full `messages` array. Returns the parsed JSON object
+ * that the model emitted (response_format: json_object is enforced).
+ */
+export async function callLLMRaw({
+  messages,
+  temperature = 0,
+  modelOverride,
+}) {
+  const apiKey = process.env.OPENAI_API_KEY;
+  const baseUrl =
+    process.env.OPENAI_BASE_URL || "https://api.groq.com/openai/v1";
+  const model =
+    modelOverride ||
+    process.env.OPENAI_VISION_MODEL ||
+    process.env.OPENAI_MODEL ||
+    "llama-3.2-11b-vision-preview";
+
+  if (!apiKey) {
+    throw new HttpError(
+      503,
+      "Server not configured: OPENAI_API_KEY is missing."
+    );
+  }
+
+  let resp;
+  try {
+    resp = await fetch(`${baseUrl}/chat/completions`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model,
+        response_format: { type: "json_object" },
+        temperature,
+        messages,
+      }),
+    });
+  } catch (e) {
+    throw new HttpError(502, `Upstream fetch failed: ${e.message || e}`);
+  }
+
+  if (!resp.ok) {
+    const text = await resp.text().catch(() => "");
+    throw new HttpError(
+      resp.status === 401 ? 503 : 502,
+      `LLM HTTP ${resp.status}: ${text.slice(0, 400)}`
+    );
+  }
+
+  const data = await resp.json();
+  const content = data?.choices?.[0]?.message?.content;
+  if (!content) throw new HttpError(502, "LLM returned empty content");
+
+  try {
+    return JSON.parse(content);
+  } catch {
+    throw new HttpError(
+      502,
+      `LLM content is not valid JSON: ${String(content).slice(0, 200)}`
+    );
+  }
+}

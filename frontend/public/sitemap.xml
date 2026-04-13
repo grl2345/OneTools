@@ -46,6 +46,31 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://onetools.dev/tools/flowchart</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://onetools.dev/tools/pdf-summary</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://onetools.dev/tools/ocr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://onetools.dev/tools/image-to-table</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://onetools.dev/tools/handwriting</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://onetools.dev/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>

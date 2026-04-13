@@ -73,6 +73,41 @@ const LIVE_TOOLS = [
     color: "#f59e0b",
     to: "/tools/id-photo",
   },
+  {
+    nameKey: "tools.flowchart.name",
+    descKey: "tools.flowchart.desc",
+    icon: "→◇",
+    color: "#14b8a6",
+    to: "/tools/flowchart",
+  },
+  {
+    nameKey: "tools.pdfSummary.name",
+    descKey: "tools.pdfSummary.desc",
+    icon: "PDF",
+    color: "#ef4444",
+    to: "/tools/pdf-summary",
+  },
+  {
+    nameKey: "tools.ocr.name",
+    descKey: "tools.ocr.desc",
+    icon: "🔤",
+    color: "#6366f1",
+    to: "/tools/ocr",
+  },
+  {
+    nameKey: "tools.imageToTable.name",
+    descKey: "tools.imageToTable.desc",
+    icon: "▦",
+    color: "#10b981",
+    to: "/tools/image-to-table",
+  },
+  {
+    nameKey: "tools.handwriting.name",
+    descKey: "tools.handwriting.desc",
+    icon: "✍",
+    color: "#d946ef",
+    to: "/tools/handwriting",
+  },
 ];
 
 const UPCOMING_TOOLS = [

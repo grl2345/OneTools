@@ -11,6 +11,11 @@ import NamingAssistant from "./pages/tools/NamingAssistant";
 import CronTool from "./pages/tools/CronTool";
 import Base64Tool from "./pages/tools/Base64";
 import IdPhoto from "./pages/tools/IdPhoto";
+import Flowchart from "./pages/tools/Flowchart";
+import PdfSummary from "./pages/tools/PdfSummary";
+import Ocr from "./pages/tools/Ocr";
+import ImageToTable from "./pages/tools/ImageToTable";
+import Handwriting from "./pages/tools/Handwriting";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import About from "./pages/About";
@@ -30,6 +35,11 @@ export default function App() {
         <Route path="/tools/cron" element={<CronTool />} />
         <Route path="/tools/base64" element={<Base64Tool />} />
         <Route path="/tools/id-photo" element={<IdPhoto />} />
+        <Route path="/tools/flowchart" element={<Flowchart />} />
+        <Route path="/tools/pdf-summary" element={<PdfSummary />} />
+        <Route path="/tools/ocr" element={<Ocr />} />
+        <Route path="/tools/image-to-table" element={<ImageToTable />} />
+        <Route path="/tools/handwriting" element={<Handwriting />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/about" element={<About />} />

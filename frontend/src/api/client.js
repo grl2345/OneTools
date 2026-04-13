@@ -80,4 +80,13 @@ export async function aiSummarizePdf(text, lang) {
   return res.data;
 }
 
+export async function aiVision(action, imageDataUrl, lang) {
+  const res = await api.post(
+    "/ai/vision",
+    { action, image_url: imageDataUrl, lang },
+    { timeout: 90000 }
+  );
+  return res.data;
+}
+
 export default api;
