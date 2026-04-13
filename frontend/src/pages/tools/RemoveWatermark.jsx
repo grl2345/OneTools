@@ -163,15 +163,61 @@ async function runInpaint(origImage, maskCanvas) {
   }
   const results = await session.run(feeds);
   const outTensor = results[session.outputNames[0]];
-  const out = outTensor.data; // Float32Array [1, 3, H, W] in [0, 1]
+  const out = outTensor.data;
+  const dims = outTensor.dims || [];
+
+  // Diagnose output: dims + value range
+  let minV = Infinity;
+  let maxV = -Infinity;
+  const sample = Math.min(out.length, 4096);
+  for (let i = 0; i < sample; i++) {
+    if (out[i] < minV) minV = out[i];
+    if (out[i] > maxV) maxV = out[i];
+  }
+  console.log(
+    "[RemoveWatermark] output dims:",
+    dims,
+    "range:",
+    minV,
+    "→",
+    maxV
+  );
+
+  // Auto-detect layout: NCHW = [B, 3, H, W] · NHWC = [B, H, W, 3]
+  let isNHWC = false;
+  if (dims.length === 4) {
+    if (dims[3] === 3 && dims[1] !== 3) isNHWC = true;
+  } else if (dims.length === 3) {
+    if (dims[2] === 3 && dims[0] !== 3) isNHWC = true;
+  }
+
+  // Auto-detect value range
+  let mul = 255;
+  let add = 0;
+  if (maxV > 2.5) {
+    mul = 1;
+    add = 0;
+  } else if (minV < -0.2) {
+    mul = 127.5;
+    add = 127.5;
+  }
 
   // 4. Write back to canvas
   const outImg = imgCan.getContext("2d").createImageData(MODEL_SIZE, MODEL_SIZE);
-  for (let i = 0; i < HW; i++) {
-    outImg.data[i * 4] = clamp255(out[i] * 255);
-    outImg.data[i * 4 + 1] = clamp255(out[HW + i] * 255);
-    outImg.data[i * 4 + 2] = clamp255(out[2 * HW + i] * 255);
-    outImg.data[i * 4 + 3] = 255;
+  if (isNHWC) {
+    for (let i = 0; i < HW; i++) {
+      outImg.data[i * 4] = clamp255(out[i * 3] * mul + add);
+      outImg.data[i * 4 + 1] = clamp255(out[i * 3 + 1] * mul + add);
+      outImg.data[i * 4 + 2] = clamp255(out[i * 3 + 2] * mul + add);
+      outImg.data[i * 4 + 3] = 255;
+    }
+  } else {
+    for (let i = 0; i < HW; i++) {
+      outImg.data[i * 4] = clamp255(out[i] * mul + add);
+      outImg.data[i * 4 + 1] = clamp255(out[HW + i] * mul + add);
+      outImg.data[i * 4 + 2] = clamp255(out[2 * HW + i] * mul + add);
+      outImg.data[i * 4 + 3] = 255;
+    }
   }
   imgCan.getContext("2d").putImageData(outImg, 0, 0);
   return imgCan; // 512×512 inpainted canvas
