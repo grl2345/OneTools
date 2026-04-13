@@ -9,7 +9,25 @@
     "subtitle": "Simple, fast, and free online developer tools",
     "liveTools": "Available Tools",
     "upcomingTools": "Coming Soon",
-    "upcomingDesc": "One new tool every week"
+    "upcomingDesc": "One new tool every week",
+    "heroBadge": "v1.0 · {{n}} tools live",
+    "heroBadgeNew": "New",
+    "statTools": "tools",
+    "statUploads": "uploads",
+    "statSignup": "signup",
+    "statFree": "free forever",
+    "cat": {
+      "ai_text": "AI · Text & Data",
+      "ai_text_desc": "JSON / Markdown / Naming / Cron / Time / Flowchart — semantic understanding and formatting",
+      "ai_doc": "AI · Document OCR",
+      "ai_doc_desc": "PDF summary, OCR, image-to-table, handwriting — turn unstructured content into structured data",
+      "ai_media": "AI · Image & Audio",
+      "ai_media_desc": "Background removal, watermark removal, ID photo, upscale, speech-to-text — WASM models run locally",
+      "media": "Media Processing",
+      "media_desc": "Image / video compression, GIF, palette, EXIF — pure local, zero upload",
+      "dev": "Dev & Utilities",
+      "dev_desc": "Base64, QR, file encryption, PDF merge — everyday developer tools"
+    }
   },
   "tools": {
     "jsonFormatter": {

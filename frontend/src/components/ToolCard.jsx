@@ -15,52 +15,59 @@ export default function ToolCard({ name, desc, icon, color, to, comingSoon }) {
         gap: 14,
         opacity: comingSoon ? 0.7 : 1,
         cursor: comingSoon ? "default" : "pointer",
-        transition: "all 0.2s ease",
+        transition:
+          "box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease",
         overflow: "hidden",
       }}
       onMouseEnter={(e) => {
         if (!comingSoon) {
-          e.currentTarget.style.boxShadow = "var(--shadow-lg)";
-          e.currentTarget.style.transform = "translateY(-2px)";
-          e.currentTarget.style.borderColor = "var(--border-strong)";
-          e.currentTarget.style.background = "#ffffff";
-          const arrow = e.currentTarget.querySelector("[data-arrow]");
+          const el = e.currentTarget;
+          el.style.boxShadow = `0 10px 28px -10px ${color}40, 0 0 0 1px ${color}30, 0 1px 2px rgba(10,11,16,0.04)`;
+          el.style.transform = "translateY(-2px)";
+          el.style.borderColor = "transparent";
+          const arrow = el.querySelector("[data-arrow]");
           if (arrow) {
             arrow.style.transform = "translateX(3px)";
             arrow.style.color = color;
           }
+          const icn = el.querySelector("[data-icon]");
+          if (icn) {
+            icn.style.transform = "scale(1.06)";
+          }
         }
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.boxShadow = comingSoon
-          ? "none"
-          : "var(--shadow-sm)";
-        e.currentTarget.style.background = comingSoon ? "#fcfcfd" : "#ffffff";
-        e.currentTarget.style.transform = "translateY(0)";
-        e.currentTarget.style.borderColor = "var(--border)";
-        const arrow = e.currentTarget.querySelector("[data-arrow]");
+        const el = e.currentTarget;
+        el.style.boxShadow = comingSoon ? "none" : "var(--shadow-sm)";
+        el.style.transform = "translateY(0)";
+        el.style.borderColor = "var(--border)";
+        const arrow = el.querySelector("[data-arrow]");
         if (arrow) {
           arrow.style.transform = "translateX(0)";
           arrow.style.color = "var(--text-faint)";
         }
+        const icn = el.querySelector("[data-icon]");
+        if (icn) icn.style.transform = "scale(1)";
       }}
     >
       <div
+        data-icon
         style={{
-          width: 42,
-          height: 42,
-          borderRadius: 10,
-          background: `linear-gradient(135deg, ${color}20 0%, ${color}08 100%)`,
+          width: 44,
+          height: 44,
+          borderRadius: 11,
+          background: `linear-gradient(135deg, ${color}22 0%, ${color}0a 100%)`,
           border: `1px solid ${color}30`,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontSize: 13,
+          fontSize: 14,
           color: color,
           fontWeight: 700,
           fontFamily: "var(--font-mono)",
           flexShrink: 0,
           letterSpacing: -0.3,
+          transition: "transform 0.2s ease",
         }}
       >
         {icon}
@@ -73,28 +80,12 @@ export default function ToolCard({ name, desc, icon, color, to, comingSoon }) {
             fontWeight: 600,
             color: "var(--text-primary)",
             letterSpacing: -0.2,
-            display: "flex",
-            alignItems: "center",
-            gap: 8,
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
           }}
         >
           {name}
-          {!comingSoon && (
-            <span
-              style={{
-                fontSize: 10,
-                color: "var(--green)",
-                padding: "2px 8px",
-                borderRadius: 999,
-                background: "rgba(16,185,129,0.12)",
-                border: "1px solid rgba(16,185,129,0.25)",
-                letterSpacing: 0.2,
-                fontWeight: 600,
-              }}
-            >
-              Live
-            </span>
-          )}
         </div>
         <div
           style={{
@@ -117,9 +108,10 @@ export default function ToolCard({ name, desc, icon, color, to, comingSoon }) {
           data-arrow
           style={{
             color: "var(--text-faint)",
-            fontSize: 17,
+            fontSize: 18,
             transition: "transform 0.2s ease, color 0.2s ease",
             fontWeight: 300,
+            flexShrink: 0,
           }}
         >
           →

@@ -9,7 +9,25 @@
     "subtitle": "简洁、快速、免费的在线开发工具集合",
     "liveTools": "可用工具",
     "upcomingTools": "即将推出",
-    "upcomingDesc": "每周上线一个新工具"
+    "upcomingDesc": "每周上线一个新工具",
+    "heroBadge": "v1.0 · {{n}} 个工具已上线",
+    "heroBadgeNew": "新",
+    "statTools": "工具",
+    "statUploads": "上传",
+    "statSignup": "注册",
+    "statFree": "永久免费",
+    "cat": {
+      "ai_text": "AI · 文本与数据",
+      "ai_text_desc": "JSON / Markdown / 命名 / Cron / 时间 / 流程图 — 语义理解和格式化",
+      "ai_doc": "AI · 文档识别",
+      "ai_doc_desc": "PDF 摘要、OCR、图片转表格、手写识别 — 把非结构化内容转成结构化数据",
+      "ai_media": "AI · 图像与音频",
+      "ai_media_desc": "抠图、去水印、证件照、画面放大、语音转文字 — 本地 WASM 模型运行",
+      "media": "媒体处理",
+      "media_desc": "图片 / 视频压缩、GIF、色板、EXIF — 纯本地，不上传",
+      "dev": "开发与效率",
+      "dev_desc": "Base64、QR、文件加密、PDF 合并 — 常用工具集合"
+    }
   },
   "tools": {
     "jsonFormatter": {
