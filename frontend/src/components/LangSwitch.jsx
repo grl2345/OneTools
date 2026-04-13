@@ -13,20 +13,27 @@ export default function LangSwitch() {
   return (
     <button
       onClick={toggle}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.background = "rgba(255,255,255,0.08)";
+        e.currentTarget.style.borderColor = "var(--border-strong)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.background = "rgba(255,255,255,0.03)";
+        e.currentTarget.style.borderColor = "var(--border)";
+      }}
       style={{
-        padding: "5px 14px",
-        borderRadius: 20,
-        border: "1px solid var(--border-strong)",
-        background: "rgba(0,229,255,0.05)",
-        color: "var(--accent-text)",
-        fontSize: 11,
-        fontFamily: "var(--font-mono)",
-        fontWeight: 600,
-        letterSpacing: 1,
-        boxShadow: "inset 0 0 8px rgba(0,229,255,0.12)",
+        padding: "5px 12px",
+        borderRadius: 999,
+        border: "1px solid var(--border)",
+        background: "rgba(255,255,255,0.03)",
+        color: "var(--text-secondary)",
+        fontSize: 12,
+        fontWeight: 500,
+        letterSpacing: -0.1,
+        transition: "all 0.15s ease",
       }}
     >
-      {isZh ? "» EN" : "» 中文"}
+      {isZh ? "EN" : "中文"}
     </button>
   );
 }

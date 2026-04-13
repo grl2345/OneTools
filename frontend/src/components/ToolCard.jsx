@@ -5,64 +5,52 @@ export default function ToolCard({ name, desc, icon, color, to, comingSoon }) {
     <div
       style={{
         position: "relative",
-        padding: "18px 18px 18px 18px",
+        padding: "20px 20px",
         borderRadius: "var(--radius)",
-        background:
-          "linear-gradient(160deg, rgba(14,20,36,0.78) 0%, rgba(8,12,22,0.78) 100%)",
-        border: comingSoon
-          ? "1px dashed rgba(110,200,255,0.12)"
-          : "1px solid var(--border)",
+        background: comingSoon ? "rgba(19,19,22,0.5)" : "var(--bg-card)",
+        border: "1px solid var(--border)",
         display: "flex",
         alignItems: "center",
         gap: 14,
-        opacity: comingSoon ? 0.6 : 1,
+        opacity: comingSoon ? 0.55 : 1,
         cursor: comingSoon ? "default" : "pointer",
-        transition: "all 0.25s ease",
+        transition:
+          "background 0.2s ease, border-color 0.2s ease, transform 0.2s ease",
         overflow: "hidden",
-        backdropFilter: "blur(6px)",
       }}
       onMouseEnter={(e) => {
         if (!comingSoon) {
-          e.currentTarget.style.borderColor = color;
-          e.currentTarget.style.boxShadow = `0 0 0 1px ${color}40, 0 10px 30px ${color}25, inset 0 0 26px ${color}0d`;
-          e.currentTarget.style.transform = "translateY(-2px)";
+          e.currentTarget.style.background = "var(--bg-subtle)";
+          e.currentTarget.style.borderColor = "var(--border-strong)";
+          const arrow = e.currentTarget.querySelector("[data-arrow]");
+          if (arrow) arrow.style.transform = "translateX(3px)";
         }
       }}
       onMouseLeave={(e) => {
+        e.currentTarget.style.background = comingSoon
+          ? "rgba(19,19,22,0.5)"
+          : "var(--bg-card)";
         e.currentTarget.style.borderColor = "var(--border)";
-        e.currentTarget.style.boxShadow = "none";
-        e.currentTarget.style.transform = "none";
+        const arrow = e.currentTarget.querySelector("[data-arrow]");
+        if (arrow) arrow.style.transform = "translateX(0)";
       }}
     >
-      {/* corner brackets */}
-      {!comingSoon && (
-        <>
-          <span style={cornerStyle("top-left", color)} />
-          <span style={cornerStyle("top-right", color)} />
-          <span style={cornerStyle("bottom-left", color)} />
-          <span style={cornerStyle("bottom-right", color)} />
-        </>
-      )}
-
       <div
         style={{
-          width: 46,
-          height: 46,
+          width: 40,
+          height: 40,
           borderRadius: 10,
-          background: `linear-gradient(135deg, ${color}22 0%, ${color}08 100%)`,
-          border: `1px solid ${color}55`,
-          boxShadow: comingSoon
-            ? "none"
-            : `0 0 14px ${color}33, inset 0 0 10px ${color}18`,
+          background: `${color}18`,
+          border: `1px solid ${color}30`,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           fontSize: 13,
           color: color,
-          fontWeight: 700,
+          fontWeight: 600,
           fontFamily: "var(--font-mono)",
           flexShrink: 0,
-          textShadow: `0 0 10px ${color}66`,
+          letterSpacing: -0.3,
         }}
       >
         {icon}
@@ -71,11 +59,10 @@ export default function ToolCard({ name, desc, icon, color, to, comingSoon }) {
       <div style={{ flex: 1, minWidth: 0 }}>
         <div
           style={{
-            fontSize: 14,
+            fontSize: 14.5,
             fontWeight: 600,
             color: "var(--text-primary)",
-            fontFamily: "var(--font-sans)",
-            letterSpacing: 0.2,
+            letterSpacing: -0.2,
             display: "flex",
             alignItems: "center",
             gap: 8,
@@ -85,27 +72,25 @@ export default function ToolCard({ name, desc, icon, color, to, comingSoon }) {
           {!comingSoon && (
             <span
               style={{
-                fontSize: 9,
-                color: "#10f4a8",
-                fontFamily: "var(--font-mono)",
-                padding: "2px 6px",
-                borderRadius: 4,
-                border: "1px solid rgba(16,244,168,0.35)",
-                background: "rgba(16,244,168,0.08)",
-                letterSpacing: 1,
+                fontSize: 10,
+                color: "var(--green)",
+                padding: "2px 7px",
+                borderRadius: 999,
+                background: "var(--green-soft)",
+                letterSpacing: 0,
+                fontWeight: 600,
               }}
             >
-              LIVE
+              Live
             </span>
           )}
         </div>
         <div
           style={{
-            fontSize: 11.5,
+            fontSize: 12.5,
             color: "var(--text-muted)",
-            fontFamily: "var(--font-mono)",
-            marginTop: 4,
-            letterSpacing: 0.2,
+            marginTop: 3,
+            letterSpacing: -0.1,
             whiteSpace: "nowrap",
             overflow: "hidden",
             textOverflow: "ellipsis",
@@ -117,12 +102,11 @@ export default function ToolCard({ name, desc, icon, color, to, comingSoon }) {
 
       {!comingSoon && (
         <span
+          data-arrow
           style={{
-            color: color,
-            fontSize: 18,
-            fontFamily: "var(--font-mono)",
-            opacity: 0.7,
-            transition: "transform 0.2s",
+            color: "var(--text-muted)",
+            fontSize: 16,
+            transition: "transform 0.2s ease",
           }}
         >
           →
@@ -137,24 +121,4 @@ export default function ToolCard({ name, desc, icon, color, to, comingSoon }) {
       {content}
     </Link>
   );
-}
-
-function cornerStyle(pos, color) {
-  const base = {
-    position: "absolute",
-    width: 10,
-    height: 10,
-    borderColor: `${color}88`,
-    pointerEvents: "none",
-  };
-  const size = 10;
-  if (pos === "top-left")
-    return { ...base, top: 6, left: 6, borderTop: "1px solid", borderLeft: "1px solid" };
-  if (pos === "top-right")
-    return { ...base, top: 6, right: 6, borderTop: "1px solid", borderRight: "1px solid" };
-  if (pos === "bottom-left")
-    return { ...base, bottom: 6, left: 6, borderBottom: "1px solid", borderLeft: "1px solid" };
-  if (pos === "bottom-right")
-    return { ...base, bottom: 6, right: 6, borderBottom: "1px solid", borderRight: "1px solid" };
-  return base;
 }

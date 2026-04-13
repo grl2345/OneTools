@@ -11,124 +11,70 @@ export default function Navbar() {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        padding: "14px 28px",
+        padding: "14px 24px",
         borderBottom: "1px solid var(--border-light)",
         position: "sticky",
         top: 0,
         zIndex: 50,
-        background: "rgba(5, 7, 13, 0.72)",
-        backdropFilter: "blur(14px)",
-        WebkitBackdropFilter: "blur(14px)",
+        background: "rgba(10, 10, 11, 0.72)",
+        backdropFilter: "saturate(180%) blur(20px)",
+        WebkitBackdropFilter: "saturate(180%) blur(20px)",
       }}
     >
-      {/* bottom neon line */}
-      <div
-        style={{
-          position: "absolute",
-          left: 0,
-          right: 0,
-          bottom: -1,
-          height: 1,
-          background:
-            "linear-gradient(90deg, transparent 0%, rgba(0,229,255,0.55) 50%, transparent 100%)",
-          pointerEvents: "none",
-        }}
-      />
-
       <Link
         to="/"
-        style={{ display: "flex", alignItems: "center", gap: 12, textDecoration: "none" }}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+          textDecoration: "none",
+        }}
       >
         <div
           style={{
-            width: 34,
-            height: 34,
-            borderRadius: 8,
+            width: 26,
+            height: 26,
+            borderRadius: 7,
             background:
-              "linear-gradient(135deg, rgba(0,229,255,0.18) 0%, rgba(109,91,255,0.18) 100%)",
-            border: "1px solid rgba(0,229,255,0.4)",
-            boxShadow:
-              "0 0 18px rgba(0,229,255,0.35), inset 0 0 12px rgba(109,91,255,0.25)",
+              "linear-gradient(135deg, #ffffff 0%, #c9c9cc 100%)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             fontSize: 12,
             fontWeight: 700,
-            color: "#7ff1ff",
-            fontFamily: "var(--font-mono)",
+            color: "#0a0a0b",
+            fontFamily: "var(--font-sans)",
             letterSpacing: -0.5,
+            boxShadow:
+              "0 1px 0 rgba(255,255,255,0.2) inset, 0 2px 8px rgba(0,0,0,0.4)",
           }}
         >
-          {"⌘_"}
+          ◎
         </div>
-        <div style={{ display: "flex", flexDirection: "column", lineHeight: 1 }}>
-          <span
-            style={{
-              fontSize: 16,
-              fontWeight: 700,
-              color: "var(--text-primary)",
-              fontFamily: "var(--font-sans)",
-              letterSpacing: 0.3,
-            }}
-          >
-            {t("nav.brand")}
-          </span>
-          <span
-            style={{
-              fontSize: 9,
-              color: "var(--accent-text)",
-              fontFamily: "var(--font-mono)",
-              letterSpacing: 2,
-              marginTop: 3,
-              textTransform: "uppercase",
-              opacity: 0.75,
-            }}
-          >
-            DEV · CONSOLE
-          </span>
-        </div>
+        <span
+          style={{
+            fontSize: 15,
+            fontWeight: 600,
+            color: "var(--text-primary)",
+            fontFamily: "var(--font-sans)",
+            letterSpacing: -0.3,
+          }}
+        >
+          {t("nav.brand")}
+        </span>
       </Link>
 
-      <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 8,
-            padding: "4px 10px",
-            borderRadius: 20,
-            border: "1px solid rgba(16,244,168,0.25)",
-            background: "rgba(16,244,168,0.06)",
-            fontSize: 11,
-            fontFamily: "var(--font-mono)",
-            color: "#7ff3c7",
-          }}
-        >
-          <span
-            style={{
-              width: 6,
-              height: 6,
-              borderRadius: "50%",
-              background: "#10f4a8",
-              boxShadow: "0 0 8px #10f4a8",
-              animation: "pulse 1.6s ease infinite",
-            }}
-          />
-          ONLINE
-        </div>
-
+      <div style={{ display: "flex", gap: 24, alignItems: "center" }}>
         <Link
           to="/"
           style={{
-            fontSize: 12.5,
+            fontSize: 13.5,
             color: "var(--text-secondary)",
-            fontFamily: "var(--font-mono)",
-            textDecoration: "none",
-            letterSpacing: 0.5,
-            textTransform: "uppercase",
+            fontWeight: 500,
+            letterSpacing: -0.1,
           }}
         >
-          ./{t("nav.allTools")}
+          {t("nav.allTools")}
         </Link>
         <LangSwitch />
       </div>
