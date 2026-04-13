@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routers import json_tool
 
-app = FastAPI(title="DevKit API", version="1.0.0")
+app = FastAPI(title="OneTools API", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,

@@ -16,7 +16,7 @@ export default function Footer() {
       }}
     >
       <span style={{ fontSize: 12, color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
-        DevKit &copy; 2026 &middot; {t("footer.builtWith")}
+        OneTools &copy; 2026 &middot; {t("footer.builtWith")}
       </span>
       <div style={{ display: "flex", gap: 16 }}>
         <a href="#" style={{ fontSize: 12, color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>

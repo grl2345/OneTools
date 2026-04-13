@@ -8,7 +8,7 @@ i18n.use(initReactI18next).init({
     zh: { translation: zh },
     en: { translation: en },
   },
-  lng: localStorage.getItem("devkit-lang") || "zh",
+  lng: localStorage.getItem("onetools-lang") || "zh",
   fallbackLng: "en",
   interpolation: { escapeValue: false },
 });

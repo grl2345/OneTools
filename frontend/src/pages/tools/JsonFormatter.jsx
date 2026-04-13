@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { aiFixJson } from "../../api/client";
 
 const SAMPLE_JSON = `{
-  "name": "DevKit",
+  "name": "OneTools",
   "version": "1.0.0",
   "tools": [
     { "id": "json-formatter", "status": "live" },

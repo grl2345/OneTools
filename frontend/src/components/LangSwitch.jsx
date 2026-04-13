@@ -7,7 +7,7 @@ export default function LangSwitch() {
   const toggle = () => {
     const next = isZh ? "en" : "zh";
     i18n.changeLanguage(next);
-    localStorage.setItem("devkit-lang", next);
+    localStorage.setItem("onetools-lang", next);
   };
 
   return (
