@@ -6,6 +6,7 @@ const CATEGORIES = [
   {
     id: "text",
     titleKey: "home.cat.text",
+    accent: "#5b5bf5", // indigo — for text / data
     tools: [
       { nameKey: "tools.jsonFormatter.name",   descKey: "tools.jsonFormatter.desc",   iconName: "json",       to: "/tools/json" },
       { nameKey: "tools.markdownPreview.name", descKey: "tools.markdownPreview.desc", iconName: "markdown",   to: "/tools/markdown" },
@@ -18,6 +19,7 @@ const CATEGORIES = [
   {
     id: "doc",
     titleKey: "home.cat.doc",
+    accent: "#ff6b35", // warm orange — for documents
     tools: [
       { nameKey: "tools.pdfSummary.name",   descKey: "tools.pdfSummary.desc",   iconName: "pdfSummary",   to: "/tools/pdf-summary" },
       { nameKey: "tools.ocr.name",          descKey: "tools.ocr.desc",          iconName: "ocr",          to: "/tools/ocr" },
@@ -28,6 +30,7 @@ const CATEGORIES = [
   {
     id: "image",
     titleKey: "home.cat.image",
+    accent: "#8b5cf6", // purple — for images
     tools: [
       { nameKey: "tools.removeBg.name",        descKey: "tools.removeBg.desc",        iconName: "removeBg",        to: "/tools/remove-bg" },
       { nameKey: "tools.removeWatermark.name", descKey: "tools.removeWatermark.desc", iconName: "removeWatermark", to: "/tools/remove-watermark" },
@@ -41,6 +44,7 @@ const CATEGORIES = [
   {
     id: "av",
     titleKey: "home.cat.av",
+    accent: "#06b6d4", // teal — for audio/video
     tools: [
       { nameKey: "tools.whisper.name",       descKey: "tools.whisper.desc",       iconName: "whisper",       to: "/tools/whisper" },
       { nameKey: "tools.videoCompress.name", descKey: "tools.videoCompress.desc", iconName: "videoCompress", to: "/tools/video-compress" },
@@ -50,6 +54,7 @@ const CATEGORIES = [
   {
     id: "util",
     titleKey: "home.cat.util",
+    accent: "#059669", // green — for utilities
     tools: [
       { nameKey: "tools.base64.name",      descKey: "tools.base64.desc",      iconName: "base64",      to: "/tools/base64" },
       { nameKey: "tools.qrcode.name",      descKey: "tools.qrcode.desc",      iconName: "qrcode",      to: "/tools/qrcode" },
@@ -135,7 +140,11 @@ export default function Home() {
               paddingBottom: 0,
             }}
           >
-            <CategoryHeader title={t(cat.titleKey)} count={cat.tools.length} />
+            <CategoryHeader
+              title={t(cat.titleKey)}
+              count={cat.tools.length}
+              accent={cat.accent}
+            />
             <div
               style={{
                 display: "grid",
@@ -149,6 +158,7 @@ export default function Home() {
                   name={t(tool.nameKey)}
                   desc={t(tool.descKey)}
                   iconName={tool.iconName}
+                  accent={cat.accent}
                   to={tool.to}
                 />
               ))}
@@ -162,13 +172,9 @@ export default function Home() {
   );
 }
 
-function CategoryHeader({ title, count }) {
+function CategoryHeader({ title, count, accent }) {
   return (
-    <div
-      style={{
-        marginBottom: 20,
-      }}
-    >
+    <div style={{ marginBottom: 20 }}>
       <h2
         style={{
           fontSize: 20,
@@ -176,17 +182,25 @@ function CategoryHeader({ title, count }) {
           color: "var(--text-primary)",
           letterSpacing: -0.5,
           display: "flex",
-          alignItems: "baseline",
+          alignItems: "center",
           gap: 10,
         }}
       >
+        <span
+          style={{
+            width: 8,
+            height: 8,
+            borderRadius: 2,
+            background: accent,
+            flexShrink: 0,
+          }}
+        />
         {title}
         <span
           style={{
             fontSize: 13,
             color: "var(--text-muted)",
             fontWeight: 400,
-            letterSpacing: 0,
             fontFamily: "var(--font-mono)",
           }}
         >

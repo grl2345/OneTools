@@ -30,7 +30,8 @@ export default function Navbar() {
           textDecoration: "none",
         }}
       >
-        {/* Simple monochrome mark — a ring, evokes "One" */}
+        {/* Brand mark — dark ring with an indigo dot inside.
+            Ring stays neutral, dot gives the brand a single quiet accent. */}
         <svg
           width="22"
           height="22"
@@ -41,11 +42,11 @@ export default function Navbar() {
           <circle
             cx="11"
             cy="11"
-            r="9.5"
+            r="9.25"
             stroke="var(--text-primary)"
-            strokeWidth="2"
+            strokeWidth="1.8"
           />
-          <circle cx="11" cy="11" r="2.5" fill="var(--text-primary)" />
+          <circle cx="11" cy="11" r="3" fill="#5b5bf5" />
         </svg>
         <span
           style={{

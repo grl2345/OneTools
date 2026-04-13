@@ -2,11 +2,19 @@ import { Link } from "react-router-dom";
 import ToolIcon from "./ToolIcon";
 
 /**
- * Monochrome, Apple-like tool card. All tools share the same icon treatment
- * (stroke-drawn SF-Symbols-style, neutral color at rest, brand color on
- * hover). No pastel tinted backgrounds per tool.
+ * Apple-style tool card. Icons are stroke-drawn SF-Symbols-style; all tools
+ * in the same category share one accent color. The icon container uses a
+ * soft tinted background (accent at ~10% alpha) with the icon stroke at
+ * full accent color — reads as considered, not chaotic.
  */
-export default function ToolCard({ name, desc, iconName, to, comingSoon }) {
+export default function ToolCard({
+  name,
+  desc,
+  iconName,
+  accent = "#5b5bf5",
+  to,
+  comingSoon,
+}) {
   const content = (
     <div
       style={{
@@ -20,24 +28,26 @@ export default function ToolCard({ name, desc, iconName, to, comingSoon }) {
         gap: 14,
         opacity: comingSoon ? 0.5 : 1,
         cursor: comingSoon ? "default" : "pointer",
-        transition: "border-color 0.18s ease",
+        transition: "border-color 0.18s ease, box-shadow 0.18s ease",
       }}
       onMouseEnter={(e) => {
         if (!comingSoon) {
-          e.currentTarget.style.borderColor = "rgba(17,24,39,0.22)";
-          const ic = e.currentTarget.querySelector("[data-icon-wrap]");
+          const el = e.currentTarget;
+          el.style.borderColor = `${accent}40`;
+          el.style.boxShadow = `0 0 0 1px ${accent}10, 0 6px 20px -8px ${accent}28`;
+          const ic = el.querySelector("[data-icon-wrap]");
           if (ic) {
-            ic.style.background = "var(--text-primary)";
-            ic.style.color = "#ffffff";
+            ic.style.background = `${accent}1f`;
           }
         }
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = "var(--border)";
-        const ic = e.currentTarget.querySelector("[data-icon-wrap]");
+        const el = e.currentTarget;
+        el.style.borderColor = "var(--border)";
+        el.style.boxShadow = "none";
+        const ic = el.querySelector("[data-icon-wrap]");
         if (ic) {
-          ic.style.background = "var(--bg-subtle)";
-          ic.style.color = "var(--text-primary)";
+          ic.style.background = `${accent}12`;
         }
       }}
     >
@@ -47,13 +57,13 @@ export default function ToolCard({ name, desc, iconName, to, comingSoon }) {
           width: 40,
           height: 40,
           borderRadius: 10,
-          background: "var(--bg-subtle)",
-          color: "var(--text-primary)",
+          background: `${accent}12`,
+          color: accent,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           flexShrink: 0,
-          transition: "background 0.18s ease, color 0.18s ease",
+          transition: "background 0.18s ease",
         }}
       >
         <ToolIcon name={iconName} />
