@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
+import { aiJsonQuery, aiJsonSchema } from "../../api/client";
 
 const SAMPLE_JSON = `{
   "name": "OneTools",
@@ -137,13 +138,45 @@ function StatusPill({ valid, t }) {
 }
 
 export default function JsonFormatter() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [input, setInput] = useState(SAMPLE_JSON);
   const [output, setOutput] = useState("");
   const [indent, setIndent] = useState(2);
   const [error, setError] = useState(null);
   const [isValid, setIsValid] = useState(null);
   const [copied, setCopied] = useState(false);
+
+  // AI state
+  const [aiMode, setAiMode] = useState("query"); // "query" | "schema"
+  const [aiQuery, setAiQuery] = useState("");
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiResult, setAiResult] = useState(null);
+  const [aiError, setAiError] = useState(null);
+
+  const handleAiRun = async () => {
+    if (aiLoading || !isValid) return;
+    setAiError(null);
+    setAiResult(null);
+    setAiLoading(true);
+    try {
+      const lang = i18n.language || "zh";
+      if (aiMode === "query") {
+        if (!aiQuery.trim()) {
+          setAiLoading(false);
+          return;
+        }
+        const r = await aiJsonQuery(input, aiQuery.trim(), lang);
+        setAiResult({ kind: "query", ...r });
+      } else {
+        const r = await aiJsonSchema(input, lang);
+        setAiResult({ kind: "schema", ...r });
+      }
+    } catch (e) {
+      setAiError(e?.response?.data?.detail || e?.message || "AI call failed");
+    } finally {
+      setAiLoading(false);
+    }
+  };
 
   const processJson = useCallback((val, ind) => {
     if (!val.trim()) {
@@ -470,6 +503,478 @@ export default function JsonFormatter() {
         </div>
       </div>
 
+      {/* ── AI assistant ───────────────────────── */}
+      <div
+        style={{
+          padding: "12px 0 24px",
+        }}
+      >
+        <div
+          style={{
+            padding: 18,
+            borderRadius: "var(--radius)",
+            background: "#ffffff",
+            border: "1px solid var(--border)",
+            boxShadow: "var(--shadow-md)",
+            position: "relative",
+            overflow: "hidden",
+          }}
+        >
+          <div
+            style={{
+              position: "absolute",
+              top: -60,
+              right: -60,
+              width: 200,
+              height: 200,
+              background:
+                "radial-gradient(closest-side, rgba(91,91,245,0.2), transparent)",
+              pointerEvents: "none",
+            }}
+          />
+
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+              marginBottom: 14,
+              position: "relative",
+              flexWrap: "wrap",
+            }}
+          >
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 26,
+                height: 26,
+                borderRadius: 7,
+                background: "var(--gradient-brand)",
+                color: "#fff",
+                fontSize: 13,
+                fontWeight: 700,
+              }}
+            >
+              ✦
+            </span>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div
+                style={{
+                  fontSize: 13.5,
+                  fontWeight: 600,
+                  color: "var(--text-primary)",
+                  letterSpacing: -0.2,
+                }}
+              >
+                {t("tools.jsonFormatter.ai.title")}
+              </div>
+              <div
+                style={{
+                  fontSize: 12,
+                  color: "var(--text-muted)",
+                  marginTop: 1,
+                }}
+              >
+                {t("tools.jsonFormatter.ai.subtitle")}
+              </div>
+            </div>
+
+            {/* Mode toggle */}
+            <div
+              style={{
+                display: "flex",
+                gap: 4,
+                background: "var(--bg-subtle)",
+                padding: 3,
+                borderRadius: 999,
+              }}
+            >
+              {["query", "schema"].map((m) => (
+                <button
+                  key={m}
+                  onClick={() => {
+                    setAiMode(m);
+                    setAiResult(null);
+                    setAiError(null);
+                  }}
+                  style={{
+                    padding: "5px 12px",
+                    borderRadius: 999,
+                    border: "none",
+                    background:
+                      aiMode === m
+                        ? "var(--text-primary)"
+                        : "transparent",
+                    color:
+                      aiMode === m ? "#fff" : "var(--text-secondary)",
+                    fontSize: 11.5,
+                    fontWeight: 600,
+                    letterSpacing: -0.1,
+                    cursor: "pointer",
+                  }}
+                >
+                  {t("tools.jsonFormatter.ai." + m)}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {aiMode === "query" && (
+            <div
+              style={{
+                display: "flex",
+                gap: 8,
+                position: "relative",
+              }}
+            >
+              <input
+                value={aiQuery}
+                onChange={(e) => setAiQuery(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleAiRun()}
+                placeholder={t("tools.jsonFormatter.ai.queryPlaceholder")}
+                disabled={!isValid}
+                style={{
+                  flex: 1,
+                  padding: "10px 14px",
+                  borderRadius: "var(--radius-sm)",
+                  border: "1px solid var(--border-strong)",
+                  background: "#ffffff",
+                  fontSize: 14,
+                  color: "var(--text-primary)",
+                  outline: "none",
+                  opacity: isValid ? 1 : 0.5,
+                }}
+              />
+              <button
+                onClick={handleAiRun}
+                disabled={aiLoading || !isValid || !aiQuery.trim()}
+                style={{
+                  padding: "10px 18px",
+                  borderRadius: "var(--radius-sm)",
+                  border: "none",
+                  background:
+                    aiLoading || !isValid || !aiQuery.trim()
+                      ? "#d8d8e0"
+                      : "var(--gradient-brand)",
+                  color: "#fff",
+                  fontSize: 13,
+                  fontWeight: 600,
+                  letterSpacing: -0.1,
+                  boxShadow:
+                    aiLoading || !isValid || !aiQuery.trim()
+                      ? "none"
+                      : "0 4px 14px rgba(91,91,245,0.35)",
+                  cursor:
+                    aiLoading || !isValid || !aiQuery.trim()
+                      ? "not-allowed"
+                      : "pointer",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {aiLoading
+                  ? t("tools.jsonFormatter.ai.running")
+                  : t("tools.jsonFormatter.ai.run")}
+              </button>
+            </div>
+          )}
+
+          {aiMode === "schema" && (
+            <div style={{ position: "relative" }}>
+              <button
+                onClick={handleAiRun}
+                disabled={aiLoading || !isValid}
+                style={{
+                  padding: "10px 20px",
+                  borderRadius: "var(--radius-sm)",
+                  border: "none",
+                  background:
+                    aiLoading || !isValid
+                      ? "#d8d8e0"
+                      : "var(--gradient-brand)",
+                  color: "#fff",
+                  fontSize: 13,
+                  fontWeight: 600,
+                  letterSpacing: -0.1,
+                  boxShadow:
+                    aiLoading || !isValid
+                      ? "none"
+                      : "0 4px 14px rgba(91,91,245,0.35)",
+                  cursor:
+                    aiLoading || !isValid ? "not-allowed" : "pointer",
+                }}
+              >
+                {aiLoading
+                  ? t("tools.jsonFormatter.ai.inferring")
+                  : t("tools.jsonFormatter.ai.inferSchema")}
+              </button>
+            </div>
+          )}
+
+          {aiMode === "query" && (
+            <div
+              style={{
+                display: "flex",
+                gap: 6,
+                flexWrap: "wrap",
+                marginTop: 10,
+                position: "relative",
+              }}
+            >
+              {[
+                t("tools.jsonFormatter.ai.s1"),
+                t("tools.jsonFormatter.ai.s2"),
+                t("tools.jsonFormatter.ai.s3"),
+              ].map((s, i) => (
+                <button
+                  key={i}
+                  onClick={() => setAiQuery(s)}
+                  style={{
+                    padding: "4px 10px",
+                    borderRadius: 999,
+                    border: "1px solid var(--border)",
+                    background: "rgba(91,91,245,0.04)",
+                    color: "var(--text-secondary)",
+                    fontSize: 11.5,
+                    fontWeight: 500,
+                  }}
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {aiError && (
+            <div
+              style={{
+                marginTop: 14,
+                padding: "10px 12px",
+                borderRadius: "var(--radius-sm)",
+                background: "rgba(239,68,68,0.08)",
+                border: "1px solid rgba(239,68,68,0.25)",
+                fontSize: 12.5,
+                color: "var(--red)",
+                position: "relative",
+              }}
+            >
+              {aiError}
+            </div>
+          )}
+
+          {aiResult?.kind === "query" && (
+            <div
+              style={{
+                marginTop: 14,
+                padding: "14px 16px",
+                borderRadius: "var(--radius-sm)",
+                background: "rgba(91,91,245,0.05)",
+                border: "1px solid rgba(91,91,245,0.2)",
+                position: "relative",
+                animation: "fadeIn 0.25s ease both",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  marginBottom: 8,
+                  flexWrap: "wrap",
+                }}
+              >
+                <code
+                  style={{
+                    fontSize: 11.5,
+                    padding: "3px 8px",
+                    borderRadius: 5,
+                    background: "rgba(91,91,245,0.1)",
+                    color: "var(--brand)",
+                    fontFamily: "var(--font-mono)",
+                    border: "1px solid rgba(91,91,245,0.2)",
+                  }}
+                >
+                  {aiResult.expression}
+                </code>
+                <span
+                  style={{
+                    fontSize: 11,
+                    color: "var(--text-muted)",
+                    fontFamily: "var(--font-mono)",
+                  }}
+                >
+                  · {aiResult.matched_count}{" "}
+                  {t("tools.jsonFormatter.ai.matched")}
+                </span>
+              </div>
+              <pre
+                style={{
+                  margin: 0,
+                  padding: 12,
+                  borderRadius: 6,
+                  background: "#0b0d14",
+                  color: "#d6dbe6",
+                  fontSize: 12.5,
+                  fontFamily: "var(--font-mono)",
+                  lineHeight: 1.55,
+                  overflow: "auto",
+                  maxHeight: 240,
+                }}
+              >
+                {(() => {
+                  try {
+                    return JSON.stringify(
+                      JSON.parse(aiResult.result),
+                      null,
+                      2
+                    );
+                  } catch {
+                    return aiResult.result;
+                  }
+                })()}
+              </pre>
+              <div
+                style={{
+                  marginTop: 10,
+                  fontSize: 12.5,
+                  color: "var(--text-secondary)",
+                  lineHeight: 1.55,
+                }}
+              >
+                {aiResult.explanation}
+              </div>
+            </div>
+          )}
+
+          {aiResult?.kind === "schema" && (
+            <div
+              style={{
+                marginTop: 14,
+                padding: "14px 16px",
+                borderRadius: "var(--radius-sm)",
+                background: "rgba(91,91,245,0.05)",
+                border: "1px solid rgba(91,91,245,0.2)",
+                position: "relative",
+                animation: "fadeIn 0.25s ease both",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: 13,
+                  color: "var(--text-primary)",
+                  marginBottom: 10,
+                  fontWeight: 500,
+                  lineHeight: 1.5,
+                }}
+              >
+                {aiResult.summary}
+              </div>
+              <div style={{ overflowX: "auto" }}>
+                <table
+                  style={{
+                    width: "100%",
+                    borderCollapse: "collapse",
+                    fontSize: 12.5,
+                  }}
+                >
+                  <thead>
+                    <tr
+                      style={{
+                        borderBottom: "1px solid var(--border)",
+                      }}
+                    >
+                      <Th>{t("tools.jsonFormatter.ai.colPath")}</Th>
+                      <Th>{t("tools.jsonFormatter.ai.colType")}</Th>
+                      <Th>{t("tools.jsonFormatter.ai.colDesc")}</Th>
+                      <Th>{t("tools.jsonFormatter.ai.colExample")}</Th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {aiResult.fields.map((f, i) => (
+                      <tr
+                        key={i}
+                        style={{
+                          borderBottom:
+                            "1px solid var(--border-light)",
+                        }}
+                      >
+                        <Td mono>{f.path}</Td>
+                        <Td>
+                          <span
+                            style={{
+                              display: "inline-block",
+                              padding: "2px 8px",
+                              borderRadius: 999,
+                              background: "rgba(91,91,245,0.08)",
+                              color: "var(--brand)",
+                              fontFamily: "var(--font-mono)",
+                              fontSize: 11,
+                              fontWeight: 600,
+                            }}
+                          >
+                            {f.type}
+                          </span>
+                        </Td>
+                        <Td>{f.description}</Td>
+                        <Td mono>
+                          <span
+                            style={{
+                              color: "var(--text-muted)",
+                              fontSize: 11.5,
+                            }}
+                          >
+                            {f.example}
+                          </span>
+                        </Td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <details style={{ marginTop: 12 }}>
+                <summary
+                  style={{
+                    fontSize: 11.5,
+                    color: "var(--text-muted)",
+                    cursor: "pointer",
+                    userSelect: "none",
+                  }}
+                >
+                  {t("tools.jsonFormatter.ai.viewSchema")}
+                </summary>
+                <pre
+                  style={{
+                    marginTop: 8,
+                    padding: 12,
+                    borderRadius: 6,
+                    background: "#0b0d14",
+                    color: "#d6dbe6",
+                    fontSize: 12,
+                    fontFamily: "var(--font-mono)",
+                    lineHeight: 1.55,
+                    overflow: "auto",
+                    maxHeight: 260,
+                  }}
+                >
+                  {(() => {
+                    try {
+                      return JSON.stringify(
+                        JSON.parse(aiResult.schema_json),
+                        null,
+                        2
+                      );
+                    } catch {
+                      return aiResult.schema_json;
+                    }
+                  })()}
+                </pre>
+              </details>
+            </div>
+          )}
+        </div>
+      </div>
+
       {/* Features */}
       <div
         style={{
@@ -558,5 +1063,40 @@ export default function JsonFormatter() {
         ))}
       </div>
     </div>
+  );
+}
+
+function Th({ children }) {
+  return (
+    <th
+      style={{
+        textAlign: "left",
+        padding: "8px 10px",
+        fontSize: 11,
+        fontWeight: 600,
+        color: "var(--text-muted)",
+        letterSpacing: 0.5,
+        textTransform: "uppercase",
+      }}
+    >
+      {children}
+    </th>
+  );
+}
+
+function Td({ children, mono }) {
+  return (
+    <td
+      style={{
+        padding: "8px 10px",
+        fontSize: 12.5,
+        color: "var(--text-primary)",
+        fontFamily: mono ? "var(--font-mono)" : "inherit",
+        verticalAlign: "top",
+        wordBreak: "break-word",
+      }}
+    >
+      {children}
+    </td>
   );
 }

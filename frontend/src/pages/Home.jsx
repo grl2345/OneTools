@@ -30,6 +30,13 @@ const LIVE_TOOLS = [
     color: "#ec4899",
     to: "/tools/timestamp",
   },
+  {
+    nameKey: "tools.removeBg.name",
+    descKey: "tools.removeBg.desc",
+    icon: "✂︎",
+    color: "#8b5cf6",
+    to: "/tools/remove-bg",
+  },
 ];
 
 const UPCOMING_TOOLS = [

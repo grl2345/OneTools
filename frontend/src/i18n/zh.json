@@ -14,7 +14,7 @@
   "tools": {
     "jsonFormatter": {
       "name": "JSON 格式化",
-      "desc": "在浏览器中格式化、校验与压缩 JSON",
+      "desc": "在浏览器中格式化、校验与压缩 JSON，支持 AI 自然语言查询与 Schema 推断",
       "inputLabel": "输入",
       "outputLabel": "输出",
       "placeholder": "在此粘贴 JSON...",
@@ -28,7 +28,27 @@
       "invalidJson": "JSON 不合法",
       "parseError": "解析错误",
       "lines": "行",
-      "depth": "深度"
+      "depth": "深度",
+      "ai": {
+        "title": "AI 数据助手",
+        "subtitle": "用自然语言询问数据，或自动推断结构与字段说明",
+        "query": "自然语言查询",
+        "schema": "Schema 推断",
+        "queryPlaceholder": "例如：给我所有 status=active 的用户姓名",
+        "run": "查询",
+        "running": "查询中...",
+        "inferSchema": "✦ 推断 Schema 与字段字典",
+        "inferring": "分析中...",
+        "matched": "条匹配",
+        "s1": "列出所有顶层键",
+        "s2": "统计 tools 数组中 status=live 的数量",
+        "s3": "把所有键名转成 snake_case 的形式",
+        "colPath": "路径",
+        "colType": "类型",
+        "colDesc": "说明",
+        "colExample": "示例",
+        "viewSchema": "查看完整 JSON Schema"
+      }
     },
     "markdownPreview": {
       "name": "Markdown 预览",
@@ -52,7 +72,18 @@
       "f3": "代码块",
       "f3Desc": "支持围栏代码和内联代码",
       "f4": "一键导出",
-      "f4Desc": "复制 HTML 或原始 Markdown"
+      "f4Desc": "复制 HTML 或原始 Markdown",
+      "ai": {
+        "hint": "选中编辑器中的文字即可召唤 AI 改写",
+        "selected": "已选中 {{n}} 字",
+        "simplify": "简化",
+        "formalize": "专业化",
+        "expand": "扩写",
+        "translate": "翻译",
+        "fix_grammar": "纠错",
+        "summarize": "摘要",
+        "undo": "撤销改写"
+      }
     },
     "imageCompress": {
       "name": "图片压缩",
@@ -119,6 +150,23 @@
         "s3": "圣诞节前三天",
         "s4": "纪元后 10 亿秒"
       }
+    },
+    "removeBg": {
+      "name": "AI 抠图",
+      "desc": "浏览器本地 WASM 模型移除图片背景，不上传服务器",
+      "badge": "本地 AI",
+      "original": "原图",
+      "result": "处理结果",
+      "background": "背景",
+      "bgTransparent": "透明",
+      "dropHere": "拖入或选择一张图片",
+      "modelHint": "首次使用会下载 ~60 MB 的模型到浏览器（会缓存）",
+      "reset": "换一张",
+      "download": "下载 PNG",
+      "loadingModel": "加载模型",
+      "processing": "处理中",
+      "privacyTitle": "100% 本地运行",
+      "privacyDesc": "模型在你的浏览器中通过 WebAssembly 运行，图片永远不会离开你的设备。"
     }
   },
   "upcoming": {

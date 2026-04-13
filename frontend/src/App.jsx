@@ -5,6 +5,7 @@ import JsonFormatter from "./pages/tools/JsonFormatter";
 import MarkdownPreview from "./pages/tools/MarkdownPreview";
 import ImageCompress from "./pages/tools/ImageCompress";
 import Timestamp from "./pages/tools/Timestamp";
+import RemoveBg from "./pages/tools/RemoveBg";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="/tools/markdown" element={<MarkdownPreview />} />
         <Route path="/tools/image-compress" element={<ImageCompress />} />
         <Route path="/tools/timestamp" element={<Timestamp />} />
+        <Route path="/tools/remove-bg" element={<RemoveBg />} />
       </Routes>
     </Layout>
   );

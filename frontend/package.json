@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@imgly/background-removal": "^1.5.5",
     "axios": "^1.7.7",
     "i18next": "^23.15.1",
     "marked": "^14.1.3",

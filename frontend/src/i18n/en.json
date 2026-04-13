@@ -14,7 +14,7 @@
   "tools": {
     "jsonFormatter": {
       "name": "JSON Formatter",
-      "desc": "Format, validate, and minify JSON in your browser",
+      "desc": "Format, validate, minify JSON — plus natural-language query and schema inference",
       "inputLabel": "INPUT",
       "outputLabel": "OUTPUT",
       "placeholder": "Paste your JSON here...",
@@ -28,7 +28,27 @@
       "invalidJson": "Invalid JSON",
       "parseError": "Parse Error",
       "lines": "lines",
-      "depth": "depth"
+      "depth": "depth",
+      "ai": {
+        "title": "AI data assistant",
+        "subtitle": "Ask questions in plain words, or infer schema & field dictionary automatically",
+        "query": "NL query",
+        "schema": "Schema",
+        "queryPlaceholder": "e.g. give me all user names where status=active",
+        "run": "Run",
+        "running": "Running...",
+        "inferSchema": "✦ Infer schema & field dictionary",
+        "inferring": "Analyzing...",
+        "matched": "matched",
+        "s1": "list all top-level keys",
+        "s2": "count items in tools array where status=live",
+        "s3": "rename all keys to snake_case",
+        "colPath": "Path",
+        "colType": "Type",
+        "colDesc": "Description",
+        "colExample": "Example",
+        "viewSchema": "View full JSON Schema"
+      }
     },
     "markdownPreview": {
       "name": "Markdown Preview",
@@ -52,7 +72,18 @@
       "f3": "Code blocks",
       "f3Desc": "Fenced & inline code styled",
       "f4": "One-click export",
-      "f4Desc": "Copy rendered HTML or raw Markdown"
+      "f4Desc": "Copy rendered HTML or raw Markdown",
+      "ai": {
+        "hint": "Select any text in the editor to summon AI rewrite",
+        "selected": "{{n}} chars selected",
+        "simplify": "Simplify",
+        "formalize": "Formalize",
+        "expand": "Expand",
+        "translate": "Translate",
+        "fix_grammar": "Fix grammar",
+        "summarize": "Summarize",
+        "undo": "Undo rewrite"
+      }
     },
     "imageCompress": {
       "name": "Image Compress",
@@ -119,6 +150,23 @@
         "s3": "three days before Christmas",
         "s4": "1 billion seconds after epoch"
       }
+    },
+    "removeBg": {
+      "name": "AI Remove Background",
+      "desc": "Cut out image background with a WASM AI model running 100% in your browser",
+      "badge": "On-device AI",
+      "original": "Original",
+      "result": "Result",
+      "background": "Background",
+      "bgTransparent": "Transparent",
+      "dropHere": "Drop or choose an image",
+      "modelHint": "First use downloads a ~60 MB model to your browser (cached afterwards)",
+      "reset": "Replace",
+      "download": "Download PNG",
+      "loadingModel": "Loading model",
+      "processing": "Processing",
+      "privacyTitle": "100% on-device",
+      "privacyDesc": "The AI model runs in your browser via WebAssembly — your images never leave your device."
     }
   },
   "upcoming": {

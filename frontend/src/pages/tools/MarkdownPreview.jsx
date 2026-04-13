@@ -1,6 +1,7 @@
 import { useState, useMemo, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { marked } from "marked";
+import { aiMarkdownRewrite } from "../../api/client";
 
 const SAMPLE_MD = `# Welcome to OneTools
 
@@ -63,12 +64,89 @@ function useDebounced(value, delay = 80) {
   return d;
 }
 
+const AI_ACTIONS = [
+  { id: "simplify", color: "#0a84ff" },
+  { id: "formalize", color: "#5b5bf5" },
+  { id: "expand", color: "#14b8a6" },
+  { id: "translate", color: "#ec4899" },
+  { id: "fix_grammar", color: "#f59e0b" },
+  { id: "summarize", color: "#8b5cf6" },
+];
+
 export default function MarkdownPreview() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [input, setInput] = useState(SAMPLE_MD);
   const [copied, setCopied] = useState(null);
   const textareaRef = useRef(null);
   const previewRef = useRef(null);
+
+  // AI selection + rewrite
+  const [selection, setSelection] = useState({ start: 0, end: 0 });
+  const [aiBusy, setAiBusy] = useState(null); // active action id while running
+  const [aiError, setAiError] = useState(null);
+  const [lastRewrite, setLastRewrite] = useState(null); // { action, prevText, prevSel, note }
+
+  const hasSel = selection.end > selection.start;
+
+  const syncSelection = () => {
+    const ta = textareaRef.current;
+    if (!ta) return;
+    setSelection({ start: ta.selectionStart, end: ta.selectionEnd });
+  };
+
+  const handleRewrite = async (action) => {
+    if (!hasSel || aiBusy) return;
+    const text = input.slice(selection.start, selection.end);
+    if (!text.trim()) return;
+    setAiBusy(action);
+    setAiError(null);
+    try {
+      const res = await aiMarkdownRewrite(
+        text,
+        action,
+        i18n.language || "zh"
+      );
+      const next =
+        input.slice(0, selection.start) +
+        res.rewritten +
+        input.slice(selection.end);
+      setLastRewrite({
+        action,
+        prevText: input,
+        prevSel: selection,
+        note: res.note,
+      });
+      setInput(next);
+      // select the rewritten region so user can chain actions
+      requestAnimationFrame(() => {
+        const ta = textareaRef.current;
+        if (!ta) return;
+        const newEnd = selection.start + res.rewritten.length;
+        ta.focus();
+        ta.setSelectionRange(selection.start, newEnd);
+        setSelection({ start: selection.start, end: newEnd });
+      });
+    } catch (e) {
+      setAiError(
+        e?.response?.data?.detail || e?.message || "AI call failed"
+      );
+    } finally {
+      setAiBusy(null);
+    }
+  };
+
+  const undoRewrite = () => {
+    if (!lastRewrite) return;
+    setInput(lastRewrite.prevText);
+    requestAnimationFrame(() => {
+      const ta = textareaRef.current;
+      if (!ta) return;
+      ta.focus();
+      ta.setSelectionRange(lastRewrite.prevSel.start, lastRewrite.prevSel.end);
+      setSelection(lastRewrite.prevSel);
+    });
+    setLastRewrite(null);
+  };
 
   const debouncedInput = useDebounced(input, 50);
 
@@ -266,6 +344,139 @@ export default function MarkdownPreview() {
         </button>
       </div>
 
+      {/* ── AI rewrite toolbar ─────────────────── */}
+      <div
+        style={{
+          marginBottom: 12,
+          padding: "10px 14px",
+          borderRadius: "var(--radius)",
+          background: hasSel ? "#ffffff" : "rgba(255,255,255,0.6)",
+          border: "1px solid var(--border)",
+          boxShadow: hasSel ? "var(--shadow-md)" : "var(--shadow-sm)",
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+          flexWrap: "wrap",
+          transition: "all 0.2s ease",
+          opacity: hasSel ? 1 : 0.75,
+        }}
+      >
+        <span
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: 22,
+            height: 22,
+            borderRadius: 6,
+            background: "var(--gradient-brand)",
+            color: "#fff",
+            fontSize: 11,
+            fontWeight: 700,
+          }}
+        >
+          ✦
+        </span>
+        <span
+          style={{
+            fontSize: 12.5,
+            color: hasSel ? "var(--text-primary)" : "var(--text-muted)",
+            fontWeight: 500,
+            letterSpacing: -0.1,
+            marginRight: 4,
+          }}
+        >
+          {hasSel
+            ? t("tools.markdownPreview.ai.selected", {
+                n: selection.end - selection.start,
+              })
+            : t("tools.markdownPreview.ai.hint")}
+        </span>
+        <div
+          style={{
+            display: "flex",
+            gap: 6,
+            flexWrap: "wrap",
+            flex: 1,
+          }}
+        >
+          {AI_ACTIONS.map((a) => {
+            const running = aiBusy === a.id;
+            const disabled = !hasSel || aiBusy;
+            return (
+              <button
+                key={a.id}
+                onClick={() => handleRewrite(a.id)}
+                disabled={disabled}
+                style={{
+                  padding: "5px 12px",
+                  borderRadius: 999,
+                  border: `1px solid ${a.color}40`,
+                  background: running ? a.color : `${a.color}10`,
+                  color: running ? "#fff" : a.color,
+                  fontSize: 11.5,
+                  fontWeight: 600,
+                  letterSpacing: -0.1,
+                  cursor: disabled ? "not-allowed" : "pointer",
+                  opacity: disabled && !running ? 0.45 : 1,
+                  transition: "all 0.15s ease",
+                }}
+              >
+                {running ? "..." : t("tools.markdownPreview.ai." + a.id)}
+              </button>
+            );
+          })}
+        </div>
+        {lastRewrite && !aiBusy && (
+          <button
+            onClick={undoRewrite}
+            style={{
+              padding: "5px 12px",
+              borderRadius: 999,
+              border: "1px solid var(--border)",
+              background: "#ffffff",
+              color: "var(--text-secondary)",
+              fontSize: 11.5,
+              fontWeight: 500,
+            }}
+          >
+            ↶ {t("tools.markdownPreview.ai.undo")}
+          </button>
+        )}
+      </div>
+
+      {aiError && (
+        <div
+          style={{
+            marginBottom: 12,
+            padding: "10px 12px",
+            borderRadius: "var(--radius-sm)",
+            background: "rgba(239,68,68,0.08)",
+            border: "1px solid rgba(239,68,68,0.25)",
+            fontSize: 12.5,
+            color: "var(--red)",
+          }}
+        >
+          {aiError}
+        </div>
+      )}
+
+      {lastRewrite?.note && !aiError && (
+        <div
+          style={{
+            marginBottom: 12,
+            padding: "8px 12px",
+            borderRadius: "var(--radius-sm)",
+            background: "rgba(91,91,245,0.05)",
+            border: "1px solid rgba(91,91,245,0.18)",
+            fontSize: 12,
+            color: "var(--brand)",
+          }}
+        >
+          ✦ {lastRewrite.note}
+        </div>
+      )}
+
       {/* Split editor */}
       <div
         style={{
@@ -289,6 +500,9 @@ export default function MarkdownPreview() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onScroll={handleScrollEditor}
+            onSelect={syncSelection}
+            onKeyUp={syncSelection}
+            onMouseUp={syncSelection}
             placeholder={t("tools.markdownPreview.placeholder")}
             spellCheck={false}
             style={{
