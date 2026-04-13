@@ -16,6 +16,20 @@ const LIVE_TOOLS = [
     color: "#14b8a6",
     to: "/tools/markdown",
   },
+  {
+    nameKey: "tools.imageCompress.name",
+    descKey: "tools.imageCompress.desc",
+    icon: "IMG",
+    color: "#f59e0b",
+    to: "/tools/image-compress",
+  },
+  {
+    nameKey: "tools.timestamp.name",
+    descKey: "tools.timestamp.desc",
+    icon: "⏱",
+    color: "#ec4899",
+    to: "/tools/timestamp",
+  },
 ];
 
 const UPCOMING_TOOLS = [
