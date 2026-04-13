@@ -16,6 +16,18 @@ async function getORT() {
       // into /public — works out of the box on Vercel.
       m.env.wasm.wasmPaths =
         "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.19.2/dist/";
+
+      // IMPORTANT: disable multi-threading and proxy.
+      //
+      // Multi-threaded WASM requires SharedArrayBuffer, which in turn needs
+      // COOP/COEP headers that Vercel doesn't send by default. Without it,
+      // ORT's threaded runtime silently half-initializes and later blows up
+      // with cryptic errors like "t.getValue is not a function".
+      // Single-threaded mode is slower but works everywhere.
+      m.env.wasm.numThreads = 1;
+      m.env.wasm.proxy = false;
+      // Keep SIMD on — broadly supported and a big speedup.
+      m.env.wasm.simd = true;
       return m;
     });
   }
@@ -29,6 +41,8 @@ async function getSession(onProgress) {
   const resp = await fetch(MODEL_URL);
   if (!resp.ok) throw new Error(`Model fetch failed: HTTP ${resp.status}`);
 
+  // Stream the download so we can report progress, then collect into a single
+  // ArrayBuffer for InferenceSession.create (Blob->arrayBuffer is robust).
   const reader = resp.body.getReader();
   const total = Number(resp.headers.get("Content-Length")) || 0;
   const chunks = [];
@@ -40,17 +54,21 @@ async function getSession(onProgress) {
     loaded += value.length;
     if (total) onProgress?.(loaded / total);
   }
-  const buf = new Uint8Array(loaded);
-  let off = 0;
-  for (const c of chunks) {
-    buf.set(c, off);
-    off += c.length;
-  }
+  const modelBuf = await new Blob(chunks).arrayBuffer();
 
-  sessionCache = await ort.InferenceSession.create(buf, {
-    executionProviders: ["wasm"],
-    graphOptimizationLevel: "all",
-  });
+  // No session options — let ORT pick safe defaults. Passing
+  // `graphOptimizationLevel: "all"` has been observed to trip up the
+  // minified runtime in 1.19.x.
+  sessionCache = await ort.InferenceSession.create(modelBuf);
+  if (typeof console !== "undefined") {
+    console.log(
+      "[RemoveWatermark] ORT session ready:",
+      "inputs=",
+      sessionCache.inputNames,
+      "outputs=",
+      sessionCache.outputNames
+    );
+  }
   return sessionCache;
 }
 
@@ -92,18 +110,33 @@ async function runInpaint(origImage, maskCanvas) {
     maskTensor[i] = maskData.data[i * 4 + 3] > 32 ? 1 : 0;
   }
 
-  // 3. Run inference — use dynamic input names to be resilient
-  const feeds = {};
-  feeds[session.inputNames[0]] = new ort.Tensor(
+  // 3. Run inference — map by input NAMES (image/mask), not array order,
+  //    so the feeds survive any reshuffling in future model versions.
+  const imageTensor = new ort.Tensor(
     "float32",
     imgTensor,
     [1, 3, MODEL_SIZE, MODEL_SIZE]
   );
-  feeds[session.inputNames[1]] = new ort.Tensor(
+  const maskTensorObj = new ort.Tensor(
     "float32",
     maskTensor,
     [1, 1, MODEL_SIZE, MODEL_SIZE]
   );
+
+  const feeds = {};
+  for (const name of session.inputNames) {
+    const lower = name.toLowerCase();
+    if (lower.includes("mask")) {
+      feeds[name] = maskTensorObj;
+    } else {
+      feeds[name] = imageTensor;
+    }
+  }
+  // Safety: if the loop didn't fill both, fall back to positional.
+  if (Object.keys(feeds).length < session.inputNames.length) {
+    feeds[session.inputNames[0]] = imageTensor;
+    feeds[session.inputNames[1]] = maskTensorObj;
+  }
   const results = await session.run(feeds);
   const outTensor = results[session.outputNames[0]];
   const out = outTensor.data; // Float32Array [1, 3, H, W] in [0, 1]
@@ -301,8 +334,17 @@ export default function RemoveWatermark() {
       setShowCompareAfter(true);
       setStage(null);
     } catch (e) {
-      console.error(e);
-      setError(e?.message || "Inpainting failed");
+      console.error("[RemoveWatermark] inference failed", e);
+      const msg = e?.message || "Inpainting failed";
+      // Known errors get a more actionable hint
+      if (/getValue|SharedArrayBuffer|wasm/i.test(msg)) {
+        setError(
+          msg +
+            " · 如果首次运行，请刷新页面重试；也可以打开浏览器控制台查看详情。"
+        );
+      } else {
+        setError(msg);
+      }
       setStage(null);
     }
   };
