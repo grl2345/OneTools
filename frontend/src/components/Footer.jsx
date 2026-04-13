@@ -13,14 +13,43 @@ export default function Footer() {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
+        position: "relative",
       }}
     >
-      <span style={{ fontSize: 12, color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
-        OneTools &copy; 2026 &middot; {t("footer.builtWith")}
+      <div
+        style={{
+          position: "absolute",
+          left: 0,
+          right: 0,
+          top: -1,
+          height: 1,
+          background:
+            "linear-gradient(90deg, transparent 0%, rgba(109,91,255,0.45) 50%, transparent 100%)",
+          pointerEvents: "none",
+        }}
+      />
+      <span
+        style={{
+          fontSize: 11,
+          color: "var(--text-muted)",
+          fontFamily: "var(--font-mono)",
+          letterSpacing: 0.5,
+        }}
+      >
+        <span style={{ color: "var(--accent)" }}>$</span> OneTools@2026 ::{" "}
+        {t("footer.builtWith")}
       </span>
-      <div style={{ display: "flex", gap: 16 }}>
-        <a href="#" style={{ fontSize: 12, color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
-          GitHub
+      <div style={{ display: "flex", gap: 18 }}>
+        <a
+          href="#"
+          style={{
+            fontSize: 11,
+            color: "var(--text-muted)",
+            fontFamily: "var(--font-mono)",
+            letterSpacing: 0.5,
+          }}
+        >
+          [GITHUB]
         </a>
       </div>
     </footer>

@@ -14,17 +14,19 @@ export default function LangSwitch() {
     <button
       onClick={toggle}
       style={{
-        padding: "4px 12px",
+        padding: "5px 14px",
         borderRadius: 20,
-        border: "1px solid var(--border)",
-        background: "var(--bg-card)",
-        color: "var(--text-secondary)",
-        fontSize: 12,
+        border: "1px solid var(--border-strong)",
+        background: "rgba(0,229,255,0.05)",
+        color: "var(--accent-text)",
+        fontSize: 11,
         fontFamily: "var(--font-mono)",
-        fontWeight: 500,
+        fontWeight: 600,
+        letterSpacing: 1,
+        boxShadow: "inset 0 0 8px rgba(0,229,255,0.12)",
       }}
     >
-      {isZh ? "EN" : "中文"}
+      {isZh ? "» EN" : "» 中文"}
     </button>
   );
 }
