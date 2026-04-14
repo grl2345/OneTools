@@ -27,7 +27,7 @@
     },
     "eyebrow": "24 everyday tools, one place",
     "pageTitle": "Tools",
-    "pageSub": "{{n}} tools · browse by category or search",
+    "pageSub": "24 tools. Browse by category or search.",
     "pageSubMatch": "{{n}} of {{total}} match",
     "searchPlaceholder": "Search tools...",
     "noResults": "No matching tools. Try a different keyword.",
@@ -83,6 +83,9 @@
     "tab": {
       "all": "All"
     },
+    "cta": "Suggest a tool",
+    "cardOpen": "Open",
+    "cardPreview": "Details",
     "heroFoot": "{{n}} tools · open and use · no signup"
   },
   "tools": {
@@ -691,10 +694,16 @@
     }
   },
   "sidebar": {
-    "sec_home": "Browse",
+    "sec_browse": "Browse",
+    "sec_home": "Home",
     "sec_cat": "Categories",
     "sec_site": "Site",
-    "all": "All Tools"
+    "sec_more": "More",
+    "tools": "Tools",
+    "all": "All tools",
+    "tipLabel": "Feedback",
+    "tipTitle": "Missing a tool?",
+    "tipSub": "Open an issue on GitHub"
   },
   "cmp": {
     "title": "Compared to the usual alternatives",
