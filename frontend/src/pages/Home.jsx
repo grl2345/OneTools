@@ -6,16 +6,16 @@ import ToolIcon from "../components/ToolIcon";
 import SEO, { schema } from "../components/SEO";
 
 const PAINKILLERS = [
-  { nameKey: "tools.idPhoto.name",          taglineKey: "home.paink.idPhoto",         iconName: "idPhoto",         accent: "var(--cat-social)",  to: "/tools/id-photo" },
-  { nameKey: "tools.removeWatermark.name",  taglineKey: "home.paink.removeWatermark", iconName: "removeWatermark", accent: "var(--cat-social)",  to: "/tools/remove-watermark" },
-  { nameKey: "tools.pdfSummary.name",       taglineKey: "home.paink.pdfSummary",      iconName: "pdfSummary",      accent: "var(--cat-doc)",     to: "/tools/pdf-summary" },
-  { nameKey: "tools.videoCompress.name",    taglineKey: "home.paink.videoCompress",   iconName: "videoCompress",   accent: "var(--cat-av)",      to: "/tools/video-compress" },
-  { nameKey: "tools.fileEncrypt.name",      taglineKey: "home.paink.fileEncrypt",     iconName: "fileEncrypt",     accent: "var(--cat-privacy)", to: "/tools/file-encrypt" },
+  { nameKey: "tools.idPhoto.name",          taglineKey: "home.paink.idPhoto",         iconName: "idPhoto",         accent: "#7c3aed", to: "/tools/id-photo" },
+  { nameKey: "tools.removeWatermark.name",  taglineKey: "home.paink.removeWatermark", iconName: "removeWatermark", accent: "#db2777", to: "/tools/remove-watermark" },
+  { nameKey: "tools.pdfSummary.name",       taglineKey: "home.paink.pdfSummary",      iconName: "pdfSummary",      accent: "#ea580c", to: "/tools/pdf-summary" },
+  { nameKey: "tools.videoCompress.name",    taglineKey: "home.paink.videoCompress",   iconName: "videoCompress",   accent: "#0891b2", to: "/tools/video-compress" },
+  { nameKey: "tools.fileEncrypt.name",      taglineKey: "home.paink.fileEncrypt",     iconName: "fileEncrypt",     accent: "#059669", to: "/tools/file-encrypt" },
 ];
 
 const CATEGORIES = [
   {
-    id: "privacy", titleKey: "home.scene.privacy", subKey: "home.scene.privacy_sub", accent: "var(--cat-privacy)",
+    id: "privacy", titleKey: "home.scene.privacy", subKey: "home.scene.privacy_sub", accent: "#059669",
     tools: [
       { nameKey: "tools.fileEncrypt.name",     descKey: "home.bene.fileEncrypt",     iconName: "fileEncrypt",     to: "/tools/file-encrypt",     tags: ["加密", "离线"] },
       { nameKey: "tools.exif.name",            descKey: "home.bene.exif",            iconName: "exif",            to: "/tools/exif",             tags: ["元数据"] },
@@ -23,7 +23,7 @@ const CATEGORIES = [
     ],
   },
   {
-    id: "doc", titleKey: "home.scene.doc", subKey: "home.scene.doc_sub", accent: "var(--cat-doc)",
+    id: "doc", titleKey: "home.scene.doc", subKey: "home.scene.doc_sub", accent: "#ea580c",
     tools: [
       { nameKey: "tools.pdf.name",          descKey: "home.bene.pdf",          iconName: "pdf",          to: "/tools/pdf",            tags: ["合并", "拆分"] },
       { nameKey: "tools.pdfSummary.name",   descKey: "home.bene.pdfSummary",   iconName: "pdfSummary",   to: "/tools/pdf-summary",    tags: ["摘要", "要点"] },
@@ -33,7 +33,7 @@ const CATEGORIES = [
     ],
   },
   {
-    id: "social", titleKey: "home.scene.social", subKey: "home.scene.social_sub", accent: "var(--cat-social)",
+    id: "social", titleKey: "home.scene.social", subKey: "home.scene.social_sub", accent: "#7c3aed",
     tools: [
       { nameKey: "tools.idPhoto.name",       descKey: "home.bene.idPhoto",       iconName: "idPhoto",       to: "/tools/id-photo",       tags: ["证件"] },
       { nameKey: "tools.removeBg.name",      descKey: "home.bene.removeBg",      iconName: "removeBg",      to: "/tools/remove-bg",      tags: ["抠图"] },
@@ -43,7 +43,7 @@ const CATEGORIES = [
     ],
   },
   {
-    id: "av", titleKey: "home.scene.av", subKey: "home.scene.av_sub", accent: "var(--cat-av)",
+    id: "av", titleKey: "home.scene.av", subKey: "home.scene.av_sub", accent: "#0891b2",
     tools: [
       { nameKey: "tools.videoCompress.name", descKey: "home.bene.videoCompress", iconName: "videoCompress", to: "/tools/video-compress", tags: ["压缩"] },
       { nameKey: "tools.videoToGif.name",    descKey: "home.bene.videoToGif",    iconName: "videoToGif",    to: "/tools/video-to-gif",   tags: ["GIF"] },
@@ -51,7 +51,7 @@ const CATEGORIES = [
     ],
   },
   {
-    id: "dev", titleKey: "home.scene.dev", subKey: "home.scene.dev_sub", accent: "var(--cat-dev)",
+    id: "dev", titleKey: "home.scene.dev", subKey: "home.scene.dev_sub", accent: "#4f46e5",
     tools: [
       { nameKey: "tools.jsonFormatter.name",   descKey: "home.bene.jsonFormatter",   iconName: "json",       to: "/tools/json",      tags: ["JSON", "查询"] },
       { nameKey: "tools.markdownPreview.name", descKey: "home.bene.markdownPreview", iconName: "markdown",   to: "/tools/markdown",  tags: ["Markdown"] },

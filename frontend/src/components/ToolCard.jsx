@@ -25,7 +25,7 @@ export default function ToolCard({
   name,
   desc,
   iconName,
-  accent = "var(--brand)",
+  accent = "#4f46e5",
   tags = [],
   to,
   comingSoon,
