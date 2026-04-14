@@ -233,7 +233,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Category tabs ─────────────────────────── */}
+      {/* ── Category tabs — simple underline style, no pill ─── */}
       <div
         style={{
           position: "sticky",
@@ -249,11 +249,10 @@ export default function Home() {
           style={{
             maxWidth: 1200,
             margin: "0 auto",
-            padding: "18px 24px",
+            padding: "0 24px",
             display: "flex",
             justifyContent: "center",
             flexWrap: "wrap",
-            gap: 10,
           }}
         >
           {TABS.map((tab) => {
@@ -263,40 +262,34 @@ export default function Home() {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 style={{
-                  padding: "9px 16px",
-                  borderRadius: 999,
-                  border: active
-                    ? "2px solid #0f172a"
-                    : "2px solid transparent",
-                  background: active ? "#c1ed3e" : "#f6f7f9",
-                  color: "#0f172a",
-                  fontSize: 13.5,
-                  fontWeight: 700,
+                  padding: "14px 18px",
+                  background: "transparent",
+                  border: "none",
+                  borderBottom: active ? "2px solid #0f172a" : "2px solid transparent",
+                  color: active ? "#0f172a" : "#64748b",
+                  fontSize: 14,
+                  fontWeight: active ? 600 : 500,
                   cursor: "pointer",
                   letterSpacing: -0.1,
                   display: "inline-flex",
                   alignItems: "center",
-                  gap: 8,
-                  transition: "all 0.15s ease",
-                  boxShadow: active ? "0 3px 0 #0f172a" : "none",
+                  gap: 6,
+                  marginBottom: -1,
+                  transition: "color 0.12s ease",
                 }}
                 onMouseEnter={(e) => {
-                  if (!active) e.currentTarget.style.background = "#eef0f3";
+                  if (!active) e.currentTarget.style.color = "#0f172a";
                 }}
                 onMouseLeave={(e) => {
-                  if (!active) e.currentTarget.style.background = "#f6f7f9";
+                  if (!active) e.currentTarget.style.color = "#64748b";
                 }}
               >
-                <span style={{ fontSize: 15 }}>{tab.emoji}</span>
                 {t(tab.labelKey)}
                 <span
                   style={{
                     fontSize: 11,
-                    padding: "1px 7px",
-                    borderRadius: 999,
-                    background: active ? "#0f172a" : "#ffffff",
-                    color: active ? "#c1ed3e" : "var(--text-muted)",
-                    fontWeight: 700,
+                    color: active ? "#0f172a" : "#94a3b8",
+                    fontWeight: 500,
                     fontFamily: "var(--font-mono)",
                   }}
                 >
