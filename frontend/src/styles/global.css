@@ -5,63 +5,74 @@
 }
 
 :root {
-  /* ── Surfaces (light + tech) ─────────────────── */
-  --bg: #fafbfc;
+  /* ── Surfaces (subtly warm + layered) ─────────── */
+  --bg: #f7f8fb;
   --bg-elevated: #ffffff;
   --bg-card: #ffffff;
-  --bg-subtle: #f3f4f7;
+  --bg-subtle: #eef0f6;
   --bg-input: #f7f8fa;
 
-  /* Hairline borders */
-  --border: rgba(17, 24, 39, 0.08);
-  --border-strong: rgba(17, 24, 39, 0.14);
-  --border-light: rgba(17, 24, 39, 0.04);
+  /* Hairline borders (slightly richer) */
+  --border: rgba(15, 23, 42, 0.09);
+  --border-strong: rgba(15, 23, 42, 0.16);
+  --border-light: rgba(15, 23, 42, 0.05);
 
-  /* Neutral text ramp — crisp, high contrast */
-  --text-primary: #07080d;
-  --text-secondary: #3a4050;
-  --text-muted: #5e667a;
-  --text-faint: #8b92a4;
+  /* Text ramp — slate family, higher contrast */
+  --text-primary: #0b1020;
+  --text-secondary: #374151;
+  --text-muted: #596277;
+  --text-faint: #8a91a3;
 
-  /* Brand — indigo/violet gradient */
-  --brand: #5b5bf5;
-  --brand-2: #7c5cff;
-  --brand-3: #a855f7;
-  --brand-soft: rgba(91, 91, 245, 0.1);
-  --brand-border: rgba(91, 91, 245, 0.2);
+  /* Brand — deeper, more confident indigo */
+  --brand: #4f46e5;
+  --brand-2: #7c3aed;
+  --brand-3: #db2777;
+  --brand-strong: #4338ca;
+  --brand-soft: rgba(79, 70, 229, 0.1);
+  --brand-border: rgba(79, 70, 229, 0.22);
+
+  /* Category accents — saturated but mature (tailwind 600 tier) */
+  --cat-privacy: #059669;
+  --cat-doc:     #ea580c;
+  --cat-social:  #7c3aed;
+  --cat-av:      #0891b2;
+  --cat-dev:     #4f46e5;
 
   /* System accents */
-  --blue: #2563eb;
-  --indigo: #5b5bf5;
-  --purple: #8b5cf6;
-  --pink: #ec4899;
-  --rose: #f43f5e;
-  --orange: #f97316;
-  --amber: #f59e0b;
-  --green: #10b981;
-  --teal: #14b8a6;
-  --cyan: #06b6d4;
-  --red: #ef4444;
+  --blue:   #2563eb;
+  --indigo: #4f46e5;
+  --purple: #7c3aed;
+  --pink:   #db2777;
+  --rose:   #e11d48;
+  --orange: #ea580c;
+  --amber:  #d97706;
+  --green:  #059669;
+  --teal:   #0d9488;
+  --cyan:   #0891b2;
+  --red:    #dc2626;
 
-  /* Signature gradient */
+  /* Signature gradient — richer, more saturated */
   --gradient-brand:
-    linear-gradient(135deg, #5b5bf5 0%, #8b5cf6 50%, #ec4899 100%);
+    linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #db2777 100%);
   --gradient-brand-soft:
-    linear-gradient(
-      135deg,
-      rgba(91, 91, 245, 0.12) 0%,
-      rgba(139, 92, 246, 0.12) 50%,
-      rgba(236, 72, 153, 0.12) 100%
-    );
+    linear-gradient(135deg,
+      rgba(79, 70, 229, 0.14) 0%,
+      rgba(124, 58, 237, 0.12) 50%,
+      rgba(219, 39, 119, 0.10) 100%);
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(10, 11, 16, 0.04),
-    0 0 0 1px rgba(10, 11, 16, 0.04);
-  --shadow-md: 0 4px 12px rgba(10, 11, 16, 0.06),
-    0 0 0 1px rgba(10, 11, 16, 0.04);
-  --shadow-lg: 0 12px 40px -8px rgba(10, 11, 16, 0.12),
-    0 0 0 1px rgba(10, 11, 16, 0.04);
-  --shadow-glow: 0 0 0 4px rgba(91, 91, 245, 0.14);
+  /* Ambient page glow — placed behind content in body::before */
+  --glow-indigo: rgba(79, 70, 229, 0.09);
+  --glow-violet: rgba(124, 58, 237, 0.06);
+
+  /* Shadows — deeper, more dimensional */
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04),
+    0 0 0 1px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 16px -4px rgba(15, 23, 42, 0.08),
+    0 0 0 1px rgba(15, 23, 42, 0.05);
+  --shadow-lg: 0 18px 48px -12px rgba(15, 23, 42, 0.16),
+    0 0 0 1px rgba(15, 23, 42, 0.05);
+  --shadow-brand: 0 12px 36px -12px rgba(79, 70, 229, 0.32);
+  --shadow-glow: 0 0 0 4px rgba(79, 70, 229, 0.14);
 
   /* Typography */
   --font-sans:
@@ -78,6 +89,22 @@
 
   --max-width: 1180px;
 }
+
+/* Ambient gradient wash — gives the page some atmosphere */
+body {
+  position: relative;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 90% 60% at 50% -5%, var(--glow-indigo), transparent 60%),
+    radial-gradient(ellipse 50% 35% at 85% 0%, var(--glow-violet), transparent 70%);
+}
+#root { position: relative; z-index: 1; }
 
 html, body {
   background: var(--bg);

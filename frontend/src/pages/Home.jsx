@@ -5,117 +5,62 @@ import ToolCard from "../components/ToolCard";
 import ToolIcon from "../components/ToolIcon";
 import SEO, { schema } from "../components/SEO";
 
-// Five "painkiller" tools highlighted in the hero — things people actually
-// pay money for elsewhere. Ordered by how clearly they replace a paid service.
 const PAINKILLERS = [
-  {
-    nameKey: "tools.idPhoto.name",
-    benefitKey: "home.paink.idPhoto",
-    priceAnchorKey: "home.paink.idPhoto_price",
-    iconName: "idPhoto",
-    accent: "#8b5cf6",
-    to: "/tools/id-photo",
-  },
-  {
-    nameKey: "tools.removeWatermark.name",
-    benefitKey: "home.paink.removeWatermark",
-    priceAnchorKey: "home.paink.removeWatermark_price",
-    iconName: "removeWatermark",
-    accent: "#8b5cf6",
-    to: "/tools/remove-watermark",
-  },
-  {
-    nameKey: "tools.pdfSummary.name",
-    benefitKey: "home.paink.pdfSummary",
-    priceAnchorKey: "home.paink.pdfSummary_price",
-    iconName: "pdfSummary",
-    accent: "#ff6b35",
-    to: "/tools/pdf-summary",
-  },
-  {
-    nameKey: "tools.videoCompress.name",
-    benefitKey: "home.paink.videoCompress",
-    priceAnchorKey: "home.paink.videoCompress_price",
-    iconName: "videoCompress",
-    accent: "#06b6d4",
-    to: "/tools/video-compress",
-  },
-  {
-    nameKey: "tools.fileEncrypt.name",
-    benefitKey: "home.paink.fileEncrypt",
-    priceAnchorKey: "home.paink.fileEncrypt_price",
-    iconName: "fileEncrypt",
-    accent: "#059669",
-    to: "/tools/file-encrypt",
-  },
+  { nameKey: "tools.idPhoto.name",          taglineKey: "home.paink.idPhoto",         iconName: "idPhoto",         accent: "var(--cat-social)",  to: "/tools/id-photo" },
+  { nameKey: "tools.removeWatermark.name",  taglineKey: "home.paink.removeWatermark", iconName: "removeWatermark", accent: "var(--cat-social)",  to: "/tools/remove-watermark" },
+  { nameKey: "tools.pdfSummary.name",       taglineKey: "home.paink.pdfSummary",      iconName: "pdfSummary",      accent: "var(--cat-doc)",     to: "/tools/pdf-summary" },
+  { nameKey: "tools.videoCompress.name",    taglineKey: "home.paink.videoCompress",   iconName: "videoCompress",   accent: "var(--cat-av)",      to: "/tools/video-compress" },
+  { nameKey: "tools.fileEncrypt.name",      taglineKey: "home.paink.fileEncrypt",     iconName: "fileEncrypt",     accent: "var(--cat-privacy)", to: "/tools/file-encrypt" },
 ];
 
-// Scenario-based categories (what situation the user is in) rather than
-// technology-based buckets. Benefit-driven short desc per tool via descKey
-// pointing at home.bene.* strings.
 const CATEGORIES = [
   {
-    id: "privacy",
-    titleKey: "home.scene.privacy",
-    subKey: "home.scene.privacy_sub",
-    accent: "#059669",
+    id: "privacy", titleKey: "home.scene.privacy", subKey: "home.scene.privacy_sub", accent: "var(--cat-privacy)",
     tools: [
-      { nameKey: "tools.fileEncrypt.name", descKey: "home.bene.fileEncrypt",      iconName: "fileEncrypt",     to: "/tools/file-encrypt",     tags: ["AES-256", "本地", "隐私"] },
-      { nameKey: "tools.exif.name",        descKey: "home.bene.exif",             iconName: "exif",            to: "/tools/exif",             tags: ["本地", "隐私"] },
-      { nameKey: "tools.removeWatermark.name", descKey: "home.bene.removeWatermark", iconName: "removeWatermark", to: "/tools/remove-watermark", tags: ["WASM", "LaMa", "本地"] },
+      { nameKey: "tools.fileEncrypt.name",     descKey: "home.bene.fileEncrypt",     iconName: "fileEncrypt",     to: "/tools/file-encrypt",     tags: ["加密", "离线"] },
+      { nameKey: "tools.exif.name",            descKey: "home.bene.exif",            iconName: "exif",            to: "/tools/exif",             tags: ["元数据"] },
+      { nameKey: "tools.removeWatermark.name", descKey: "home.bene.removeWatermark", iconName: "removeWatermark", to: "/tools/remove-watermark", tags: ["画笔", "修复"] },
     ],
   },
   {
-    id: "doc",
-    titleKey: "home.scene.doc",
-    subKey: "home.scene.doc_sub",
-    accent: "#ff6b35",
+    id: "doc", titleKey: "home.scene.doc", subKey: "home.scene.doc_sub", accent: "var(--cat-doc)",
     tools: [
-      { nameKey: "tools.pdf.name",         descKey: "home.bene.pdf",          iconName: "pdf",         to: "/tools/pdf",          tags: ["本地", "合并", "拆分"] },
-      { nameKey: "tools.pdfSummary.name",  descKey: "home.bene.pdfSummary",   iconName: "pdfSummary",  to: "/tools/pdf-summary",  tags: ["AI", "摘要", "要点"] },
-      { nameKey: "tools.ocr.name",         descKey: "home.bene.ocr",          iconName: "ocr",         to: "/tools/ocr",          tags: ["AI", "代码截图"] },
-      { nameKey: "tools.handwriting.name", descKey: "home.bene.handwriting",  iconName: "handwriting", to: "/tools/handwriting",  tags: ["AI", "中英文"] },
-      { nameKey: "tools.imageToTable.name",descKey: "home.bene.imageToTable", iconName: "imageToTable",to: "/tools/image-to-table",tags: ["AI", "CSV"] },
+      { nameKey: "tools.pdf.name",          descKey: "home.bene.pdf",          iconName: "pdf",          to: "/tools/pdf",            tags: ["合并", "拆分"] },
+      { nameKey: "tools.pdfSummary.name",   descKey: "home.bene.pdfSummary",   iconName: "pdfSummary",   to: "/tools/pdf-summary",    tags: ["摘要", "要点"] },
+      { nameKey: "tools.ocr.name",          descKey: "home.bene.ocr",          iconName: "ocr",          to: "/tools/ocr",            tags: ["识字", "代码"] },
+      { nameKey: "tools.handwriting.name",  descKey: "home.bene.handwriting",  iconName: "handwriting",  to: "/tools/handwriting",    tags: ["手写"] },
+      { nameKey: "tools.imageToTable.name", descKey: "home.bene.imageToTable", iconName: "imageToTable", to: "/tools/image-to-table", tags: ["表格", "CSV"] },
     ],
   },
   {
-    id: "social",
-    titleKey: "home.scene.social",
-    subKey: "home.scene.social_sub",
-    accent: "#8b5cf6",
+    id: "social", titleKey: "home.scene.social", subKey: "home.scene.social_sub", accent: "var(--cat-social)",
     tools: [
-      { nameKey: "tools.idPhoto.name",       descKey: "home.bene.idPhoto",       iconName: "idPhoto",       to: "/tools/id-photo",       tags: ["WASM", "证件"] },
-      { nameKey: "tools.removeBg.name",      descKey: "home.bene.removeBg",      iconName: "removeBg",      to: "/tools/remove-bg",      tags: ["WASM", "本地"] },
-      { nameKey: "tools.imageCompress.name", descKey: "home.bene.imageCompress", iconName: "imageCompress", to: "/tools/image-compress", tags: ["本地"] },
-      { nameKey: "tools.upscale.name",       descKey: "home.bene.upscale",       iconName: "upscale",       to: "/tools/upscale",        tags: ["WASM", "Swin2SR"] },
-      { nameKey: "tools.palette.name",       descKey: "home.bene.palette",       iconName: "palette",       to: "/tools/palette",        tags: ["本地"] },
+      { nameKey: "tools.idPhoto.name",       descKey: "home.bene.idPhoto",       iconName: "idPhoto",       to: "/tools/id-photo",       tags: ["证件"] },
+      { nameKey: "tools.removeBg.name",      descKey: "home.bene.removeBg",      iconName: "removeBg",      to: "/tools/remove-bg",      tags: ["抠图"] },
+      { nameKey: "tools.imageCompress.name", descKey: "home.bene.imageCompress", iconName: "imageCompress", to: "/tools/image-compress", tags: ["压缩"] },
+      { nameKey: "tools.upscale.name",       descKey: "home.bene.upscale",       iconName: "upscale",       to: "/tools/upscale",        tags: ["放大"] },
+      { nameKey: "tools.palette.name",       descKey: "home.bene.palette",       iconName: "palette",       to: "/tools/palette",        tags: ["色板"] },
     ],
   },
   {
-    id: "av",
-    titleKey: "home.scene.av",
-    subKey: "home.scene.av_sub",
-    accent: "#06b6d4",
+    id: "av", titleKey: "home.scene.av", subKey: "home.scene.av_sub", accent: "var(--cat-av)",
     tools: [
-      { nameKey: "tools.videoCompress.name", descKey: "home.bene.videoCompress", iconName: "videoCompress", to: "/tools/video-compress", tags: ["FFmpeg", "微信"] },
-      { nameKey: "tools.videoToGif.name",    descKey: "home.bene.videoToGif",    iconName: "videoToGif",    to: "/tools/video-to-gif",   tags: ["FFmpeg", "GIF"] },
-      { nameKey: "tools.whisper.name",       descKey: "home.bene.whisper",       iconName: "whisper",       to: "/tools/whisper",        tags: ["WASM", "Whisper"] },
+      { nameKey: "tools.videoCompress.name", descKey: "home.bene.videoCompress", iconName: "videoCompress", to: "/tools/video-compress", tags: ["压缩"] },
+      { nameKey: "tools.videoToGif.name",    descKey: "home.bene.videoToGif",    iconName: "videoToGif",    to: "/tools/video-to-gif",   tags: ["GIF"] },
+      { nameKey: "tools.whisper.name",       descKey: "home.bene.whisper",       iconName: "whisper",       to: "/tools/whisper",        tags: ["转文字"] },
     ],
   },
   {
-    id: "dev",
-    titleKey: "home.scene.dev",
-    subKey: "home.scene.dev_sub",
-    accent: "#5b5bf5",
+    id: "dev", titleKey: "home.scene.dev", subKey: "home.scene.dev_sub", accent: "var(--cat-dev)",
     tools: [
-      { nameKey: "tools.jsonFormatter.name",   descKey: "home.bene.jsonFormatter",   iconName: "json",       to: "/tools/json",      tags: ["AI", "Schema"] },
-      { nameKey: "tools.markdownPreview.name", descKey: "home.bene.markdownPreview", iconName: "markdown",   to: "/tools/markdown",  tags: ["AI", "GFM"] },
-      { nameKey: "tools.naming.name",          descKey: "home.bene.naming",          iconName: "naming",     to: "/tools/naming",    tags: ["AI"] },
-      { nameKey: "tools.cron.name",            descKey: "home.bene.cron",            iconName: "cron",       to: "/tools/cron",      tags: ["AI"] },
-      { nameKey: "tools.timestamp.name",       descKey: "home.bene.timestamp",       iconName: "timestamp",  to: "/tools/timestamp", tags: ["本地", "chrono"] },
-      { nameKey: "tools.flowchart.name",       descKey: "home.bene.flowchart",       iconName: "flowchart",  to: "/tools/flowchart", tags: ["AI", "Mermaid"] },
-      { nameKey: "tools.base64.name",          descKey: "home.bene.base64",          iconName: "base64",     to: "/tools/base64",    tags: ["本地"] },
-      { nameKey: "tools.qrcode.name",          descKey: "home.bene.qrcode",          iconName: "qrcode",     to: "/tools/qrcode",    tags: ["本地"] },
+      { nameKey: "tools.jsonFormatter.name",   descKey: "home.bene.jsonFormatter",   iconName: "json",       to: "/tools/json",      tags: ["JSON", "查询"] },
+      { nameKey: "tools.markdownPreview.name", descKey: "home.bene.markdownPreview", iconName: "markdown",   to: "/tools/markdown",  tags: ["Markdown"] },
+      { nameKey: "tools.naming.name",          descKey: "home.bene.naming",          iconName: "naming",     to: "/tools/naming",    tags: ["命名"] },
+      { nameKey: "tools.cron.name",            descKey: "home.bene.cron",            iconName: "cron",       to: "/tools/cron",      tags: ["Cron"] },
+      { nameKey: "tools.timestamp.name",       descKey: "home.bene.timestamp",       iconName: "timestamp",  to: "/tools/timestamp", tags: ["时间"] },
+      { nameKey: "tools.flowchart.name",       descKey: "home.bene.flowchart",       iconName: "flowchart",  to: "/tools/flowchart", tags: ["流程图"] },
+      { nameKey: "tools.base64.name",          descKey: "home.bene.base64",          iconName: "base64",     to: "/tools/base64",    tags: ["编解码"] },
+      { nameKey: "tools.qrcode.name",          descKey: "home.bene.qrcode",          iconName: "qrcode",     to: "/tools/qrcode",    tags: ["QR"] },
     ],
   },
 ];
@@ -150,38 +95,81 @@ export default function Home() {
         path="/"
         structuredData={schema.website({ url: "https://onetools.dev" })}
       />
-      <div style={{ maxWidth: 1180, margin: "0 auto", padding: "0 28px" }}>
-        {/* ── Hero: painkiller-centric ───────────────── */}
-        <section style={{ padding: "72px 0 32px" }}>
+      <div style={{ maxWidth: 1120, margin: "0 auto", padding: "0 28px" }}>
+        {/* ── Hero ─────────────────────────────────── */}
+        <section
+          style={{
+            padding: "96px 0 32px",
+            position: "relative",
+          }}
+        >
+          {/* Soft eyebrow with gradient highlight */}
           <div
             style={{
-              fontSize: 12.5,
-              color: "var(--text-muted)",
-              fontWeight: 500,
-              letterSpacing: -0.05,
-              marginBottom: 16,
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              marginBottom: 22,
+              padding: "4px 12px 4px 4px",
+              background: "#ffffff",
+              border: "1px solid var(--border)",
+              borderRadius: 999,
+              boxShadow: "var(--shadow-sm)",
             }}
           >
-            {t("home.eyebrow", { n: TOTAL_TOOLS })}
+            <span
+              style={{
+                padding: "3px 9px",
+                borderRadius: 999,
+                background: "var(--gradient-brand)",
+                color: "#fff",
+                fontSize: 10.5,
+                fontWeight: 700,
+                letterSpacing: 0.4,
+              }}
+            >
+              NEW
+            </span>
+            <span
+              style={{
+                fontSize: 12.5,
+                color: "var(--text-secondary)",
+                fontWeight: 500,
+              }}
+            >
+              {t("home.eyebrow")}
+            </span>
           </div>
+
           <h1
             style={{
-              fontSize: "clamp(34px, 5vw, 50px)",
+              fontSize: "clamp(36px, 5.6vw, 60px)",
               fontWeight: 600,
-              letterSpacing: -1.6,
-              lineHeight: 1.1,
+              letterSpacing: -2,
+              lineHeight: 1.05,
               color: "var(--text-primary)",
-              maxWidth: 760,
+              maxWidth: 840,
             }}
           >
-            {t("home.heroTitle")}
+            {t("home.heroTitleA")}
+            <br />
+            <span
+              style={{
+                background: "var(--gradient-brand)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              {t("home.heroTitleB")}
+            </span>
           </h1>
           <p
             style={{
               fontSize: 17,
               color: "var(--text-secondary)",
-              marginTop: 16,
-              maxWidth: 660,
+              marginTop: 20,
+              maxWidth: 620,
               lineHeight: 1.55,
               fontWeight: 400,
               letterSpacing: -0.15,
@@ -190,13 +178,13 @@ export default function Home() {
             {t("home.heroSub")}
           </p>
 
-          {/* 5 Painkiller showcase row */}
+          {/* Painkiller spotlight — hero-weight featured row */}
           <div
             style={{
+              marginTop: 40,
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))",
               gap: 10,
-              marginTop: 32,
             }}
           >
             {PAINKILLERS.map((p, i) => (
@@ -205,77 +193,73 @@ export default function Home() {
                 to={p.to}
                 style={{
                   textDecoration: "none",
-                  padding: "16px 16px",
-                  borderRadius: 12,
+                  padding: "18px 16px",
+                  borderRadius: 14,
                   background: "#ffffff",
                   border: "1px solid var(--border)",
-                  transition: "all 0.15s ease",
                   display: "flex",
                   flexDirection: "column",
-                  gap: 10,
+                  gap: 12,
+                  transition: "all 0.18s ease",
+                  position: "relative",
+                  overflow: "hidden",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = `${p.accent}55`;
-                  e.currentTarget.style.boxShadow = `0 0 0 1px ${p.accent}18, 0 4px 16px -4px ${p.accent}22`;
+                  const el = e.currentTarget;
+                  el.style.transform = "translateY(-2px)";
+                  el.style.borderColor = p.accent;
+                  el.style.boxShadow = `0 12px 28px -12px ${p.accent}44, 0 0 0 1px ${p.accent}2e`;
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "var(--border)";
-                  e.currentTarget.style.boxShadow = "none";
+                  const el = e.currentTarget;
+                  el.style.transform = "translateY(0)";
+                  el.style.borderColor = "var(--border)";
+                  el.style.boxShadow = "none";
                 }}
               >
                 <div
                   style={{
-                    width: 34,
-                    height: 34,
-                    borderRadius: 8,
-                    background: `${p.accent}14`,
-                    color: p.accent,
+                    width: 40,
+                    height: 40,
+                    borderRadius: 10,
+                    background: `linear-gradient(135deg, ${p.accent}, ${p.accent}cc)`,
+                    color: "#ffffff",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
+                    boxShadow: `0 4px 14px -4px ${p.accent}66`,
                   }}
                 >
-                  <ToolIcon name={p.iconName} size={18} />
+                  <ToolIcon name={p.iconName} size={20} />
                 </div>
-                <div
-                  style={{
-                    fontSize: 13.5,
-                    fontWeight: 600,
-                    color: "var(--text-primary)",
-                    letterSpacing: -0.2,
-                  }}
-                >
-                  {t(p.nameKey)}
-                </div>
-                <div
-                  style={{
-                    fontSize: 12,
-                    color: "var(--text-muted)",
-                    lineHeight: 1.5,
-                    flex: 1,
-                  }}
-                >
-                  {t(p.benefitKey)}
-                </div>
-                <div
-                  style={{
-                    fontSize: 10.5,
-                    color: p.accent,
-                    fontWeight: 600,
-                    letterSpacing: 0.3,
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {t(p.priceAnchorKey)}
+                <div>
+                  <div
+                    style={{
+                      fontSize: 14,
+                      fontWeight: 600,
+                      color: "var(--text-primary)",
+                      letterSpacing: -0.2,
+                      marginBottom: 2,
+                    }}
+                  >
+                    {t(p.nameKey)}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 12,
+                      color: "var(--text-muted)",
+                      lineHeight: 1.45,
+                    }}
+                  >
+                    {t(p.taglineKey)}
+                  </div>
                 </div>
               </Link>
             ))}
           </div>
-        </section>
 
-        {/* Search */}
-        <section style={{ padding: "16px 0 28px" }}>
-          <div style={{ position: "relative", maxWidth: 520 }}>
+          {/* Search */}
+          <div style={{ marginTop: 28, position: "relative", maxWidth: 460 }}>
             <SearchIcon />
             <input
               value={q}
@@ -283,116 +267,80 @@ export default function Home() {
               placeholder={t("home.searchPlaceholder")}
               style={{
                 width: "100%",
-                padding: "11px 16px 11px 40px",
+                padding: "11px 14px 11px 40px",
                 borderRadius: 10,
                 border: "1px solid var(--border-strong)",
                 background: "#ffffff",
-                fontSize: 14,
+                fontSize: 13.5,
                 color: "var(--text-primary)",
                 outline: "none",
                 letterSpacing: -0.1,
-                boxShadow: "var(--shadow-sm)",
+                transition: "border-color 0.15s ease, box-shadow 0.15s ease",
               }}
-              onFocus={(e) => (e.target.style.borderColor = "var(--brand)")}
-              onBlur={(e) => (e.target.style.borderColor = "var(--border-strong)")}
+              onFocus={(e) => {
+                e.target.style.borderColor = "var(--brand)";
+                e.target.style.boxShadow = "var(--shadow-glow)";
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = "var(--border-strong)";
+                e.target.style.boxShadow = "none";
+              }}
             />
+            {q && (
+              <div style={{ fontSize: 11.5, color: "var(--text-muted)", marginTop: 8 }}>
+                {t("home.pageSubMatch", { n: totalAfterFilter, total: TOTAL_TOOLS })}
+              </div>
+            )}
           </div>
-          {q && (
-            <div style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 8 }}>
-              {t("home.pageSubMatch", { n: totalAfterFilter, total: TOTAL_TOOLS })}
-            </div>
-          )}
         </section>
 
-        {/* Scenario categories */}
-        {filtered.length === 0 ? (
-          <div
-            style={{
-              padding: "80px 20px",
-              textAlign: "center",
-              color: "var(--text-muted)",
-              fontSize: 14,
-            }}
-          >
-            {t("home.noResults")}
-          </div>
-        ) : (
-          filtered.map((cat, idx) => (
-            <section
-              id={`cat-${cat.id}`}
-              key={cat.id}
-              style={{ paddingTop: idx === 0 ? 8 : 48, paddingBottom: 4, scrollMarginTop: 80 }}
-            >
-              <div style={{ marginBottom: 14 }}>
-                <h2
-                  style={{
-                    fontSize: 18,
-                    fontWeight: 600,
-                    color: "var(--text-primary)",
-                    letterSpacing: -0.4,
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 10,
-                  }}
-                >
-                  <span
-                    style={{
-                      width: 8,
-                      height: 8,
-                      borderRadius: 2,
-                      background: cat.accent,
-                      flexShrink: 0,
-                    }}
-                  />
-                  {t(cat.titleKey)}
-                  <span
-                    style={{
-                      fontSize: 12,
-                      color: "var(--text-muted)",
-                      fontWeight: 400,
-                      fontFamily: "var(--font-mono)",
-                    }}
-                  >
-                    {cat.tools.length}
-                  </span>
-                </h2>
-                {cat.subKey && (
-                  <p
-                    style={{
-                      fontSize: 13,
-                      color: "var(--text-muted)",
-                      marginTop: 4,
-                      marginLeft: 18,
-                      fontWeight: 400,
-                      letterSpacing: -0.05,
-                    }}
-                  >
-                    {t(cat.subKey)}
-                  </p>
-                )}
-              </div>
-              <div
+        {/* ── Categories ───────────────────────────── */}
+        <div style={{ paddingTop: 40 }}>
+          {filtered.length === 0 ? (
+            <div style={{ padding: "80px 20px", textAlign: "center", color: "var(--text-muted)", fontSize: 14 }}>
+              {t("home.noResults")}
+            </div>
+          ) : (
+            filtered.map((cat, idx) => (
+              <section
+                id={`cat-${cat.id}`}
+                key={cat.id}
                 style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
-                  gap: 12,
+                  paddingTop: idx === 0 ? 0 : 60,
+                  paddingBottom: 0,
+                  scrollMarginTop: 80,
                 }}
               >
-                {cat.tools.map((tool, i) => (
-                  <ToolCard
-                    key={i}
-                    name={t(tool.nameKey)}
-                    desc={t(tool.descKey)}
-                    iconName={tool.iconName}
-                    accent={cat.accent}
-                    tags={tool.tags}
-                    to={tool.to}
-                  />
-                ))}
-              </div>
-            </section>
-          ))
-        )}
+                <CategoryHeader
+                  index={idx + 1}
+                  title={t(cat.titleKey)}
+                  sub={t(cat.subKey)}
+                  count={cat.tools.length}
+                  accent={cat.accent}
+                />
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
+                    gap: 12,
+                  }}
+                >
+                  {cat.tools.map((tool, i) => (
+                    <ToolCard
+                      key={i}
+                      name={t(tool.nameKey)}
+                      desc={t(tool.descKey)}
+                      iconName={tool.iconName}
+                      accent={cat.accent}
+                      tags={tool.tags}
+                      to={tool.to}
+                    />
+                  ))}
+                </div>
+              </section>
+            ))
+          )}
+        </div>
 
         {!q && (
           <>
@@ -405,75 +353,151 @@ export default function Home() {
   );
 }
 
-function ComparisonTable() {
-  const { t } = useTranslation();
-  const rows = [
-    { keyBase: "cmp.r_price",    ot: "cmp.ot.price",    others: ["cmp.removebg.price",  "cmp.photoshop.price", "cmp.chatgpt.price",    "cmp.studio.price"] },
-    { keyBase: "cmp.r_signup",   ot: "cmp.ot.signup",   others: ["cmp.removebg.signup", "cmp.photoshop.signup","cmp.chatgpt.signup",   "cmp.studio.signup"] },
-    { keyBase: "cmp.r_upload",   ot: "cmp.ot.upload",   others: ["cmp.removebg.upload", "cmp.photoshop.upload","cmp.chatgpt.upload",   "cmp.studio.upload"] },
-    { keyBase: "cmp.r_offline",  ot: "cmp.ot.offline",  others: ["cmp.removebg.offline","cmp.photoshop.offline","cmp.chatgpt.offline",  "cmp.studio.offline"] },
-    { keyBase: "cmp.r_batch",    ot: "cmp.ot.batch",    others: ["cmp.removebg.batch",  "cmp.photoshop.batch", "cmp.chatgpt.batch",    "cmp.studio.batch"] },
-  ];
-  const competitors = ["Remove.bg", "Photoshop", "ChatGPT Plus", t("cmp.studio")];
-
-  const cell = {
-    padding: "12px 14px",
-    borderBottom: "1px solid var(--border-light)",
-    fontSize: 13,
-    color: "var(--text-secondary)",
-    letterSpacing: -0.05,
-  };
-
+function CategoryHeader({ index, title, sub, count, accent }) {
+  const numStr = String(index).padStart(2, "0");
   return (
-    <section style={{ paddingTop: 64, paddingBottom: 8 }}>
-      <div style={{ marginBottom: 20 }}>
-        <h2
+    <div style={{ marginBottom: 18 }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "baseline",
+          gap: 12,
+          marginBottom: 4,
+        }}
+      >
+        <span
           style={{
-            fontSize: 22,
+            fontSize: 11,
+            fontFamily: "var(--font-mono)",
+            color: accent,
             fontWeight: 600,
-            color: "var(--text-primary)",
-            letterSpacing: -0.6,
+            letterSpacing: 0.8,
           }}
         >
-          {t("cmp.title")}
+          {numStr}
+        </span>
+        <h2
+          style={{
+            fontSize: 20,
+            fontWeight: 600,
+            color: "var(--text-primary)",
+            letterSpacing: -0.5,
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+          }}
+        >
+          {title}
         </h2>
+        <span
+          style={{
+            fontSize: 12,
+            color: "var(--text-muted)",
+            fontWeight: 400,
+            fontFamily: "var(--font-mono)",
+          }}
+        >
+          {count}
+        </span>
+      </div>
+      {sub && (
         <p
           style={{
             fontSize: 13.5,
             color: "var(--text-muted)",
-            marginTop: 6,
-            lineHeight: 1.55,
+            paddingLeft: 38,
             fontWeight: 400,
+            letterSpacing: -0.05,
+            lineHeight: 1.55,
           }}
         >
-          {t("cmp.sub")}
+          {sub}
         </p>
+      )}
+    </div>
+  );
+}
+
+function ComparisonTable() {
+  const { t } = useTranslation();
+  const rows = [
+    { keyBase: "cmp.r_access",  ot: "cmp.ot.access",  others: ["cmp.removebg.access", "cmp.photoshop.access","cmp.chatgpt.access",  "cmp.studio.access"] },
+    { keyBase: "cmp.r_signup",  ot: "cmp.ot.signup",  others: ["cmp.removebg.signup", "cmp.photoshop.signup","cmp.chatgpt.signup",  "cmp.studio.signup"] },
+    { keyBase: "cmp.r_upload",  ot: "cmp.ot.upload",  others: ["cmp.removebg.upload", "cmp.photoshop.upload","cmp.chatgpt.upload",  "cmp.studio.upload"] },
+    { keyBase: "cmp.r_offline", ot: "cmp.ot.offline", others: ["cmp.removebg.offline","cmp.photoshop.offline","cmp.chatgpt.offline", "cmp.studio.offline"] },
+    { keyBase: "cmp.r_batch",   ot: "cmp.ot.batch",   others: ["cmp.removebg.batch",  "cmp.photoshop.batch", "cmp.chatgpt.batch",   "cmp.studio.batch"] },
+  ];
+  const competitors = ["Remove.bg", "Photoshop", "ChatGPT Plus", t("cmp.studio")];
+
+  const cell = {
+    padding: "14px 16px",
+    borderBottom: "1px solid var(--border-light)",
+    fontSize: 13,
+    color: "var(--text-secondary)",
+    letterSpacing: -0.05,
+    verticalAlign: "top",
+  };
+
+  return (
+    <section style={{ paddingTop: 84, paddingBottom: 8 }}>
+      <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 6 }}>
+        <span
+          style={{
+            fontSize: 11,
+            fontFamily: "var(--font-mono)",
+            color: "var(--brand)",
+            fontWeight: 600,
+            letterSpacing: 0.8,
+          }}
+        >
+          06
+        </span>
+        <h2
+          style={{
+            fontSize: 20,
+            fontWeight: 600,
+            color: "var(--text-primary)",
+            letterSpacing: -0.5,
+          }}
+        >
+          {t("cmp.title")}
+        </h2>
       </div>
+      <p
+        style={{
+          fontSize: 13.5,
+          color: "var(--text-muted)",
+          marginBottom: 20,
+          paddingLeft: 38,
+          lineHeight: 1.55,
+          maxWidth: 700,
+        }}
+      >
+        {t("cmp.sub")}
+      </p>
       <div
         style={{
-          borderRadius: 14,
+          borderRadius: 16,
           border: "1px solid var(--border)",
           overflow: "hidden",
           background: "#ffffff",
-          boxShadow: "var(--shadow-sm)",
+          boxShadow: "var(--shadow-md)",
         }}
       >
         <div style={{ overflowX: "auto" }}>
           <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 720 }}>
             <thead>
-              <tr style={{ background: "#fafbfc" }}>
-                <th style={{ ...cell, textAlign: "left", fontWeight: 600, color: "var(--text-primary)", fontSize: 12, textTransform: "uppercase", letterSpacing: 0.5 }}>
-                  &nbsp;
-                </th>
+              <tr>
+                <th style={{ ...cell, background: "#fafbfd" }} />
                 <th
                   style={{
                     ...cell,
                     textAlign: "left",
                     fontWeight: 700,
-                    color: "var(--brand)",
+                    color: "#ffffff",
                     fontSize: 13.5,
-                    letterSpacing: -0.2,
-                    background: "rgba(91,91,245,0.05)",
+                    letterSpacing: -0.15,
+                    background: "var(--gradient-brand)",
                   }}
                 >
                   OneTools
@@ -487,6 +511,7 @@ function ComparisonTable() {
                       fontWeight: 600,
                       color: "var(--text-secondary)",
                       fontSize: 12.5,
+                      background: "#fafbfd",
                     }}
                   >
                     {c}
@@ -503,7 +528,7 @@ function ComparisonTable() {
                       fontWeight: 600,
                       color: "var(--text-primary)",
                       fontSize: 12.5,
-                      background: "#fafbfc",
+                      background: "#fafbfd",
                       whiteSpace: "nowrap",
                     }}
                   >
@@ -512,9 +537,9 @@ function ComparisonTable() {
                   <td
                     style={{
                       ...cell,
-                      color: "var(--brand)",
+                      color: "var(--brand-strong)",
                       fontWeight: 600,
-                      background: "rgba(91,91,245,0.03)",
+                      background: "rgba(79, 70, 229, 0.04)",
                     }}
                   >
                     {t(r.ot)}
@@ -544,39 +569,39 @@ function Upcoming() {
     t("upcoming.diffChecker"),
   ];
   return (
-    <section style={{ paddingTop: 48, paddingBottom: 96 }}>
-      <h2
-        style={{
-          fontSize: 16,
-          fontWeight: 600,
-          color: "var(--text-muted)",
-          letterSpacing: -0.3,
-          marginBottom: 12,
-          display: "flex",
-          alignItems: "center",
-          gap: 10,
-        }}
-      >
+    <section style={{ paddingTop: 64, paddingBottom: 120 }}>
+      <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 14 }}>
         <span
           style={{
-            width: 8,
-            height: 8,
-            borderRadius: 2,
-            border: "1.5px dashed var(--text-muted)",
-            flexShrink: 0,
+            fontSize: 11,
+            fontFamily: "var(--font-mono)",
+            color: "var(--text-faint)",
+            fontWeight: 600,
+            letterSpacing: 0.8,
           }}
-        />
-        {t("home.upcomingTools")}
-        <span style={{ fontSize: 12, color: "var(--text-faint)", fontWeight: 400, fontFamily: "var(--font-mono)" }}>
+        >
+          07
+        </span>
+        <h2
+          style={{
+            fontSize: 20,
+            fontWeight: 600,
+            color: "var(--text-muted)",
+            letterSpacing: -0.5,
+          }}
+        >
+          {t("home.upcomingTools")}
+        </h2>
+        <span style={{ fontSize: 12, color: "var(--text-faint)", fontFamily: "var(--font-mono)" }}>
           {items.length}
         </span>
-      </h2>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+      </div>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 6, paddingLeft: 38 }}>
         {items.map((label, i) => (
           <span
             key={i}
             style={{
-              padding: "6px 11px",
+              padding: "6px 12px",
               borderRadius: 8,
               border: "1px dashed var(--border-strong)",
               fontSize: 12.5,
