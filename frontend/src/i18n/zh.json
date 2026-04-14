@@ -18,10 +18,12 @@
     "statFree": "永久免费",
     "cat": {
       "text": "文本与数据",
-      "doc": "文档识别",
-      "image": "图像处理",
+      "doc": "文档",
+      "image": "图片",
       "av": "音视频",
-      "util": "实用工具"
+      "util": "实用工具",
+      "privacy": "隐私",
+      "dev": "开发"
     },
     "eyebrow": "24 件日常小事，一站搞定",
     "pageTitle": "工具广场",
@@ -30,7 +32,7 @@
     "searchPlaceholder": "搜索工具……",
     "noResults": "没有找到相关工具。换个关键词试试？",
     "heroTitle": "5 件你本来要花钱的事，免费在浏览器里做完",
-    "heroSub": "这里的每件工具只做一件事——让你少在细节上纠缠，把注意力留给更重要的。",
+    "heroSub": "PDF、图片、视频、音频、开发者日常——24 件常用工具，一个网站全搞定。",
     "paink": {
       "idPhoto": "一张生活照，交付可用的证件照",
       "removeWatermark": "不想看见的那一块，让它消失",
@@ -76,8 +78,11 @@
       "base64": "粘进来自动判断是要编还是要解",
       "qrcode": "生成或扫描二维码，识别 Wi-Fi / 名片等格式"
     },
-    "heroTitleA": "把琐碎的活儿",
-    "heroTitleB": "交还给你的时间。"
+    "heroTitleA": "简洁、好用的",
+    "heroTitleB": "免登录工具箱。",
+    "tab": {
+      "all": "全部"
+    }
   },
   "tools": {
     "jsonFormatter": {
