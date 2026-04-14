@@ -29,8 +29,7 @@ export default function FaqSection({ title, items, path }) {
       </Helmet>
       <section
         style={{
-          maxWidth: 840,
-          margin: "0 auto",
+          width: "100%",
           padding: "32px 0 64px",
         }}
       >

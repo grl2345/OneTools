@@ -167,21 +167,21 @@ export default function FileEncrypt() {
         })}
       />
       <div style={{ maxWidth: "var(--max-width)", margin: "0 auto", padding: "0 24px" }}>
-        <div style={{ padding: "56px 0 0", display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
-          <div>
-            <h1 style={{ fontSize: 42, fontWeight: 700, letterSpacing: -1.4, lineHeight: 1.08 }}>
+        <div style={{ padding: "32px 0 0", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
+          <div style={{ minWidth: 0 }}>
+            <h1 style={{ fontSize: 24, fontWeight: 700, letterSpacing: -0.5, lineHeight: 1.2, color: "var(--text-primary)" }}>
               {t("tools.fileEncrypt.name")}
-              <span style={{ background: "var(--gradient-brand)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}> · AES-256</span>
             </h1>
-            <p style={{ fontSize: 15, color: "var(--text-secondary)", marginTop: 8, fontWeight: 450 }}>
+            <p style={{ fontSize: 13.5, color: "var(--text-muted)", marginTop: 4, fontWeight: 400, letterSpacing: -0.1 }}>
               {t("tools.fileEncrypt.desc")}
             </p>
           </div>
           <span style={{
             display: "inline-flex", alignItems: "center", gap: 6,
-            padding: "5px 12px", borderRadius: 999,
+            padding: "4px 10px", borderRadius: 999,
             background: "rgba(16,185,129,0.1)", border: "1px solid rgba(16,185,129,0.22)",
-            color: "var(--green)", fontSize: 11.5, fontWeight: 600,
+            color: "var(--green)", fontSize: 11, fontWeight: 600,
+            flexShrink: 0,
           }}>
             <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--green)" }} />
             {t("tools.fileEncrypt.badge")}
