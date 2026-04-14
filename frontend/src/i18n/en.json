@@ -27,8 +27,60 @@
     "pageTitle": "Tools",
     "pageSub": "{{n}} tools · browse by category or search",
     "pageSubMatch": "{{n}} of {{total}} match",
-    "searchPlaceholder": "Search name, description, or tag...",
-    "noResults": "No tools match that query. Try another keyword."
+    "searchPlaceholder": "Search by name, purpose, or tag...",
+    "noResults": "No tools match that query. Try another keyword.",
+    "heroTitle": "5 things you'd normally pay for, done free in your browser",
+    "heroSub": "No uploads, no signup, no cost. AI + local WASM runs right in your browser — your files never leave your device or touch our servers.",
+    "paink": {
+      "idPhoto": "Standard ID photo in 30s — auto cutout, resize, background",
+      "idPhoto_price": "save studio fee",
+      "removeWatermark": "Brush to remove — LaMa runs in your browser",
+      "removeWatermark_price": "vs Photoshop",
+      "pdfSummary": "50-page contract → 30-second summary with key points",
+      "pdfSummary_price": "save 2h reading",
+      "videoCompress": "Big video → fits in a chat (< 25 MB) in one click",
+      "videoCompress_price": "vs $9/mo tools",
+      "fileEncrypt": "AES-256 encrypt locally, password only in your head",
+      "fileEncrypt_price": "vs enterprise vault"
+    },
+    "scene": {
+      "privacy": "When the file is sensitive",
+      "privacy_sub": "Contracts, ID photos, personal docs — guaranteed to stay on your device",
+      "doc": "When the boss drops a PDF on you",
+      "doc_sub": "Summary, split, OCR, table extraction — escape the reading",
+      "social": "When posting, applying, or getting an ID",
+      "social_sub": "ID photo, compress, cutout, upscale — images for social and paperwork",
+      "av": "When you have a meeting recording or huge video",
+      "av_sub": "Local Whisper transcription, FFmpeg compression, video-to-GIF",
+      "dev": "When you are writing code",
+      "dev_sub": "JSON, Markdown, regex, codec — developer daily drivers"
+    },
+    "bene": {
+      "fileEncrypt": "Upload a file + password, get an encrypted version. Password never stored.",
+      "exif": "Photos carry GPS and device serial numbers — see and strip before you share",
+      "removeWatermark": "Brush over the watermark — LaMa AI repaints the region, 100% local",
+      "pdf": "Merge multiple, extract specific pages, or split into singles",
+      "pdfSummary": "Upload a PDF, extract text locally, then AI outputs title / summary / key points / entities",
+      "ocr": "Paste a code screenshot, get the code back. Chinese + English mix supported",
+      "handwriting": "Photo of a whiteboard or handwritten notes → editable text",
+      "imageToTable": "Financial statement or paper table → CSV you can open in Excel",
+      "idPhoto": "Drop a casual photo → auto cutout, solid-color background, standard crop",
+      "removeBg": "3-second smart background removal running in your browser",
+      "imageCompress": "1 MB photo → tens of KB, barely any quality loss",
+      "upscale": "Small image or old photo 2x / 4x up, Swin2SR runs locally",
+      "palette": "Drop an image, get a designer-ready palette in HEX / RGB / HSL",
+      "videoCompress": "Compress video to chat-ready size, 4 presets",
+      "videoToGif": "Trim 10-second clips → GIFs, tune fps and width",
+      "whisper": "Meeting recordings / podcasts → transcript + SRT subs, tiny / base / small tiers",
+      "jsonFormatter": "Paste and format, plus AI that answers natural-language queries on your JSON",
+      "markdownPreview": "Type and preview — GFM tables, checklists, code blocks all supported",
+      "naming": "Tell AI what the variable / function is for; get 3 good name suggestions",
+      "cron": "Every weekday 9am → 0 9 * * 1-5, or the other way around",
+      "timestamp": "next Friday 3pm → timestamp and ISO date, instant",
+      "flowchart": "Describe a process → AI generates a Mermaid flowchart, export SVG/PNG",
+      "base64": "Paste and we detect encode vs decode automatically, Unicode-safe",
+      "qrcode": "Generate QR codes or scan images containing a QR. Wi-Fi / vCard aware."
+    }
   },
   "tools": {
     "jsonFormatter": {
@@ -640,5 +692,153 @@
     "sec_cat": "Categories",
     "sec_site": "Site",
     "all": "All Tools"
+  },
+  "cmp": {
+    "title": "What you save vs paid alternatives",
+    "sub": "Take a typical 'remove this watermark' or 'ID photo' job and see the comparison.",
+    "studio": "Photo studio",
+    "r_price": "Price",
+    "r_signup": "Signup required",
+    "r_upload": "Files uploaded",
+    "r_offline": "Works offline",
+    "r_batch": "Batch processing",
+    "ot.price": "Free forever",
+    "ot.signup": "No",
+    "ot.upload": "Most tools run 100% locally",
+    "ot.offline": "Yes, after model cache",
+    "ot.batch": "Supported",
+    "removebg.price": "$9/mo or $0.2/image",
+    "removebg.signup": "Yes",
+    "removebg.upload": "Yes, to server",
+    "removebg.offline": "No",
+    "removebg.batch": "Paid tiers only",
+    "photoshop.price": "$22/mo subscription",
+    "photoshop.signup": "Adobe ID required",
+    "photoshop.upload": "Local (Creative Cloud sync)",
+    "photoshop.offline": "Yes",
+    "photoshop.batch": "Yes",
+    "chatgpt.price": "$20/mo",
+    "chatgpt.signup": "Yes",
+    "chatgpt.upload": "Uploaded to OpenAI",
+    "chatgpt.offline": "No",
+    "chatgpt.batch": "Limited",
+    "studio.price": "$5-15 per session",
+    "studio.signup": "In person",
+    "studio.upload": "Photographed and stored",
+    "studio.offline": "N/A",
+    "studio.batch": "No"
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "idPhoto": [
+      {
+        "q": "Is it really free with no hidden paywall?",
+        "a": "Yes. Image processing runs entirely in your browser via the @imgly/background-removal WASM model, so there are no server costs to recoup — no per-image fees, no premium tier."
+      },
+      {
+        "q": "Does my photo ever get uploaded?",
+        "a": "Never. The full pipeline — cutout, background replacement, crop — runs locally via WebAssembly. You can even use it offline (first visit downloads a ~60 MB model, cached afterwards)."
+      },
+      {
+        "q": "Which standard sizes are supported?",
+        "a": "1-inch (295×413), 2-inch (413×579), small 1-inch (260×378), big 1-inch (390×567), US passport (600×600), China visa (390×567). Backgrounds: white / blue / red / gray + custom color picker."
+      },
+      {
+        "q": "Is the quality good enough for official use?",
+        "a": "For visa applications, driver licenses, student ID, and résumé photos — absolutely. For passport photos needing physical-paper submission under strict official specs, we still recommend a studio (for pose/lighting standards)."
+      },
+      {
+        "q": "Why is it slower than Remove.bg?",
+        "a": "It runs on your device, not a GPU server. First load takes 30–60s to download the model; each photo then takes 3–8 seconds. Paid services are faster but require upload + payment."
+      }
+    ],
+    "removeWatermark": [
+      {
+        "q": "Is it as good as Photoshop?",
+        "a": "For regular text watermarks, small logos, and semi-transparent watermarks — very good. For complex textures or large occlusions, the LaMa model (~215 MB) may not be perfect; try to brush precisely over the watermark pixels only."
+      },
+      {
+        "q": "Can I use this to remove copyrighted watermarks and then sell?",
+        "a": "No. Removing someone else's watermark may infringe intellectual property. This tool is only for content you own or have a license to edit. Use at your own responsibility."
+      },
+      {
+        "q": "Why is the first run so slow?",
+        "a": "First use downloads the ~215 MB LaMa ONNX model from Hugging Face. The browser caches it — subsequent opens are nearly instant."
+      },
+      {
+        "q": "Does it support batch processing?",
+        "a": "Not yet. Single image at a time. If you need bulk processing (100+ images), open a GitHub issue and we may add a queue mode."
+      },
+      {
+        "q": "Bigger brush or smaller brush?",
+        "a": "Be precise. Cover only the watermark pixels with a small margin. Painting too broadly forces LaMa to regenerate large regions, which degrades quality visibly."
+      }
+    ],
+    "pdfSummary": [
+      {
+        "q": "Does my PDF get uploaded?",
+        "a": "The PDF itself is never uploaded. pdfjs-dist extracts plain text in your browser; only the text (not the PDF file) is sent to the LLM for summarization. Safe for non-confidential docs; for secret contracts, use your judgement."
+      },
+      {
+        "q": "How good is the summary?",
+        "a": "Very accurate for structured documents (papers, contracts, annual reports, white papers). Scanned PDFs need to go through our OCR tool first. For dense legal clauses, treat AI summary as triage — do human verification on key clauses."
+      },
+      {
+        "q": "What's the size limit?",
+        "a": "Text over ~30k characters is truncated before sending to the model (which covers most papers and contracts). For huge PDFs (100+ pages), use our PDF split tool first to batch them."
+      },
+      {
+        "q": "Can I summarize a scanned PDF?",
+        "a": "Not directly — scanned pages have no text layer. Workflow: run the scan through OneTools' OCR first → paste the text into the summary tool."
+      },
+      {
+        "q": "Will this become a paid feature?",
+        "a": "Free forever. LLM calls use free-tier open-source models (currently Llama 3.3 70B). If daily quota runs out there may be brief rate limits."
+      }
+    ],
+    "videoCompress": [
+      {
+        "q": "Can I get under 25 MB for chat / WeChat?",
+        "a": "In most cases, yes. Pick the 'WeChat / chat' preset (720p, CRF 30). A 10-minute 1080p clip usually compresses to 15–25 MB. Very long videos: use our 'video to GIF' tool to snip the key moments instead."
+      },
+      {
+        "q": "Is my video uploaded?",
+        "a": "No. All processing happens in your browser via FFmpeg.wasm. First use downloads a ~30 MB FFmpeg core; cached, works offline afterward."
+      },
+      {
+        "q": "Why is it slower than Handbrake / ffmpeg native?",
+        "a": "It's single-threaded WebAssembly (multi-thread needs COOP/COEP headers which Vercel doesn't send by default). Roughly 1/3 the speed of native FFmpeg. 10-min video may take 3–5 minutes — but it's free, zero install, zero upload."
+      },
+      {
+        "q": "Which formats are supported?",
+        "a": "Input: MP4 / MOV / WebM / AVI / MKV / FLV / M4V. Output: MP4 (H.264 + AAC) for maximum compatibility."
+      },
+      {
+        "q": "Does quality drop noticeably?",
+        "a": "We use CRF (constant quality) encoding, not crude bitrate limiting. The 'Balanced' and 'HD' presets are nearly indistinguishable. 'WeChat' is visibly compressed but acceptable."
+      }
+    ],
+    "fileEncrypt": [
+      {
+        "q": "What if I forget the password?",
+        "a": "There is no recovery. This is standard AES-256-GCM + PBKDF2 (210k iterations) with no backdoor. Use a password manager (Bitwarden / 1Password). Forgetting the password = permanently lost file."
+      },
+      {
+        "q": "Can someone else decrypt it?",
+        "a": "Yes. They open OneTools' file encrypt / decrypt tool → switch to 'Decrypt' → drop your .enc file → enter the password you share. Important: share the password over a separate, secure channel (not in the same email as the file)."
+      },
+      {
+        "q": "How is this different from 7z / WinRAR encryption?",
+        "a": "Similar algorithm (AES-256). Differences: (1) OneTools runs entirely in the browser, no install needed; (2) the .enc format is ours — recipient doesn't need any software, just their browser."
+      },
+      {
+        "q": "How secure is the password?",
+        "a": "PBKDF2 at 210k iterations — brute-forcing a strong password would take billions of years at 2024 hardware rates. But a weak password (birthday / 123456) defeats any encryption. Use a manager to generate 16+ random characters."
+      },
+      {
+        "q": "Any file size limit?",
+        "a": "Theoretically unlimited, in practice bounded by browser memory. Under 1 GB is fine on most devices; for huge files, split them or use professional desktop tools."
+      }
+    ]
   }
 }

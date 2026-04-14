@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import SEO, { schema } from "../../components/SEO";
+import FaqSection from "../../components/FaqSection";
 
 // ── LaMa ONNX model hosted on Hugging Face (free, permissive CORS) ──
 const MODEL_URL =
@@ -995,6 +996,12 @@ export default function RemoveWatermark() {
           {t("tools.removeWatermark.privacyDesc")}
         </div>
       )}
+
+      <FaqSection
+        title={t("faq.title")}
+        items={t("faq.removeWatermark", { returnObjects: true })}
+        path="/tools/remove-watermark"
+      />
     </div>
     </>
   );

@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import SEO, { schema } from "../../components/SEO";
+import FaqSection from "../../components/FaqSection";
 import { aiSummarizePdf } from "../../api/client";
 
 // Lazy load pdfjs-dist so the ~400KB bundle only ships when user visits here
@@ -620,6 +621,12 @@ export default function PdfSummary() {
             {t("tools.pdfSummary.privacyDesc")}
           </div>
         )}
+
+        <FaqSection
+          title={t("faq.title")}
+          items={t("faq.pdfSummary", { returnObjects: true })}
+          path="/tools/pdf-summary"
+        />
       </div>
     </>
   );

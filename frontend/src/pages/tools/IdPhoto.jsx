@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import SEO, { schema } from "../../components/SEO";
+import FaqSection from "../../components/FaqSection";
 
 // Standard photo sizes (width×height in pixels @ 300dpi common values).
 // Chinese / US / visa formats — all printable at correct physical size.
@@ -383,6 +384,12 @@ export default function IdPhoto() {
             {t("tools.idPhoto.privacyDesc")}
           </div>
         )}
+
+        <FaqSection
+          title={t("faq.title")}
+          items={t("faq.idPhoto", { returnObjects: true })}
+          path="/tools/id-photo"
+        />
       </div>
     </>
   );

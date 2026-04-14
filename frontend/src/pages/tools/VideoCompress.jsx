@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import SEO, { schema } from "../../components/SEO";
+import FaqSection from "../../components/FaqSection";
 
 // FFmpeg core 0.12 single-threaded (no SharedArrayBuffer needed → works on
 // Vercel without COOP/COEP headers). Slower than MT but compatible everywhere.
@@ -371,6 +372,12 @@ export default function VideoCompress() {
             {t("tools.videoCompress.privacyDesc")}
           </div>
         )}
+
+        <FaqSection
+          title={t("faq.title")}
+          items={t("faq.videoCompress", { returnObjects: true })}
+          path="/tools/video-compress"
+        />
       </div>
     </>
   );

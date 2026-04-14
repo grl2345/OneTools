@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import SEO, { schema } from "../../components/SEO";
+import FaqSection from "../../components/FaqSection";
 
 // ── Web Crypto helpers ────────────────────────────────
 // File layout for encrypted output:
@@ -365,6 +366,12 @@ export default function FileEncrypt() {
           </div>
           {t("tools.fileEncrypt.privacyDesc")}
         </div>
+
+        <FaqSection
+          title={t("faq.title")}
+          items={t("faq.fileEncrypt", { returnObjects: true })}
+          path="/tools/file-encrypt"
+        />
       </div>
     </>
   );
