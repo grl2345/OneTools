@@ -3,8 +3,6 @@ import { useTranslation } from "react-i18next";
 import ToolCard from "../components/ToolCard";
 import SEO, { schema } from "../components/SEO";
 
-// Tag vocabulary kept tight so the grid reads as a coherent matrix,
-// not a zoo of labels. First tag is highlighted in accent color.
 const CATEGORIES = [
   {
     id: "text",
@@ -73,26 +71,21 @@ export default function Home() {
   const { t } = useTranslation();
   const [q, setQ] = useState("");
 
-  // Filtered categories: hide a category entirely if no tool matches
-  const filteredCategories = useMemo(() => {
+  const filtered = useMemo(() => {
     const query = q.trim().toLowerCase();
     if (!query) return CATEGORIES;
-    return CATEGORIES
-      .map((c) => ({
-        ...c,
-        tools: c.tools.filter((tool) => {
-          const name = t(tool.nameKey).toLowerCase();
-          const desc = t(tool.descKey).toLowerCase();
-          const tags = (tool.tags || []).join(" ").toLowerCase();
-          return (
-            name.includes(query) || desc.includes(query) || tags.includes(query)
-          );
-        }),
-      }))
-      .filter((c) => c.tools.length > 0);
+    return CATEGORIES.map((c) => ({
+      ...c,
+      tools: c.tools.filter((tool) => {
+        const n = t(tool.nameKey).toLowerCase();
+        const d = t(tool.descKey).toLowerCase();
+        const tg = (tool.tags || []).join(" ").toLowerCase();
+        return n.includes(query) || d.includes(query) || tg.includes(query);
+      }),
+    })).filter((c) => c.tools.length > 0);
   }, [q, t]);
 
-  const totalAfterFilter = filteredCategories.reduce((n, c) => n + c.tools.length, 0);
+  const totalAfterFilter = filtered.reduce((n, c) => n + c.tools.length, 0);
 
   return (
     <>
@@ -102,76 +95,79 @@ export default function Home() {
         path="/"
         structuredData={schema.website({ url: "https://onetools.dev" })}
       />
-
-      {/* Page header */}
-      <header
-        style={{
-          padding: "32px 48px 24px",
-          borderBottom: "1px solid var(--border-light)",
-          background: "#ffffff",
-          position: "sticky",
-          top: 0,
-          zIndex: 5,
-          display: "flex",
-          alignItems: "center",
-          gap: 18,
-          flexWrap: "wrap",
-        }}
-      >
-        <div style={{ flex: 1, minWidth: 240 }}>
-          <h1
+      <div style={{ maxWidth: 1180, margin: "0 auto", padding: "0 28px" }}>
+        {/* Hero — quiet, confident */}
+        <section style={{ padding: "80px 0 20px", maxWidth: 760 }}>
+          <div
             style={{
-              fontSize: 22,
-              fontWeight: 600,
-              letterSpacing: -0.6,
-              color: "var(--text-primary)",
-              marginBottom: 2,
+              fontSize: 12.5,
+              color: "var(--text-muted)",
+              fontWeight: 500,
+              letterSpacing: -0.05,
+              marginBottom: 16,
             }}
           >
-            {t("home.pageTitle")}
-          </h1>
-          <div style={{ fontSize: 12.5, color: "var(--text-muted)" }}>
-            {q
-              ? t("home.pageSubMatch", { n: totalAfterFilter, total: TOTAL_TOOLS })
-              : t("home.pageSub", { n: TOTAL_TOOLS })}
+            {t("home.eyebrow", { n: TOTAL_TOOLS })}
           </div>
-        </div>
-        <div
-          style={{
-            position: "relative",
-            width: 320,
-            maxWidth: "100%",
-          }}
-        >
-          <SearchIcon />
-          <input
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-            placeholder={t("home.searchPlaceholder")}
+          <h1
             style={{
-              width: "100%",
-              padding: "9px 14px 9px 38px",
-              borderRadius: 9,
-              border: "1px solid var(--border-strong)",
-              background: "#ffffff",
-              fontSize: 13.5,
+              fontSize: "clamp(40px, 6vw, 58px)",
+              fontWeight: 600,
+              letterSpacing: -2,
+              lineHeight: 1.05,
               color: "var(--text-primary)",
-              outline: "none",
-              letterSpacing: -0.1,
             }}
-            onFocus={(e) => (e.target.style.borderColor = "var(--brand)")}
-            onBlur={(e) => (e.target.style.borderColor = "var(--border-strong)")}
-          />
-        </div>
-      </header>
+          >
+            {t("home.title")}
+          </h1>
+          <p
+            style={{
+              fontSize: 17.5,
+              color: "var(--text-secondary)",
+              marginTop: 18,
+              maxWidth: 580,
+              lineHeight: 1.55,
+              fontWeight: 400,
+              letterSpacing: -0.2,
+            }}
+          >
+            {t("home.subtitle")}
+          </p>
+        </section>
 
-      {/* Content area */}
-      <div
-        style={{
-          padding: "32px 48px 80px",
-        }}
-      >
-        {filteredCategories.length === 0 ? (
+        {/* Search */}
+        <section style={{ paddingBottom: 20 }}>
+          <div style={{ position: "relative", maxWidth: 520 }}>
+            <SearchIcon />
+            <input
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              placeholder={t("home.searchPlaceholder")}
+              style={{
+                width: "100%",
+                padding: "11px 16px 11px 40px",
+                borderRadius: 10,
+                border: "1px solid var(--border-strong)",
+                background: "#ffffff",
+                fontSize: 14,
+                color: "var(--text-primary)",
+                outline: "none",
+                letterSpacing: -0.1,
+                boxShadow: "var(--shadow-sm)",
+              }}
+              onFocus={(e) => (e.target.style.borderColor = "var(--brand)")}
+              onBlur={(e) => (e.target.style.borderColor = "var(--border-strong)")}
+            />
+          </div>
+          {q && (
+            <div style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 8 }}>
+              {t("home.pageSubMatch", { n: totalAfterFilter, total: TOTAL_TOOLS })}
+            </div>
+          )}
+        </section>
+
+        {/* Categories */}
+        {filtered.length === 0 ? (
           <div
             style={{
               padding: "80px 20px",
@@ -183,26 +179,22 @@ export default function Home() {
             {t("home.noResults")}
           </div>
         ) : (
-          filteredCategories.map((cat, idx) => (
+          filtered.map((cat, idx) => (
             <section
               id={`cat-${cat.id}`}
               key={cat.id}
-              style={{
-                paddingTop: idx === 0 ? 0 : 36,
-                paddingBottom: 4,
-                scrollMarginTop: 96,
-              }}
+              style={{ paddingTop: idx === 0 ? 32 : 48, paddingBottom: 4, scrollMarginTop: 80 }}
             >
               <div style={{ marginBottom: 14 }}>
                 <h2
                   style={{
-                    fontSize: 15,
+                    fontSize: 16,
                     fontWeight: 600,
                     color: "var(--text-primary)",
-                    letterSpacing: -0.2,
+                    letterSpacing: -0.3,
                     display: "flex",
                     alignItems: "center",
-                    gap: 8,
+                    gap: 10,
                   }}
                 >
                   <span
@@ -221,7 +213,6 @@ export default function Home() {
                       color: "var(--text-muted)",
                       fontWeight: 400,
                       fontFamily: "var(--font-mono)",
-                      marginLeft: 2,
                     }}
                   >
                     {cat.tools.length}
@@ -231,8 +222,8 @@ export default function Home() {
               <div
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-                  gap: 10,
+                  gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
+                  gap: 12,
                 }}
               >
                 {cat.tools.map((tool, i) => (
@@ -267,17 +258,17 @@ function Upcoming() {
     t("upcoming.diffChecker"),
   ];
   return (
-    <section style={{ paddingTop: 48 }}>
+    <section style={{ paddingTop: 64, paddingBottom: 96 }}>
       <h2
         style={{
-          fontSize: 15,
+          fontSize: 16,
           fontWeight: 600,
           color: "var(--text-muted)",
-          letterSpacing: -0.2,
+          letterSpacing: -0.3,
           marginBottom: 12,
           display: "flex",
           alignItems: "center",
-          gap: 8,
+          gap: 10,
         }}
       >
         <span
@@ -290,14 +281,7 @@ function Upcoming() {
           }}
         />
         {t("home.upcomingTools")}
-        <span
-          style={{
-            fontSize: 12,
-            color: "var(--text-faint)",
-            fontWeight: 400,
-            fontFamily: "var(--font-mono)",
-          }}
-        >
+        <span style={{ fontSize: 12, color: "var(--text-faint)", fontWeight: 400, fontFamily: "var(--font-mono)" }}>
           {items.length}
         </span>
       </h2>
@@ -333,7 +317,7 @@ function SearchIcon() {
       stroke="var(--text-muted)"
       strokeWidth="1.6"
       strokeLinecap="round"
-      style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)" }}
+      style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)" }}
     >
       <circle cx="7" cy="7" r="5" />
       <path d="M11 11l3 3" />
