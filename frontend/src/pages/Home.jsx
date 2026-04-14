@@ -89,10 +89,12 @@ export default function Home() {
         structuredData={schema.website({ url: "https://onetools.dev" })}
       />
 
-      {/* Page header — Aloom style */}
+      {/* Page header */}
       <header
         style={{
-          padding: "28px 36px 0",
+          maxWidth: 1180,
+          margin: "0 auto",
+          padding: "36px 28px 0",
           background: "#ffffff",
         }}
       >
@@ -222,7 +224,7 @@ export default function Home() {
       </header>
 
       {/* Tool grid */}
-      <main style={{ padding: "24px 36px 72px" }}>
+      <section style={{ maxWidth: 1180, margin: "0 auto", padding: "24px 28px 72px" }}>
         {filtered.length === 0 ? (
           <div
             style={{
@@ -256,7 +258,7 @@ export default function Home() {
             ))}
           </div>
         )}
-      </main>
+      </section>
     </>
   );
 }
