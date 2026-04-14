@@ -51,6 +51,26 @@ export default function RemoveBg() {
     // eslint-disable-next-line
   }, []);
 
+  // Pick up file passed from Home page
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem("onetools:pendingImage");
+      if (!raw) return;
+      const { name, type, dataUrl } = JSON.parse(raw);
+      sessionStorage.removeItem("onetools:pendingImage");
+      fetch(dataUrl)
+        .then((r) => r.blob())
+        .then((blob) => {
+          const f = new File([blob], name || "pending.png", {
+            type: type || "image/png",
+          });
+          handleFile(f);
+        })
+        .catch(() => {});
+    } catch {}
+    // eslint-disable-next-line
+  }, []);
+
   const handleFile = async (f) => {
     if (!f) return;
     if (!f.type.startsWith("image/")) {
@@ -118,7 +138,7 @@ export default function RemoveBg() {
   };
 
   const panel = {
-    background: "#ffffff",
+    background: "var(--bg-card)",
     border: "1px solid var(--border)",
     borderRadius: "var(--radius)",
     overflow: "hidden",
@@ -134,7 +154,7 @@ export default function RemoveBg() {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    background: "#fafbfc",
+    background: "rgba(255,255,255,0.02)",
     letterSpacing: -0.1,
   };
 
@@ -142,12 +162,12 @@ export default function RemoveBg() {
     { value: "transparent", label: t("tools.removeBg.bgTransparent") },
     { value: "#ffffff", label: "White" },
     { value: "#000000", label: "Black" },
-    { value: "#5b5bf5", label: "Brand" },
+    { value: "#a855f7", label: "Brand" },
   ];
 
   const previewBg =
     bgColor === "transparent"
-      ? "repeating-conic-gradient(#f3f4f7 0 25%, #ffffff 0 50%) 0 0 / 20px 20px"
+      ? "repeating-conic-gradient(rgba(255,255,255,0.02) 0 25%, rgba(255,255,255,0.06) 0 50%) 0 0 / 20px 20px"
       : bgColor;
 
   return (
@@ -177,22 +197,15 @@ export default function RemoveBg() {
         <div>
           <h1
             style={{
-              fontSize: 42,
-              fontWeight: 700,
-              letterSpacing: -1.4,
-              lineHeight: 1.08,
-              color: "var(--text-primary)",
+              fontSize: 44,
+              fontWeight: 800,
+              letterSpacing: -1.6,
+              lineHeight: 1.05,
+              color: "#ffffff",
             }}
           >
             {t("tools.removeBg.name")}
-            <span
-              style={{
-                background: "var(--gradient-brand)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
+            <span className="gradient-text" style={{ fontStyle: "italic" }}>
               {" "}AI
             </span>
           </h1>
@@ -274,12 +287,12 @@ export default function RemoveBg() {
                   borderRadius: 999,
                   border:
                     bgColor === c.value
-                      ? "1px solid var(--text-primary)"
+                      ? "1px solid transparent"
                       : "1px solid var(--border)",
                   background:
                     bgColor === c.value
-                      ? "var(--text-primary)"
-                      : "#ffffff",
+                      ? "var(--gradient-brand)"
+                      : "rgba(255,255,255,0.04)",
                   color:
                     bgColor === c.value ? "#fff" : "var(--text-secondary)",
                   fontSize: 11.5,
@@ -313,7 +326,7 @@ export default function RemoveBg() {
                 padding: "8px 16px",
                 borderRadius: "var(--radius-sm)",
                 border: "1px solid var(--border-strong)",
-                background: "#ffffff",
+                background: "rgba(255,255,255,0.04)",
                 color: "var(--text-primary)",
                 fontSize: 13,
                 fontWeight: 500,
@@ -328,14 +341,12 @@ export default function RemoveBg() {
                 padding: "8px 18px",
                 borderRadius: "var(--radius-sm)",
                 border: "none",
-                background: outBlob ? "var(--text-primary)" : "#d8d8e0",
-                color: "#fff",
+                background: outBlob ? "var(--gradient-brand)" : "rgba(255,255,255,0.08)",
+                color: outBlob ? "#fff" : "var(--text-faint)",
                 fontSize: 13,
                 fontWeight: 600,
                 letterSpacing: -0.1,
-                boxShadow: outBlob
-                  ? "0 4px 14px rgba(10,11,16,0.2)"
-                  : "none",
+                boxShadow: outBlob ? "var(--shadow-brand)" : "none",
               }}
             >
               ⬇ {t("tools.removeBg.download")}
@@ -366,20 +377,20 @@ export default function RemoveBg() {
             padding: "80px 24px",
             textAlign: "center",
             borderRadius: "var(--radius)",
-            border: `2px dashed ${dragging ? "var(--brand)" : "var(--border-strong)"}`,
-            background: dragging ? "rgba(91,91,245,0.06)" : "#ffffff",
+            border: `2px dashed ${dragging ? "var(--brand-pink)" : "rgba(168,85,247,0.4)"}`,
+            background: dragging ? "rgba(236,72,153,0.08)" : "var(--bg-card)",
             color: "var(--text-secondary)",
             cursor: "pointer",
             transition: "all 0.2s ease",
-            boxShadow: "var(--shadow-sm)",
+            boxShadow: "0 20px 50px -20px rgba(168, 85, 247, 0.3)",
           }}
         >
-          <div style={{ fontSize: 32, marginBottom: 12 }}>✂️</div>
+          <div style={{ fontSize: 34, marginBottom: 12 }}>✂️</div>
           <div
             style={{
               fontSize: 15,
               fontWeight: 600,
-              color: "var(--text-primary)",
+              color: "#ffffff",
               marginBottom: 4,
               letterSpacing: -0.2,
             }}
@@ -415,7 +426,7 @@ export default function RemoveBg() {
                 alignItems: "center",
                 justifyContent: "center",
                 background:
-                  "repeating-conic-gradient(#f3f4f7 0 25%, #ffffff 0 50%) 0 0 / 20px 20px",
+                  "repeating-conic-gradient(rgba(255,255,255,0.02) 0 25%, rgba(255,255,255,0.06) 0 50%) 0 0 / 20px 20px",
               }}
             >
               <img
@@ -485,7 +496,7 @@ export default function RemoveBg() {
                       width: 200,
                       height: 6,
                       margin: "0 auto",
-                      background: "rgba(91,91,245,0.12)",
+                      background: "rgba(168,85,247,0.2)",
                       borderRadius: 999,
                       overflow: "hidden",
                     }}
@@ -538,8 +549,8 @@ export default function RemoveBg() {
             marginTop: 20,
             padding: "16px 18px",
             borderRadius: "var(--radius)",
-            background: "rgba(91,91,245,0.05)",
-            border: "1px solid rgba(91,91,245,0.18)",
+            background: "rgba(168,85,247,0.08)",
+            border: "1px solid rgba(168,85,247,0.25)",
             fontSize: 12.5,
             color: "var(--text-secondary)",
             lineHeight: 1.6,

@@ -1,9 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import LangSwitch from "./LangSwitch";
 
 export default function Navbar() {
   const { t } = useTranslation();
+  const { pathname } = useLocation();
+
+  const linkStyle = (active) => ({
+    fontSize: 14,
+    color: active ? "#ffffff" : "var(--text-secondary)",
+    fontWeight: active ? 600 : 500,
+    letterSpacing: -0.1,
+    textDecoration: "none",
+    padding: "6px 2px",
+    transition: "color 0.15s ease",
+  });
 
   return (
     <nav
@@ -11,14 +22,14 @@ export default function Navbar() {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        padding: "14px 28px",
+        padding: "16px 28px",
         borderBottom: "1px solid var(--border-light)",
         position: "sticky",
         top: 0,
         zIndex: 50,
-        background: "rgba(250, 251, 252, 0.85)",
-        backdropFilter: "saturate(180%) blur(14px)",
-        WebkitBackdropFilter: "saturate(180%) blur(14px)",
+        background: "rgba(11, 11, 20, 0.78)",
+        backdropFilter: "saturate(180%) blur(16px)",
+        WebkitBackdropFilter: "saturate(180%) blur(16px)",
       }}
     >
       <Link
@@ -30,15 +41,41 @@ export default function Navbar() {
           textDecoration: "none",
         }}
       >
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" style={{ flexShrink: 0 }}>
-          <circle cx="11" cy="11" r="10" fill="#84cc16" />
-          <circle cx="11" cy="11" r="4" fill="#ffffff" />
-        </svg>
+        <div
+          style={{
+            width: 30,
+            height: 30,
+            borderRadius: 8,
+            background: "var(--gradient-brand)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            boxShadow: "0 4px 14px -2px rgba(168, 85, 247, 0.55)",
+            flexShrink: 0,
+          }}
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M4 14.5L9.5 9l3.5 3.5L20 5M20 5h-5M20 5v5"
+              stroke="#fff"
+              strokeWidth="2.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M4 19h16"
+              stroke="#fff"
+              strokeWidth="2.4"
+              strokeLinecap="round"
+              opacity="0.55"
+            />
+          </svg>
+        </div>
         <span
           style={{
-            fontSize: 16,
-            fontWeight: 600,
-            color: "var(--text-primary)",
+            fontSize: 17,
+            fontWeight: 700,
+            color: "#ffffff",
             letterSpacing: -0.5,
           }}
         >
@@ -46,38 +83,27 @@ export default function Navbar() {
         </span>
       </Link>
 
-      <div style={{ display: "flex", gap: 24, alignItems: "center" }}>
-        <Link
-          to="/"
-          style={{
-            fontSize: 13.5,
-            color: "var(--text-secondary)",
-            fontWeight: 500,
-            letterSpacing: -0.1,
-            textDecoration: "none",
-          }}
-        >
+      <div style={{ display: "flex", gap: 26, alignItems: "center" }}>
+        <Link to="/tools/remove-watermark" style={linkStyle(pathname === "/tools/remove-watermark")}>
+          {t("nav.removeWatermark")}
+        </Link>
+        <Link to="/tools/remove-bg" style={linkStyle(pathname === "/tools/remove-bg")}>
+          {t("nav.removeBg")}
+        </Link>
+        <Link to="/" style={linkStyle(pathname === "/")}>
           {t("nav.allTools")}
         </Link>
-        <Link
-          to="/about"
-          style={{
-            fontSize: 13.5,
-            color: "var(--text-secondary)",
-            fontWeight: 500,
-            letterSpacing: -0.1,
-            textDecoration: "none",
-          }}
-        >
+        <Link to="/about" style={linkStyle(pathname === "/about")}>
           {t("footer.about")}
         </Link>
+
         <a
           href="https://github.com/grl2345/OneTools"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="GitHub"
           style={{
-            color: "var(--text-secondary)",
+            color: "var(--text-muted)",
             display: "inline-flex",
             alignItems: "center",
           }}
@@ -87,6 +113,9 @@ export default function Navbar() {
           </svg>
         </a>
         <LangSwitch />
+        <Link to="/tools/remove-watermark" className="btn-primary" style={{ padding: "10px 20px", fontSize: 13.5 }}>
+          {t("nav.tryFree")}
+        </Link>
       </div>
     </nav>
   );

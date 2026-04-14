@@ -2,6 +2,9 @@
   "nav": {
     "brand": "OneTools",
     "allTools": "All Tools",
+    "removeWatermark": "Remove Watermark",
+    "removeBg": "Remove Background",
+    "tryFree": "Try Free",
     "github": "GitHub"
   },
   "home": {
@@ -25,7 +28,46 @@
       "privacy": "Privacy",
       "dev": "Developer"
     },
-    "eyebrow": "24 everyday tools, one place",
+    "eyebrow": "AI Watermark & Background Remover",
+    "uploadCta": "Upload Image",
+    "uploadHint": "Drop an image here · JPG / PNG / WEBP",
+    "tryBgRemove": "Remove Background",
+    "trust": {
+      "privacy": "100% Private",
+      "fast": "Fast AI",
+      "free": "Free Forever",
+      "ai": "State-of-the-art Models"
+    },
+    "feature": {
+      "rmwmTitle": "Remove Watermark",
+      "rmwmDesc": "Brush over the watermark, logo or object and our AI fills in what should be there. No ghost artifacts.",
+      "rmbgTitle": "Remove Background",
+      "rmbgDesc": "One-click cutout for people, products and pets. Transparent PNG or any solid backdrop in seconds.",
+      "cta": "Try it free"
+    },
+    "how": {
+      "eyebrow": "How it works",
+      "title": "Three steps, zero learning curve",
+      "sub": "Designed for anyone. No Photoshop, no subscription, no sign-up.",
+      "s1Title": "Upload",
+      "s1Desc": "Drop your image, or paste from clipboard. We keep it in your browser.",
+      "s2Title": "Let AI do the work",
+      "s2Desc": "Our on-device model inpaints watermarks or masks out the subject in seconds.",
+      "s3Title": "Download",
+      "s3Desc": "Save the clean result as PNG — untouched quality, no watermark of our own."
+    },
+    "more": {
+      "eyebrow": "Full toolkit",
+      "title": "More than watermark removal",
+      "sub": "An all-in-one image studio. Upscale, compress, OCR, extract palettes — all in your browser."
+    },
+    "ctaBand": {
+      "title": "Clean up an image, right now",
+      "sub": "Upload once and try either tool. Your files never leave your device.",
+      "tryWatermark": "Remove Watermark",
+      "tryBg": "Remove Background"
+    },
+    "secondaryEyebrow": "24 everyday tools, one place",
     "pageTitle": "Tools",
     "pageSub": "{{n}} tools · browse by category or search",
     "pageSubMatch": "{{n}} of {{total}} match",
@@ -78,8 +120,8 @@
       "base64": "Paste and it figures out whether you meant encode or decode",
       "qrcode": "Generate or decode QR codes, Wi-Fi / vCard aware"
     },
-    "heroTitleA": "Your daily",
-    "heroTitleB": "toolbox",
+    "heroTitleA": "AI Watermark & Background",
+    "heroTitleB": "Remover",
     "tab": {
       "all": "All"
     },
@@ -668,9 +710,16 @@
   },
   "footer": {
     "builtWith": "Built with Claude Code",
+    "tagline": "A free AI-powered image studio — remove watermarks, cut out backgrounds, and polish photos without uploading a single byte.",
     "about": "About",
     "privacy": "Privacy",
-    "terms": "Terms"
+    "terms": "Terms",
+    "legalLine": "All processing happens in your browser. We do not store your images.",
+    "col": {
+      "product": "Product",
+      "company": "Company",
+      "follow": "Follow"
+    }
   },
   "legal": {
     "lastUpdated": "Last updated: {{date}}",

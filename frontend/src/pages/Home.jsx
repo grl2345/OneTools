@@ -1,60 +1,56 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ToolIcon from "../components/ToolIcon";
 import SEO, { schema } from "../components/SEO";
 
-// TinyWow-style: each tool gets a soft pastel card background + bold accent
-// for its icon. Icon bg uses white-in-pastel-card, accent for the icon color.
 const ALL_TOOLS = [
-  // Privacy
-  { cat: "privacy", to: "/tools/file-encrypt",     nameKey: "tools.fileEncrypt.name",     descKey: "home.bene.fileEncrypt",     iconName: "fileEncrypt",     accent: "#059669", bg: "#ecfdf5" },
-  { cat: "privacy", to: "/tools/exif",             nameKey: "tools.exif.name",            descKey: "home.bene.exif",            iconName: "exif",            accent: "#0891b2", bg: "#ecfeff" },
-  { cat: "privacy", to: "/tools/remove-watermark", nameKey: "tools.removeWatermark.name", descKey: "home.bene.removeWatermark", iconName: "removeWatermark", accent: "#db2777", bg: "#fdf2f8" },
+  { cat: "image",   to: "/tools/remove-watermark", nameKey: "tools.removeWatermark.name", descKey: "home.bene.removeWatermark", iconName: "removeWatermark", accent: "#ec4899" },
+  { cat: "image",   to: "/tools/remove-bg",        nameKey: "tools.removeBg.name",        descKey: "home.bene.removeBg",        iconName: "removeBg",        accent: "#a855f7" },
+  { cat: "image",   to: "/tools/id-photo",         nameKey: "tools.idPhoto.name",         descKey: "home.bene.idPhoto",         iconName: "idPhoto",         accent: "#f59e0b" },
+  { cat: "image",   to: "/tools/image-compress",   nameKey: "tools.imageCompress.name",   descKey: "home.bene.imageCompress",   iconName: "imageCompress",   accent: "#f97316" },
+  { cat: "image",   to: "/tools/upscale",          nameKey: "tools.upscale.name",         descKey: "home.bene.upscale",         iconName: "upscale",         accent: "#6366f1" },
+  { cat: "image",   to: "/tools/palette",          nameKey: "tools.palette.name",         descKey: "home.bene.palette",         iconName: "palette",         accent: "#ec4899" },
 
-  // Docs
-  { cat: "doc", to: "/tools/pdf",            nameKey: "tools.pdf.name",          descKey: "home.bene.pdf",          iconName: "pdf",          accent: "#ea580c", bg: "#fff7ed" },
-  { cat: "doc", to: "/tools/pdf-summary",    nameKey: "tools.pdfSummary.name",   descKey: "home.bene.pdfSummary",   iconName: "pdfSummary",   accent: "#dc2626", bg: "#fef2f2" },
-  { cat: "doc", to: "/tools/ocr",            nameKey: "tools.ocr.name",          descKey: "home.bene.ocr",          iconName: "ocr",          accent: "#4f46e5", bg: "#eef2ff" },
-  { cat: "doc", to: "/tools/handwriting",    nameKey: "tools.handwriting.name",  descKey: "home.bene.handwriting",  iconName: "handwriting",  accent: "#7c3aed", bg: "#f5f3ff" },
-  { cat: "doc", to: "/tools/image-to-table", nameKey: "tools.imageToTable.name", descKey: "home.bene.imageToTable", iconName: "imageToTable", accent: "#0d9488", bg: "#f0fdfa" },
+  { cat: "privacy", to: "/tools/file-encrypt",     nameKey: "tools.fileEncrypt.name",     descKey: "home.bene.fileEncrypt",     iconName: "fileEncrypt",     accent: "#10b981" },
+  { cat: "privacy", to: "/tools/exif",             nameKey: "tools.exif.name",            descKey: "home.bene.exif",            iconName: "exif",            accent: "#06b6d4" },
 
-  // Image
-  { cat: "image", to: "/tools/id-photo",       nameKey: "tools.idPhoto.name",       descKey: "home.bene.idPhoto",       iconName: "idPhoto",       accent: "#d97706", bg: "#fffbeb" },
-  { cat: "image", to: "/tools/remove-bg",      nameKey: "tools.removeBg.name",      descKey: "home.bene.removeBg",      iconName: "removeBg",      accent: "#7c3aed", bg: "#f5f3ff" },
-  { cat: "image", to: "/tools/image-compress", nameKey: "tools.imageCompress.name", descKey: "home.bene.imageCompress", iconName: "imageCompress", accent: "#ea580c", bg: "#fff7ed" },
-  { cat: "image", to: "/tools/upscale",        nameKey: "tools.upscale.name",       descKey: "home.bene.upscale",       iconName: "upscale",       accent: "#4f46e5", bg: "#eef2ff" },
-  { cat: "image", to: "/tools/palette",        nameKey: "tools.palette.name",       descKey: "home.bene.palette",       iconName: "palette",       accent: "#db2777", bg: "#fdf2f8" },
+  { cat: "doc", to: "/tools/pdf",            nameKey: "tools.pdf.name",          descKey: "home.bene.pdf",          iconName: "pdf",          accent: "#f97316" },
+  { cat: "doc", to: "/tools/pdf-summary",    nameKey: "tools.pdfSummary.name",   descKey: "home.bene.pdfSummary",   iconName: "pdfSummary",   accent: "#ef4444" },
+  { cat: "doc", to: "/tools/ocr",            nameKey: "tools.ocr.name",          descKey: "home.bene.ocr",          iconName: "ocr",          accent: "#6366f1" },
+  { cat: "doc", to: "/tools/handwriting",    nameKey: "tools.handwriting.name",  descKey: "home.bene.handwriting",  iconName: "handwriting",  accent: "#a855f7" },
+  { cat: "doc", to: "/tools/image-to-table", nameKey: "tools.imageToTable.name", descKey: "home.bene.imageToTable", iconName: "imageToTable", accent: "#14b8a6" },
 
-  // Audio / Video
-  { cat: "av", to: "/tools/video-compress", nameKey: "tools.videoCompress.name", descKey: "home.bene.videoCompress", iconName: "videoCompress", accent: "#dc2626", bg: "#fef2f2" },
-  { cat: "av", to: "/tools/video-to-gif",   nameKey: "tools.videoToGif.name",    descKey: "home.bene.videoToGif",    iconName: "videoToGif",    accent: "#db2777", bg: "#fdf2f8" },
-  { cat: "av", to: "/tools/whisper",        nameKey: "tools.whisper.name",       descKey: "home.bene.whisper",       iconName: "whisper",       accent: "#0891b2", bg: "#ecfeff" },
+  { cat: "av", to: "/tools/video-compress", nameKey: "tools.videoCompress.name", descKey: "home.bene.videoCompress", iconName: "videoCompress", accent: "#ef4444" },
+  { cat: "av", to: "/tools/video-to-gif",   nameKey: "tools.videoToGif.name",    descKey: "home.bene.videoToGif",    iconName: "videoToGif",    accent: "#ec4899" },
+  { cat: "av", to: "/tools/whisper",        nameKey: "tools.whisper.name",       descKey: "home.bene.whisper",       iconName: "whisper",       accent: "#06b6d4" },
 
-  // Dev
-  { cat: "dev", to: "/tools/json",      nameKey: "tools.jsonFormatter.name",   descKey: "home.bene.jsonFormatter",   iconName: "json",       accent: "#4f46e5", bg: "#eef2ff" },
-  { cat: "dev", to: "/tools/markdown",  nameKey: "tools.markdownPreview.name", descKey: "home.bene.markdownPreview", iconName: "markdown",   accent: "#0d9488", bg: "#f0fdfa" },
-  { cat: "dev", to: "/tools/naming",    nameKey: "tools.naming.name",          descKey: "home.bene.naming",          iconName: "naming",     accent: "#7c3aed", bg: "#f5f3ff" },
-  { cat: "dev", to: "/tools/cron",      nameKey: "tools.cron.name",            descKey: "home.bene.cron",            iconName: "cron",       accent: "#059669", bg: "#ecfdf5" },
-  { cat: "dev", to: "/tools/timestamp", nameKey: "tools.timestamp.name",       descKey: "home.bene.timestamp",       iconName: "timestamp",  accent: "#db2777", bg: "#fdf2f8" },
-  { cat: "dev", to: "/tools/flowchart", nameKey: "tools.flowchart.name",       descKey: "home.bene.flowchart",       iconName: "flowchart",  accent: "#0d9488", bg: "#f0fdfa" },
-  { cat: "dev", to: "/tools/base64",    nameKey: "tools.base64.name",          descKey: "home.bene.base64",          iconName: "base64",     accent: "#2563eb", bg: "#eff6ff" },
-  { cat: "dev", to: "/tools/qrcode",    nameKey: "tools.qrcode.name",          descKey: "home.bene.qrcode",          iconName: "qrcode",     accent: "#0f172a", bg: "#f1f5f9" },
+  { cat: "dev", to: "/tools/json",      nameKey: "tools.jsonFormatter.name",   descKey: "home.bene.jsonFormatter",   iconName: "json",      accent: "#6366f1" },
+  { cat: "dev", to: "/tools/markdown",  nameKey: "tools.markdownPreview.name", descKey: "home.bene.markdownPreview", iconName: "markdown",  accent: "#14b8a6" },
+  { cat: "dev", to: "/tools/naming",    nameKey: "tools.naming.name",          descKey: "home.bene.naming",          iconName: "naming",    accent: "#a855f7" },
+  { cat: "dev", to: "/tools/cron",      nameKey: "tools.cron.name",            descKey: "home.bene.cron",            iconName: "cron",      accent: "#10b981" },
+  { cat: "dev", to: "/tools/timestamp", nameKey: "tools.timestamp.name",       descKey: "home.bene.timestamp",       iconName: "timestamp", accent: "#ec4899" },
+  { cat: "dev", to: "/tools/flowchart", nameKey: "tools.flowchart.name",       descKey: "home.bene.flowchart",       iconName: "flowchart", accent: "#14b8a6" },
+  { cat: "dev", to: "/tools/base64",    nameKey: "tools.base64.name",          descKey: "home.bene.base64",          iconName: "base64",    accent: "#3b82f6" },
+  { cat: "dev", to: "/tools/qrcode",    nameKey: "tools.qrcode.name",          descKey: "home.bene.qrcode",          iconName: "qrcode",    accent: "#cbd5e1" },
 ];
 
 const TABS = [
-  { id: "all",     labelKey: "home.tab.all",     emoji: "🎯" },
-  { id: "privacy", labelKey: "home.cat.privacy", emoji: "🔒" },
-  { id: "doc",     labelKey: "home.cat.doc",     emoji: "📄" },
-  { id: "image",   labelKey: "home.cat.image",   emoji: "🖼️" },
-  { id: "av",      labelKey: "home.cat.av",      emoji: "🎬" },
-  { id: "dev",     labelKey: "home.cat.dev",     emoji: "💻" },
+  { id: "all",     labelKey: "home.tab.all" },
+  { id: "image",   labelKey: "home.cat.image" },
+  { id: "privacy", labelKey: "home.cat.privacy" },
+  { id: "doc",     labelKey: "home.cat.doc" },
+  { id: "av",      labelKey: "home.cat.av" },
+  { id: "dev",     labelKey: "home.cat.dev" },
 ];
 
 export default function Home() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [q, setQ] = useState("");
   const [activeTab, setActiveTab] = useState("all");
+  const [dragging, setDragging] = useState(false);
+  const fileRef = useRef(null);
 
   const filtered = useMemo(() => {
     const query = q.trim().toLowerCase();
@@ -73,6 +69,21 @@ export default function Home() {
     return m;
   }, []);
 
+  const handleUpload = (file) => {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        sessionStorage.setItem(
+          "onetools:pendingImage",
+          JSON.stringify({ name: file.name, type: file.type, dataUrl: e.target.result })
+        );
+      } catch {}
+      navigate("/tools/remove-watermark");
+    };
+    reader.readAsDataURL(file);
+  };
+
   return (
     <>
       <SEO
@@ -82,48 +93,31 @@ export default function Home() {
         structuredData={schema.website({ url: "https://onetools.dev" })}
       />
 
-      {/* ── Hero with lime-tinted background ────────── */}
+      {/* ── HERO ────────────────────────────────── */}
       <section
         style={{
-          background:
-            "linear-gradient(180deg, #ecfccb 0%, #f7fee7 40%, #ffffff 100%)",
-          padding: "64px 24px 72px",
-          textAlign: "center",
           position: "relative",
+          padding: "72px 24px 96px",
           overflow: "hidden",
         }}
       >
-        {/* Decorative blobs */}
         <div
           aria-hidden
           style={{
             position: "absolute",
-            top: -40,
-            left: "8%",
-            width: 140,
-            height: 140,
-            borderRadius: "50%",
-            background: "#a3e635",
-            opacity: 0.25,
-            filter: "blur(20px)",
+            inset: 0,
+            background: "var(--gradient-hero)",
+            pointerEvents: "none",
           }}
         />
         <div
-          aria-hidden
           style={{
-            position: "absolute",
-            top: 40,
-            right: "6%",
-            width: 200,
-            height: 200,
-            borderRadius: "50%",
-            background: "#84cc16",
-            opacity: 0.15,
-            filter: "blur(40px)",
+            position: "relative",
+            maxWidth: 1080,
+            margin: "0 auto",
+            textAlign: "center",
           }}
-        />
-
-        <div style={{ maxWidth: 860, margin: "0 auto", position: "relative" }}>
+        >
           <div
             style={{
               display: "inline-flex",
@@ -131,128 +125,300 @@ export default function Home() {
               gap: 8,
               padding: "6px 14px",
               borderRadius: 999,
-              background: "#ffffff",
-              border: "1px solid #d9f99d",
+              background: "rgba(168, 85, 247, 0.14)",
+              border: "1px solid rgba(168, 85, 247, 0.32)",
               fontSize: 12.5,
-              color: "#4d7c0f",
+              color: "#e9d5ff",
               fontWeight: 600,
-              marginBottom: 24,
-              boxShadow: "0 1px 2px rgba(0,0,0,0.03)",
+              marginBottom: 26,
+              letterSpacing: 0.2,
             }}
           >
-            <span style={{ fontSize: 14 }}>✨</span>
+            <span
+              style={{
+                width: 6,
+                height: 6,
+                borderRadius: "50%",
+                background: "#ec4899",
+                boxShadow: "0 0 10px #ec4899",
+              }}
+            />
             {t("home.eyebrow")}
           </div>
 
           <h1
             style={{
-              fontSize: "clamp(44px, 7vw, 78px)",
+              fontSize: "clamp(42px, 6.5vw, 72px)",
               fontWeight: 800,
-              letterSpacing: -3,
-              lineHeight: 1,
-              color: "#0f172a",
+              letterSpacing: -2.5,
+              lineHeight: 1.05,
+              color: "#ffffff",
+              marginBottom: 18,
             }}
           >
             {t("home.heroTitleA")}{" "}
-            <span
-              style={{
-                display: "inline-block",
-                background: "#c1ed3e",
-                padding: "0 14px",
-                borderRadius: 12,
-                transform: "rotate(-1.5deg)",
-                boxShadow: "0 4px 0 rgba(77, 124, 15, 0.3)",
-              }}
-            >
+            <span className="gradient-text" style={{ fontStyle: "italic" }}>
               {t("home.heroTitleB")}
             </span>
           </h1>
           <p
             style={{
               fontSize: 18,
-              color: "#334155",
-              marginTop: 22,
-              maxWidth: 560,
-              margin: "22px auto 0",
+              color: "var(--text-secondary)",
+              maxWidth: 640,
+              margin: "0 auto",
               lineHeight: 1.5,
-              fontWeight: 500,
+              fontWeight: 450,
               letterSpacing: -0.15,
             }}
           >
             {t("home.heroSub")}
           </p>
 
-          {/* Big search */}
+          {/* Upload zone */}
           <div
+            onDragOver={(e) => {
+              e.preventDefault();
+              setDragging(true);
+            }}
+            onDragLeave={() => setDragging(false)}
+            onDrop={(e) => {
+              e.preventDefault();
+              setDragging(false);
+              handleUpload(e.dataTransfer.files?.[0]);
+            }}
             style={{
-              marginTop: 36,
+              marginTop: 40,
+              padding: "44px 28px",
+              borderRadius: 22,
+              border: `2px dashed ${dragging ? "#ec4899" : "rgba(168, 85, 247, 0.45)"}`,
+              background: dragging
+                ? "rgba(236, 72, 153, 0.08)"
+                : "rgba(21, 21, 42, 0.55)",
+              backdropFilter: "blur(6px)",
+              boxShadow: dragging
+                ? "0 0 0 4px rgba(236,72,153,0.15)"
+                : "0 20px 60px -20px rgba(168, 85, 247, 0.3)",
+              transition: "all 0.2s ease",
               position: "relative",
-              maxWidth: 580,
-              margin: "36px auto 0",
             }}
           >
-            <SearchIcon />
             <input
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-              placeholder={t("home.searchPlaceholder")}
-              style={{
-                width: "100%",
-                padding: "18px 20px 18px 56px",
-                borderRadius: 999,
-                border: "2px solid #0f172a",
-                background: "#ffffff",
-                fontSize: 15,
-                color: "#0f172a",
-                outline: "none",
-                letterSpacing: -0.15,
-                boxShadow: "0 4px 0 #0f172a",
-                fontWeight: 500,
-              }}
-              onFocus={(e) => {
-                e.target.style.boxShadow = "0 4px 0 #65a30d";
-                e.target.style.borderColor = "#65a30d";
-              }}
-              onBlur={(e) => {
-                e.target.style.boxShadow = "0 4px 0 #0f172a";
-                e.target.style.borderColor = "#0f172a";
-              }}
+              ref={fileRef}
+              type="file"
+              accept="image/*"
+              onChange={(e) => handleUpload(e.target.files?.[0])}
+              style={{ display: "none" }}
             />
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: 16,
+              }}
+            >
+              <div
+                style={{
+                  width: 58,
+                  height: 58,
+                  borderRadius: 16,
+                  background: "var(--gradient-brand)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  boxShadow: "0 12px 30px -6px rgba(168, 85, 247, 0.55)",
+                }}
+              >
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M12 16V4m0 0l-4 4m4-4l4 4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"
+                    stroke="#fff"
+                    strokeWidth="2.2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+              <div style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
+                <button
+                  className="btn-primary"
+                  onClick={() => fileRef.current?.click()}
+                  style={{ padding: "14px 30px", fontSize: 15 }}
+                >
+                  {t("home.uploadCta")}
+                </button>
+                <Link
+                  to="/tools/remove-bg"
+                  className="btn-ghost"
+                  style={{ padding: "14px 24px", fontSize: 14 }}
+                >
+                  {t("home.tryBgRemove")}
+                </Link>
+              </div>
+              <div
+                style={{
+                  fontSize: 13,
+                  color: "var(--text-muted)",
+                  letterSpacing: -0.1,
+                }}
+              >
+                {t("home.uploadHint")}
+              </div>
+            </div>
           </div>
 
+          {/* Trust row */}
           <div
             style={{
-              marginTop: 16,
+              marginTop: 26,
+              display: "flex",
+              justifyContent: "center",
+              gap: 14,
+              flexWrap: "wrap",
               fontSize: 12.5,
-              color: "#64748b",
+              color: "var(--text-muted)",
               fontWeight: 500,
             }}
           >
-            {t("home.heroFoot", { n: ALL_TOOLS.length })}
+            <TrustPill icon="🔒" label={t("home.trust.privacy")} />
+            <TrustPill icon="⚡" label={t("home.trust.fast")} />
+            <TrustPill icon="✨" label={t("home.trust.free")} />
+            <TrustPill icon="🧠" label={t("home.trust.ai")} />
           </div>
         </div>
       </section>
 
-      {/* ── Category tabs — simple underline style, no pill ─── */}
-      <div
+      {/* ── Two headline features ─── */}
+      <section
         style={{
-          position: "sticky",
-          top: 0,
-          zIndex: 20,
-          background: "rgba(255,255,255,0.95)",
-          backdropFilter: "saturate(180%) blur(12px)",
-          WebkitBackdropFilter: "saturate(180%) blur(12px)",
-          borderBottom: "1px solid var(--border-light)",
+          maxWidth: 1200,
+          margin: "0 auto",
+          padding: "0 24px 40px",
         }}
       >
         <div
           style={{
-            maxWidth: 1200,
-            margin: "0 auto",
-            padding: "0 24px",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
+            gap: 20,
+          }}
+        >
+          <HeroFeature
+            to="/tools/remove-watermark"
+            titleKey="home.feature.rmwmTitle"
+            descKey="home.feature.rmwmDesc"
+            ctaKey="home.feature.cta"
+            gradient="linear-gradient(135deg, rgba(168, 85, 247, 0.22) 0%, rgba(236, 72, 153, 0.18) 100%)"
+            accent="#a855f7"
+            t={t}
+            icon={
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M6 18L18 6M9 6h9v9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            }
+          />
+          <HeroFeature
+            to="/tools/remove-bg"
+            titleKey="home.feature.rmbgTitle"
+            descKey="home.feature.rmbgDesc"
+            ctaKey="home.feature.cta"
+            gradient="linear-gradient(135deg, rgba(236, 72, 153, 0.22) 0%, rgba(251, 113, 133, 0.18) 100%)"
+            accent="#ec4899"
+            t={t}
+            icon={
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M12 3a9 9 0 100 18 9 9 0 000-18z" stroke="currentColor" strokeWidth="2" />
+                <path d="M9 9l6 6M15 9l-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+            }
+          />
+        </div>
+      </section>
+
+      {/* ── How it works ─── */}
+      <section style={{ maxWidth: 1080, margin: "0 auto", padding: "40px 24px 20px" }}>
+        <SectionTitle
+          eyebrow={t("home.how.eyebrow")}
+          title={t("home.how.title")}
+          sub={t("home.how.sub")}
+        />
+        <div
+          style={{
+            marginTop: 36,
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+            gap: 18,
+          }}
+        >
+          {[1, 2, 3].map((n) => (
+            <StepCard
+              key={n}
+              num={n}
+              title={t(`home.how.s${n}Title`)}
+              desc={t(`home.how.s${n}Desc`)}
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* ── Tool directory ─── */}
+      <section
+        style={{
+          maxWidth: 1200,
+          margin: "0 auto",
+          padding: "64px 24px 24px",
+        }}
+      >
+        <SectionTitle
+          eyebrow={t("home.more.eyebrow")}
+          title={t("home.more.title")}
+          sub={t("home.more.sub")}
+        />
+
+        <div
+          style={{
+            marginTop: 28,
+            position: "relative",
+            maxWidth: 520,
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+        >
+          <SearchIcon />
+          <input
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder={t("home.searchPlaceholder")}
+            style={{
+              width: "100%",
+              padding: "14px 20px 14px 48px",
+              borderRadius: 999,
+              border: "1px solid var(--border-strong)",
+              background: "var(--bg-input)",
+              fontSize: 14,
+              color: "var(--text-primary)",
+              outline: "none",
+              letterSpacing: -0.1,
+            }}
+            onFocus={(e) => {
+              e.target.style.borderColor = "var(--brand)";
+              e.target.style.boxShadow = "var(--shadow-glow)";
+            }}
+            onBlur={(e) => {
+              e.target.style.borderColor = "var(--border-strong)";
+              e.target.style.boxShadow = "none";
+            }}
+          />
+        </div>
+
+        <div
+          style={{
+            marginTop: 22,
             display: "flex",
             justifyContent: "center",
             flexWrap: "wrap",
+            gap: 6,
           }}
         >
           {TABS.map((tab) => {
@@ -262,34 +428,25 @@ export default function Home() {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 style={{
-                  padding: "14px 18px",
-                  background: "transparent",
-                  border: "none",
-                  borderBottom: active ? "2px solid #0f172a" : "2px solid transparent",
-                  color: active ? "#0f172a" : "#64748b",
-                  fontSize: 14,
+                  padding: "8px 16px",
+                  borderRadius: 999,
+                  border: active ? "1px solid transparent" : "1px solid var(--border)",
+                  background: active ? "var(--gradient-brand)" : "rgba(255,255,255,0.03)",
+                  color: active ? "#fff" : "var(--text-secondary)",
+                  fontSize: 13,
                   fontWeight: active ? 600 : 500,
-                  cursor: "pointer",
                   letterSpacing: -0.1,
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 6,
-                  marginBottom: -1,
-                  transition: "color 0.12s ease",
-                }}
-                onMouseEnter={(e) => {
-                  if (!active) e.currentTarget.style.color = "#0f172a";
-                }}
-                onMouseLeave={(e) => {
-                  if (!active) e.currentTarget.style.color = "#64748b";
+                  boxShadow: active ? "0 6px 16px -6px rgba(168,85,247,0.6)" : "none",
                 }}
               >
                 {t(tab.labelKey)}
                 <span
                   style={{
                     fontSize: 11,
-                    color: active ? "#0f172a" : "#94a3b8",
-                    fontWeight: 500,
+                    color: active ? "rgba(255,255,255,0.85)" : "var(--text-faint)",
                     fontFamily: "var(--font-mono)",
                   }}
                 >
@@ -299,113 +456,352 @@ export default function Home() {
             );
           })}
         </div>
-      </div>
 
-      {/* ── Tool grid ─────────────────────────────── */}
-      <main
+        <div style={{ marginTop: 32 }}>
+          {filtered.length === 0 ? (
+            <div
+              style={{
+                padding: "80px 20px",
+                textAlign: "center",
+                color: "var(--text-muted)",
+                fontSize: 14,
+              }}
+            >
+              {t("home.noResults")}
+            </div>
+          ) : (
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fill, minmax(230px, 1fr))",
+                gap: 14,
+              }}
+            >
+              {filtered.map((tool, i) => (
+                <DarkToolCard
+                  key={i}
+                  to={tool.to}
+                  icon={tool.iconName}
+                  accent={tool.accent}
+                  name={t(tool.nameKey)}
+                  desc={t(tool.descKey)}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ── CTA band ─── */}
+      <section
         style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          padding: "40px 24px 96px",
+          maxWidth: 960,
+          margin: "72px auto 80px",
+          padding: "48px 24px",
+          borderRadius: 24,
+          background:
+            "linear-gradient(135deg, rgba(168,85,247,0.14), rgba(236,72,153,0.12))",
+          border: "1px solid rgba(168, 85, 247, 0.25)",
+          textAlign: "center",
         }}
       >
-        {filtered.length === 0 ? (
-          <div
-            style={{
-              padding: "80px 20px",
-              textAlign: "center",
-              color: "var(--text-muted)",
-              fontSize: 14,
-            }}
-          >
-            {t("home.noResults")}
-          </div>
-        ) : (
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
-              gap: 16,
-            }}
-          >
-            {filtered.map((tool, i) => (
-              <PastelCard
-                key={i}
-                to={tool.to}
-                icon={tool.iconName}
-                accent={tool.accent}
-                bg={tool.bg}
-                name={t(tool.nameKey)}
-                desc={t(tool.descKey)}
-              />
-            ))}
-          </div>
-        )}
-      </main>
+        <h2
+          style={{
+            fontSize: "clamp(28px, 3.5vw, 38px)",
+            fontWeight: 800,
+            letterSpacing: -1.2,
+            color: "#ffffff",
+          }}
+        >
+          {t("home.ctaBand.title")}
+        </h2>
+        <p
+          style={{
+            marginTop: 12,
+            color: "var(--text-secondary)",
+            fontSize: 15,
+            maxWidth: 600,
+            marginInline: "auto",
+            lineHeight: 1.55,
+          }}
+        >
+          {t("home.ctaBand.sub")}
+        </p>
+        <div
+          style={{
+            marginTop: 24,
+            display: "flex",
+            justifyContent: "center",
+            gap: 12,
+            flexWrap: "wrap",
+          }}
+        >
+          <Link to="/tools/remove-watermark" className="btn-primary">
+            {t("home.ctaBand.tryWatermark")}
+          </Link>
+          <Link to="/tools/remove-bg" className="btn-ghost">
+            {t("home.ctaBand.tryBg")}
+          </Link>
+        </div>
+      </section>
     </>
   );
 }
 
-function PastelCard({ to, icon, accent, bg, name, desc }) {
+function TrustPill({ icon, label }) {
+  return (
+    <span
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 6,
+        padding: "5px 12px",
+        borderRadius: 999,
+        background: "rgba(255, 255, 255, 0.04)",
+        border: "1px solid var(--border)",
+      }}
+    >
+      <span>{icon}</span>
+      {label}
+    </span>
+  );
+}
+
+function SectionTitle({ eyebrow, title, sub }) {
+  return (
+    <div style={{ textAlign: "center" }}>
+      <div
+        style={{
+          fontSize: 11.5,
+          fontWeight: 700,
+          letterSpacing: 2.2,
+          color: "var(--brand-pink)",
+          textTransform: "uppercase",
+        }}
+      >
+        {eyebrow}
+      </div>
+      <h2
+        style={{
+          marginTop: 10,
+          fontSize: "clamp(28px, 4vw, 42px)",
+          fontWeight: 800,
+          letterSpacing: -1.4,
+          color: "#ffffff",
+          lineHeight: 1.1,
+        }}
+      >
+        {title}
+      </h2>
+      {sub && (
+        <p
+          style={{
+            marginTop: 12,
+            color: "var(--text-secondary)",
+            fontSize: 15,
+            maxWidth: 640,
+            marginInline: "auto",
+            lineHeight: 1.55,
+          }}
+        >
+          {sub}
+        </p>
+      )}
+    </div>
+  );
+}
+
+function StepCard({ num, title, desc }) {
+  return (
+    <div
+      style={{
+        padding: "22px 20px",
+        borderRadius: 16,
+        background: "rgba(255,255,255,0.03)",
+        border: "1px solid var(--border)",
+      }}
+    >
+      <div
+        style={{
+          width: 36,
+          height: 36,
+          borderRadius: 10,
+          background: "var(--gradient-brand)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: 14,
+          fontWeight: 800,
+          color: "#ffffff",
+          marginBottom: 14,
+          boxShadow: "0 6px 16px -4px rgba(168, 85, 247, 0.5)",
+        }}
+      >
+        {num}
+      </div>
+      <div
+        style={{
+          fontSize: 16,
+          fontWeight: 700,
+          color: "#ffffff",
+          letterSpacing: -0.2,
+          marginBottom: 6,
+        }}
+      >
+        {title}
+      </div>
+      <div
+        style={{
+          fontSize: 13,
+          color: "var(--text-muted)",
+          lineHeight: 1.55,
+        }}
+      >
+        {desc}
+      </div>
+    </div>
+  );
+}
+
+function HeroFeature({ to, titleKey, descKey, ctaKey, gradient, accent, t, icon }) {
   return (
     <Link
       to={to}
       style={{
         textDecoration: "none",
         display: "block",
-        padding: "22px 20px 20px",
+        padding: "28px 26px",
         borderRadius: 20,
-        background: bg,
-        border: "2px solid transparent",
-        transition: "all 0.15s ease",
+        background: gradient,
+        border: `1px solid ${accent}55`,
         position: "relative",
+        overflow: "hidden",
+        transition: "all 0.2s ease",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = "translateY(-3px)";
+        e.currentTarget.style.boxShadow = `0 24px 48px -20px ${accent}66`;
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = "translateY(0)";
+        e.currentTarget.style.boxShadow = "none";
+      }}
+    >
+      <div
+        style={{
+          width: 46,
+          height: 46,
+          borderRadius: 12,
+          background: "rgba(0,0,0,0.35)",
+          border: `1px solid ${accent}55`,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "#ffffff",
+          marginBottom: 16,
+        }}
+      >
+        {icon}
+      </div>
+      <div
+        style={{
+          fontSize: 22,
+          fontWeight: 800,
+          color: "#ffffff",
+          letterSpacing: -0.5,
+          marginBottom: 8,
+        }}
+      >
+        {t(titleKey)}
+      </div>
+      <div
+        style={{
+          fontSize: 14,
+          color: "var(--text-secondary)",
+          lineHeight: 1.55,
+          marginBottom: 18,
+        }}
+      >
+        {t(descKey)}
+      </div>
+      <div
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 6,
+          fontSize: 13,
+          fontWeight: 600,
+          color: "#ffffff",
+          padding: "6px 14px",
+          borderRadius: 999,
+          background: "rgba(255, 255, 255, 0.1)",
+          border: "1px solid rgba(255,255,255,0.18)",
+        }}
+      >
+        {t(ctaKey)} →
+      </div>
+    </Link>
+  );
+}
+
+function DarkToolCard({ to, icon, accent, name, desc }) {
+  return (
+    <Link
+      to={to}
+      style={{
+        textDecoration: "none",
+        display: "block",
+        padding: "18px 18px 16px",
+        borderRadius: 16,
+        background: "var(--bg-card)",
+        border: "1px solid var(--border)",
+        transition: "all 0.15s ease",
       }}
       onMouseEnter={(e) => {
         const el = e.currentTarget;
-        el.style.borderColor = "#0f172a";
-        el.style.transform = "translate(-2px, -2px)";
-        el.style.boxShadow = "4px 4px 0 #0f172a";
+        el.style.transform = "translateY(-2px)";
+        el.style.borderColor = `${accent}88`;
+        el.style.boxShadow = `0 16px 32px -16px ${accent}88`;
       }}
       onMouseLeave={(e) => {
         const el = e.currentTarget;
-        el.style.borderColor = "transparent";
-        el.style.transform = "translate(0, 0)";
+        el.style.transform = "translateY(0)";
+        el.style.borderColor = "var(--border)";
         el.style.boxShadow = "none";
       }}
     >
       <div
         style={{
-          width: 56,
-          height: 56,
-          borderRadius: 16,
-          background: "#ffffff",
+          width: 42,
+          height: 42,
+          borderRadius: 11,
+          background: `${accent}1f`,
           color: accent,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          marginBottom: 14,
-          border: `2px solid ${accent}22`,
+          marginBottom: 12,
+          border: `1px solid ${accent}33`,
         }}
       >
-        <ToolIcon name={icon} size={30} />
+        <ToolIcon name={icon} size={22} />
       </div>
       <div
         style={{
-          fontSize: 16,
+          fontSize: 15,
           fontWeight: 700,
-          color: "#0f172a",
-          letterSpacing: -0.3,
-          marginBottom: 6,
+          color: "#ffffff",
+          letterSpacing: -0.2,
+          marginBottom: 4,
         }}
       >
         {name}
       </div>
       <div
         style={{
-          fontSize: 13,
-          color: "#475569",
+          fontSize: 12.5,
+          color: "var(--text-muted)",
           lineHeight: 1.5,
-          fontWeight: 400,
           letterSpacing: -0.05,
           display: "-webkit-box",
           WebkitLineClamp: 2,
@@ -422,18 +818,19 @@ function PastelCard({ to, icon, accent, bg, name, desc }) {
 function SearchIcon() {
   return (
     <svg
-      width="22"
-      height="22"
+      width="18"
+      height="18"
       viewBox="0 0 22 22"
       fill="none"
-      stroke="#0f172a"
-      strokeWidth="2.2"
+      stroke="var(--text-muted)"
+      strokeWidth="2"
       strokeLinecap="round"
       style={{
         position: "absolute",
-        left: 20,
+        left: 18,
         top: "50%",
         transform: "translateY(-50%)",
+        pointerEvents: "none",
       }}
     >
       <circle cx="10" cy="10" r="6.5" />

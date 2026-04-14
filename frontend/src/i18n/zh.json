@@ -2,6 +2,9 @@
   "nav": {
     "brand": "OneTools",
     "allTools": "所有工具",
+    "removeWatermark": "去水印",
+    "removeBg": "抠图",
+    "tryFree": "免费试用",
     "github": "GitHub"
   },
   "home": {
@@ -25,7 +28,46 @@
       "privacy": "隐私",
       "dev": "开发"
     },
-    "eyebrow": "24 件日常工具，一站搞定",
+    "eyebrow": "AI 去水印 & 智能抠图",
+    "uploadCta": "上传图片",
+    "uploadHint": "拖入图片 · 支持 JPG / PNG / WEBP",
+    "tryBgRemove": "一键抠图",
+    "trust": {
+      "privacy": "100% 隐私",
+      "fast": "AI 极速",
+      "free": "永久免费",
+      "ai": "先进模型"
+    },
+    "feature": {
+      "rmwmTitle": "去水印",
+      "rmwmDesc": "涂抹水印、logo 或多余物件，AI 智能填充背景，看不出修过的痕迹。",
+      "rmbgTitle": "智能抠图",
+      "rmbgDesc": "一键抠出人物、商品、宠物主体，可生成透明背景 PNG 或自定义纯色底。",
+      "cta": "免费试用"
+    },
+    "how": {
+      "eyebrow": "使用流程",
+      "title": "三步完成，零学习成本",
+      "sub": "为所有人设计，无需 Photoshop、无需订阅、无需注册。",
+      "s1Title": "上传",
+      "s1Desc": "拖入或粘贴图片，整个过程都在你的浏览器里完成。",
+      "s2Title": "AI 自动处理",
+      "s2Desc": "本地 AI 模型会在几秒内修复水印或分离主体。",
+      "s3Title": "下载",
+      "s3Desc": "保存干净的结果为 PNG —— 画质不变，绝不会加上我们的水印。"
+    },
+    "more": {
+      "eyebrow": "完整工具箱",
+      "title": "远不止去水印",
+      "sub": "一站式图像工作室：放大、压缩、OCR、配色——全部在浏览器里完成。"
+    },
+    "ctaBand": {
+      "title": "现在就处理一张图片",
+      "sub": "上传一次，两个工具都能用。文件全程不会离开你的设备。",
+      "tryWatermark": "去水印",
+      "tryBg": "抠图"
+    },
+    "secondaryEyebrow": "24 件日常工具，一站搞定",
     "pageTitle": "工具广场",
     "pageSub": "{{n}} 个工具 · 按分类浏览或搜索",
     "pageSubMatch": "匹配 {{n}} / {{total}} 件",
@@ -78,8 +120,8 @@
       "base64": "粘进来自动判断是要编还是要解",
       "qrcode": "生成或扫描二维码，识别 Wi-Fi / 名片等格式"
     },
-    "heroTitleA": "一个",
-    "heroTitleB": "工具箱",
+    "heroTitleA": "AI 去水印 & ",
+    "heroTitleB": "一键抠图",
     "tab": {
       "all": "全部"
     },
@@ -670,7 +712,14 @@
     "builtWith": "基于 Claude Code 构建",
     "about": "关于",
     "privacy": "隐私政策",
-    "terms": "服务条款"
+    "terms": "服务条款",
+    "tagline": "免费的 AI 图像工作室 —— 去水印、抠图、一键修图，图片全程不会离开你的设备。",
+    "legalLine": "所有处理都在浏览器内完成，我们不会存储你的图片。",
+    "col": {
+      "product": "产品",
+      "company": "关于",
+      "follow": "关注"
+    }
   },
   "legal": {
     "lastUpdated": "最后更新：{{date}}",

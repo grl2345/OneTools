@@ -261,6 +261,25 @@ export default function RemoveWatermark() {
   const maskCanvasRef = useRef(null); // offscreen binary mask canvas
   const drawingRef = useRef(false);
 
+  // Pick up file passed from Home page (sessionStorage)
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem("onetools:pendingImage");
+      if (!raw) return;
+      const { name, type, dataUrl } = JSON.parse(raw);
+      sessionStorage.removeItem("onetools:pendingImage");
+      fetch(dataUrl)
+        .then((r) => r.blob())
+        .then((blob) => {
+          const f = new File([blob], name || "pending.png", {
+            type: type || "image/png",
+          });
+          setFile(f);
+        })
+        .catch(() => {});
+    } catch {}
+  }, []);
+
   // Load image into display + mask canvases on file change
   useEffect(() => {
     if (!file) return;
@@ -443,7 +462,7 @@ export default function RemoveWatermark() {
   };
 
   const panel = {
-    background: "#ffffff",
+    background: "var(--bg-card)",
     border: "1px solid var(--border)",
     borderRadius: "var(--radius)",
     overflow: "hidden",
@@ -458,7 +477,7 @@ export default function RemoveWatermark() {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    background: "#fafbfc",
+    background: "rgba(255,255,255,0.02)",
     letterSpacing: -0.1,
   };
 
@@ -495,23 +514,16 @@ export default function RemoveWatermark() {
         <div>
           <h1
             style={{
-              fontSize: 42,
-              fontWeight: 700,
-              letterSpacing: -1.4,
-              lineHeight: 1.08,
-              color: "var(--text-primary)",
+              fontSize: 44,
+              fontWeight: 800,
+              letterSpacing: -1.6,
+              lineHeight: 1.05,
+              color: "#ffffff",
             }}
           >
             {t("tools.removeWatermark.name")}
-            <span
-              style={{
-                background: "var(--gradient-brand)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              {" "}LaMa
+            <span className="gradient-text" style={{ fontStyle: "italic" }}>
+              {" "}AI
             </span>
           </h1>
           <p
@@ -600,20 +612,20 @@ export default function RemoveWatermark() {
             padding: "80px 24px",
             textAlign: "center",
             borderRadius: "var(--radius)",
-            border: `2px dashed ${dragging ? "var(--brand)" : "var(--border-strong)"}`,
-            background: dragging ? "rgba(91,91,245,0.06)" : "#ffffff",
+            border: `2px dashed ${dragging ? "var(--brand-pink)" : "rgba(168,85,247,0.4)"}`,
+            background: dragging ? "rgba(236,72,153,0.08)" : "var(--bg-card)",
             color: "var(--text-secondary)",
             cursor: "pointer",
             transition: "all 0.2s ease",
-            boxShadow: "var(--shadow-sm)",
+            boxShadow: "0 20px 50px -20px rgba(168, 85, 247, 0.3)",
           }}
         >
-          <div style={{ fontSize: 32, marginBottom: 12 }}>🎨</div>
+          <div style={{ fontSize: 34, marginBottom: 12 }}>🎨</div>
           <div
             style={{
               fontSize: 15,
               fontWeight: 600,
-              color: "var(--text-primary)",
+              color: "#ffffff",
               marginBottom: 4,
               letterSpacing: -0.2,
             }}
@@ -632,9 +644,9 @@ export default function RemoveWatermark() {
               marginTop: 20,
               padding: 14,
               borderRadius: "var(--radius)",
-              background: "#ffffff",
+              background: "var(--bg-card)",
               border: "1px solid var(--border)",
-              boxShadow: "var(--shadow-sm)",
+              boxShadow: "var(--shadow-md)",
               display: "flex",
               flexWrap: "wrap",
               gap: 14,
@@ -661,7 +673,7 @@ export default function RemoveWatermark() {
                       borderRadius: 999,
                       border: "none",
                       background:
-                        viewMode === m ? "var(--text-primary)" : "transparent",
+                        viewMode === m ? "var(--gradient-brand)" : "transparent",
                       color: viewMode === m ? "#fff" : "var(--text-secondary)",
                       fontSize: 11.5,
                       fontWeight: 600,
@@ -715,7 +727,7 @@ export default function RemoveWatermark() {
                     padding: "6px 12px",
                     borderRadius: "var(--radius-sm)",
                     border: "1px solid var(--border)",
-                    background: "#ffffff",
+                    background: "rgba(255,255,255,0.04)",
                     color: hasMask ? "var(--text-secondary)" : "var(--text-faint)",
                     fontSize: 12.5,
                     fontWeight: 500,
@@ -740,8 +752,8 @@ export default function RemoveWatermark() {
                       border: "1px solid var(--border)",
                       background:
                         showCompareAfter === after
-                          ? "var(--text-primary)"
-                          : "#ffffff",
+                          ? "var(--gradient-brand)"
+                          : "rgba(255,255,255,0.04)",
                       color:
                         showCompareAfter === after ? "#fff" : "var(--text-secondary)",
                       fontSize: 12,
@@ -764,7 +776,7 @@ export default function RemoveWatermark() {
                 padding: "8px 16px",
                 borderRadius: "var(--radius-sm)",
                 border: "1px solid var(--border-strong)",
-                background: "#ffffff",
+                background: "rgba(255,255,255,0.04)",
                 color: "var(--text-primary)",
                 fontSize: 13,
                 fontWeight: 500,
@@ -780,13 +792,13 @@ export default function RemoveWatermark() {
                 borderRadius: "var(--radius-sm)",
                 border: "none",
                 background:
-                  !hasMask || stage ? "#d8d8e0" : "var(--gradient-brand)",
-                color: "#fff",
+                  !hasMask || stage ? "rgba(255,255,255,0.08)" : "var(--gradient-brand)",
+                color: !hasMask || stage ? "var(--text-faint)" : "#fff",
                 fontSize: 13,
                 fontWeight: 600,
                 letterSpacing: -0.1,
                 boxShadow:
-                  !hasMask || stage ? "none" : "0 4px 14px rgba(91,91,245,0.35)",
+                  !hasMask || stage ? "none" : "var(--shadow-brand)",
                 cursor: !hasMask || stage ? "not-allowed" : "pointer",
               }}
             >
@@ -803,8 +815,8 @@ export default function RemoveWatermark() {
                 padding: "8px 18px",
                 borderRadius: "var(--radius-sm)",
                 border: "none",
-                background: resultCanvas ? "var(--text-primary)" : "#d8d8e0",
-                color: "#fff",
+                background: resultCanvas ? "#ffffff" : "rgba(255,255,255,0.08)",
+                color: resultCanvas ? "#0b0b14" : "var(--text-faint)",
                 fontSize: 13,
                 fontWeight: 600,
                 letterSpacing: -0.1,
@@ -859,7 +871,7 @@ export default function RemoveWatermark() {
                 alignItems: "center",
                 justifyContent: "center",
                 background:
-                  "repeating-conic-gradient(#f3f4f7 0 25%, #ffffff 0 50%) 0 0 / 20px 20px",
+                  "repeating-conic-gradient(rgba(255,255,255,0.02) 0 25%, rgba(255,255,255,0.06) 0 50%) 0 0 / 20px 20px",
               }}
             >
               {/* Edit canvas (visible in 'edit' mode) */}
@@ -908,7 +920,7 @@ export default function RemoveWatermark() {
                 style={{
                   padding: "16px 20px",
                   borderTop: "1px solid var(--border-light)",
-                  background: "rgba(91,91,245,0.04)",
+                  background: "rgba(168,85,247,0.08)",
                 }}
               >
                 <div
@@ -928,7 +940,7 @@ export default function RemoveWatermark() {
                 <div
                   style={{
                     height: 6,
-                    background: "rgba(91,91,245,0.15)",
+                    background: "rgba(168,85,247,0.2)",
                     borderRadius: 999,
                     overflow: "hidden",
                   }}
@@ -977,8 +989,8 @@ export default function RemoveWatermark() {
             marginBottom: 72,
             padding: "16px 18px",
             borderRadius: "var(--radius)",
-            background: "rgba(91,91,245,0.05)",
-            border: "1px solid rgba(91,91,245,0.18)",
+            background: "rgba(168,85,247,0.08)",
+            border: "1px solid rgba(168,85,247,0.25)",
             fontSize: 12.5,
             color: "var(--text-secondary)",
             lineHeight: 1.6,
