@@ -26,8 +26,8 @@
       "dev": "开发"
     },
     "eyebrow": "24 件日常工具，一站搞定",
-    "pageTitle": "工具",
-    "pageSub": "24 款工具，按分类浏览或直接搜索",
+    "pageTitle": "工具广场",
+    "pageSub": "{{n}} 个工具 · 按分类浏览或搜索",
     "pageSubMatch": "匹配 {{n}} / {{total}} 件",
     "searchPlaceholder": "搜索工具……",
     "noResults": "没有找到相关工具。换个关键词试试？",
@@ -83,9 +83,6 @@
     "tab": {
       "all": "全部"
     },
-    "cta": "推荐工具",
-    "cardOpen": "打开",
-    "cardPreview": "详情",
     "heroFoot": "共 {{n}} 件工具 · 打开即用 · 无需注册"
   },
   "tools": {
@@ -694,16 +691,10 @@
     }
   },
   "sidebar": {
-    "sec_browse": "浏览",
-    "sec_home": "首页",
+    "sec_home": "浏览",
     "sec_cat": "分类",
     "sec_site": "站点",
-    "sec_more": "更多",
-    "tools": "工具",
-    "all": "所有工具",
-    "tipLabel": "建议",
-    "tipTitle": "想要新工具？",
-    "tipSub": "在 GitHub 提 issue 告诉我们"
+    "all": "所有工具"
   },
   "cmp": {
     "title": "和常见替代方案比一比",
