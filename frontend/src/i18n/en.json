@@ -23,7 +23,12 @@
       "av": "Audio & Video",
       "util": "Utilities"
     },
-    "eyebrow": "{{n}} tools · no uploads · no signup · free forever"
+    "eyebrow": "{{n}} tools · no uploads · no signup · free forever",
+    "pageTitle": "Tools",
+    "pageSub": "{{n}} tools · browse by category or search",
+    "pageSubMatch": "{{n}} of {{total}} match",
+    "searchPlaceholder": "Search name, description, or tag...",
+    "noResults": "No tools match that query. Try another keyword."
   },
   "tools": {
     "jsonFormatter": {
@@ -629,5 +634,11 @@
       "subtitle": "Why this toolkit exists, and the principles behind it.",
       "body": "<h2>What we make</h2><p>OneTools is a <strong>browser-local developer toolkit</strong> for engineers and content creators. Compared to traditional \"online tools\" sites, our differentiators are:</p><ul><li><strong>Privacy first</strong>: Anything that can run locally, will. Image compression, background removal, watermark removal, Markdown preview, timestamp conversion — all of these run entirely inside your browser.</li><li><strong>AI-augmented where it matters</strong>: For tasks that genuinely need semantic understanding (JSON natural-language query, Markdown rewrite), we route through a lightweight Edge Function to open-source LLMs for a fluid experience.</li><li><strong>Open source and free</strong>: The code lives on GitHub — anyone can audit, contribute, or fork.</li></ul><h2>Stack</h2><ul><li>Frontend: React 18 + Vite + react-router</li><li>AI backend: Vercel Edge Functions (Node.js Runtime), calling OpenAI-compatible APIs (Groq by default)</li><li>Client-side AI: onnxruntime-web (inpainting), @imgly/background-removal, chrono-node (time parsing), marked (Markdown)</li></ul><h2>Tools</h2><ul><li><a href=\"/tools/json\">JSON formatter · AI query · Schema inference</a></li><li><a href=\"/tools/markdown\">Live Markdown preview · AI rewrite</a></li><li><a href=\"/tools/image-compress\">Image compression (JPEG / WebP / PNG)</a></li><li><a href=\"/tools/timestamp\">Timestamp ↔ date · natural-language parsing</a></li><li><a href=\"/tools/remove-bg\">AI background remover</a></li><li><a href=\"/tools/remove-watermark\">AI watermark remover (local inference)</a></li></ul><h2>License</h2><p>MIT — see <a href=\"https://github.com/grl2345/OneTools\" target=\"_blank\" rel=\"noopener\">GitHub repo</a>. Issues and Pull Requests welcome.</p><h2>Contact</h2><p>For bugs, collaboration, or suggestions, please use GitHub Issues.</p>"
     }
+  },
+  "sidebar": {
+    "sec_home": "Browse",
+    "sec_cat": "Categories",
+    "sec_site": "Site",
+    "all": "All Tools"
   }
 }

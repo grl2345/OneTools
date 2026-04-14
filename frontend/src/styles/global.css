@@ -376,3 +376,21 @@ a {
   color: var(--brand);
 }
 .legal-prose strong { color: var(--text-primary); font-weight: 600; }
+
+/* ── App layout (sidebar + main) ──────────────────── */
+.app-layout {
+  display: flex;
+  align-items: stretch;
+}
+.app-main-wrap {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.app-mobile-nav { display: none; }
+
+@media (max-width: 900px) {
+  .app-sidebar { display: none; }
+  .app-mobile-nav { display: block; }
+}

@@ -23,7 +23,12 @@
       "av": "音视频",
       "util": "实用工具"
     },
-    "eyebrow": "{{n}} 个工具 · 零上传 · 零注册 · 永久免费"
+    "eyebrow": "{{n}} 个工具 · 零上传 · 零注册 · 永久免费",
+    "pageTitle": "工具广场",
+    "pageSub": "{{n}} 个工具 · 按分类浏览或搜索",
+    "pageSubMatch": "匹配 {{n}} / {{total}} 个工具",
+    "searchPlaceholder": "搜索工具名、描述或标签...",
+    "noResults": "没有匹配的工具。试试另一个关键词。"
   },
   "tools": {
     "jsonFormatter": {
@@ -629,5 +634,11 @@
       "subtitle": "为什么会有这个工具箱，以及它的设计理念。",
       "body": "<h2>产品定位</h2><p>OneTools 是一个开发者和内容创作者的<strong>浏览器本地工具集</strong>。区别于传统的 \"在线工具\" 站点，本站最大的差异点是：</p><ul><li><strong>隐私优先</strong>：能本地跑的绝不上传。图片压缩、抠图、去水印、Markdown 渲染、时间戳转换——这些都完全在你的浏览器里运行。</li><li><strong>AI 能力增强</strong>：对于需要语义理解的场景（JSON 自然语言查询、Markdown 智能改写），我们通过轻量级的 Edge Function 转发到开源大模型，保持体验流畅。</li><li><strong>开源免费</strong>：代码托管在 GitHub，任何人都能审计、贡献、fork。</li></ul><h2>技术栈</h2><ul><li>前端：React 18 + Vite + react-router</li><li>AI 后端：Vercel Edge Functions（Node.js Runtime），调用 Groq / OpenAI 兼容接口</li><li>客户端 AI：onnxruntime-web（图像修复）、@imgly/background-removal（抠图）、chrono-node（时间解析）、marked（Markdown）</li></ul><h2>工具清单</h2><ul><li><a href=\"/tools/json\">JSON 格式化 · AI 查询 · Schema 推断</a></li><li><a href=\"/tools/markdown\">Markdown 实时预览 · AI 改写</a></li><li><a href=\"/tools/image-compress\">图片压缩（JPEG / WebP / PNG）</a></li><li><a href=\"/tools/timestamp\">时间戳 ↔ 日期 · 自然语言解析</a></li><li><a href=\"/tools/remove-bg\">AI 智能抠图</a></li><li><a href=\"/tools/remove-watermark\">AI 去水印（本地推理）</a></li></ul><h2>开源协议</h2><p>本项目以 MIT 协议开源：<a href=\"https://github.com/grl2345/OneTools\" target=\"_blank\" rel=\"noopener\">GitHub 仓库</a>。欢迎提 Issue 或 Pull Request。</p><h2>联系我们</h2><p>问题反馈 / 合作 / 建议请通过 GitHub Issues 提交。</p>"
     }
+  },
+  "sidebar": {
+    "sec_home": "浏览",
+    "sec_cat": "分类",
+    "sec_site": "站点",
+    "all": "所有工具"
   }
 }

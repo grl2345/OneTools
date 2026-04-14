@@ -1,17 +1,33 @@
 import { Link } from "react-router-dom";
 import ToolIcon from "./ToolIcon";
 
-/**
- * Apple-style tool card. Icons are stroke-drawn SF-Symbols-style; all tools
- * in the same category share one accent color. The icon container uses a
- * soft tinted background (accent at ~10% alpha) with the icon stroke at
- * full accent color — reads as considered, not chaotic.
- */
+// Tag styles shared across cards. Rendered as small outline pills.
+const tagStyle = {
+  padding: "2px 8px",
+  borderRadius: 5,
+  fontSize: 11,
+  fontWeight: 500,
+  border: "1px solid var(--border)",
+  color: "var(--text-muted)",
+  background: "#ffffff",
+  letterSpacing: -0.1,
+  whiteSpace: "nowrap",
+  lineHeight: "17px",
+};
+
+const primaryTagStyle = (accent) => ({
+  ...tagStyle,
+  background: `${accent}10`,
+  color: accent,
+  border: `1px solid ${accent}33`,
+});
+
 export default function ToolCard({
   name,
   desc,
   iconName,
   accent = "#5b5bf5",
+  tags = [],
   to,
   comingSoon,
 }) {
@@ -19,91 +35,99 @@ export default function ToolCard({
     <div
       style={{
         position: "relative",
-        padding: "16px 18px",
-        borderRadius: 14,
+        padding: "14px 16px",
+        borderRadius: 12,
         background: "#ffffff",
         border: "1px solid var(--border)",
-        display: "flex",
-        alignItems: "center",
-        gap: 14,
         opacity: comingSoon ? 0.5 : 1,
         cursor: comingSoon ? "default" : "pointer",
-        transition: "border-color 0.18s ease, box-shadow 0.18s ease",
+        transition: "border-color 0.15s ease, box-shadow 0.15s ease",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        gap: 10,
       }}
       onMouseEnter={(e) => {
         if (!comingSoon) {
           const el = e.currentTarget;
-          el.style.borderColor = `${accent}40`;
-          el.style.boxShadow = `0 0 0 1px ${accent}10, 0 6px 20px -8px ${accent}28`;
-          const ic = el.querySelector("[data-icon-wrap]");
-          if (ic) {
-            ic.style.background = `${accent}1f`;
-          }
+          el.style.borderColor = `${accent}55`;
+          el.style.boxShadow = `0 0 0 1px ${accent}18, 0 4px 16px -4px ${accent}22`;
         }
       }}
       onMouseLeave={(e) => {
         const el = e.currentTarget;
         el.style.borderColor = "var(--border)";
         el.style.boxShadow = "none";
-        const ic = el.querySelector("[data-icon-wrap]");
-        if (ic) {
-          ic.style.background = `${accent}12`;
-        }
       }}
     >
-      <div
-        data-icon-wrap
-        style={{
-          width: 40,
-          height: 40,
-          borderRadius: 10,
-          background: `${accent}12`,
-          color: accent,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexShrink: 0,
-          transition: "background 0.18s ease",
-        }}
-      >
-        <ToolIcon name={iconName} />
+      {/* Header: icon + title */}
+      <div style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
+        <div
+          style={{
+            width: 38,
+            height: 38,
+            borderRadius: 9,
+            background: `${accent}14`,
+            color: accent,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0,
+          }}
+        >
+          <ToolIcon name={iconName} size={20} />
+        </div>
+        <div style={{ flex: 1, minWidth: 0, paddingTop: 1 }}>
+          <div
+            style={{
+              fontSize: 14.5,
+              fontWeight: 600,
+              color: "var(--text-primary)",
+              letterSpacing: -0.25,
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
+            {name}
+          </div>
+        </div>
       </div>
 
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <div
-          style={{
-            fontSize: 14.5,
-            fontWeight: 600,
-            color: "var(--text-primary)",
-            letterSpacing: -0.25,
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-          }}
-        >
-          {name}
-        </div>
-        <div
-          style={{
-            fontSize: 12.5,
-            color: "var(--text-muted)",
-            marginTop: 3,
-            fontWeight: 400,
-            letterSpacing: -0.05,
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-          }}
-        >
-          {desc}
-        </div>
+      {/* Description */}
+      <div
+        style={{
+          fontSize: 12.5,
+          color: "var(--text-muted)",
+          lineHeight: 1.55,
+          fontWeight: 400,
+          letterSpacing: -0.05,
+          flex: 1,
+          display: "-webkit-box",
+          WebkitLineClamp: 2,
+          WebkitBoxOrient: "vertical",
+          overflow: "hidden",
+        }}
+      >
+        {desc}
       </div>
+
+      {/* Tag row */}
+      {tags.length > 0 && (
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
+          {tags.map((tag, i) => (
+            <span key={i} style={i === 0 ? primaryTagStyle(accent) : tagStyle}>
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
     </div>
   );
 
   if (comingSoon || !to) return content;
   return (
-    <Link to={to} style={{ textDecoration: "none", display: "block" }}>
+    <Link to={to} style={{ textDecoration: "none", display: "block", height: "100%" }}>
       {content}
     </Link>
   );
