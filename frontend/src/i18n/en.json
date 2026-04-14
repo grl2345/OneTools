@@ -25,14 +25,14 @@
       "privacy": "Privacy",
       "dev": "Developer"
     },
-    "eyebrow": "24 everyday jobs, one place",
+    "eyebrow": "24 everyday tools, one place",
     "pageTitle": "Tools",
     "pageSub": "{{n}} tools · browse by category or search",
     "pageSubMatch": "{{n}} of {{total}} match",
     "searchPlaceholder": "Search tools...",
     "noResults": "No matching tools. Try a different keyword.",
     "heroTitle": "5 things you'd normally pay for, done free in your browser",
-    "heroSub": "PDF, image, video, audio, developer daily drivers — 24 tools in one place.",
+    "heroSub": "PDF, image, video, audio, developer daily — everyday small jobs, all done in one site.",
     "paink": {
       "idPhoto": "A casual photo in, a usable ID photo out",
       "removeWatermark": "That one distracting spot — gone",
@@ -78,11 +78,12 @@
       "base64": "Paste and it figures out whether you meant encode or decode",
       "qrcode": "Generate or decode QR codes, Wi-Fi / vCard aware"
     },
-    "heroTitleA": "A clean, no-signup",
-    "heroTitleB": "toolbox for everyday work.",
+    "heroTitleA": "Your daily",
+    "heroTitleB": "toolbox",
     "tab": {
       "all": "All"
-    }
+    },
+    "heroFoot": "{{n}} tools · open and use · no signup"
   },
   "tools": {
     "jsonFormatter": {

@@ -4,50 +4,51 @@ import { Link } from "react-router-dom";
 import ToolIcon from "../components/ToolIcon";
 import SEO, { schema } from "../components/SEO";
 
-// Tool catalog — category + accent per tool, used for filter + card color
+// TinyWow-style: each tool gets a soft pastel card background + bold accent
+// for its icon. Icon bg uses white-in-pastel-card, accent for the icon color.
 const ALL_TOOLS = [
   // Privacy
-  { cat: "privacy", nameKey: "tools.fileEncrypt.name",     descKey: "home.bene.fileEncrypt",     iconName: "fileEncrypt",     accent: "#059669", to: "/tools/file-encrypt" },
-  { cat: "privacy", nameKey: "tools.exif.name",            descKey: "home.bene.exif",            iconName: "exif",            accent: "#059669", to: "/tools/exif" },
-  { cat: "privacy", nameKey: "tools.removeWatermark.name", descKey: "home.bene.removeWatermark", iconName: "removeWatermark", accent: "#db2777", to: "/tools/remove-watermark" },
+  { cat: "privacy", to: "/tools/file-encrypt",     nameKey: "tools.fileEncrypt.name",     descKey: "home.bene.fileEncrypt",     iconName: "fileEncrypt",     accent: "#059669", bg: "#ecfdf5" },
+  { cat: "privacy", to: "/tools/exif",             nameKey: "tools.exif.name",            descKey: "home.bene.exif",            iconName: "exif",            accent: "#0891b2", bg: "#ecfeff" },
+  { cat: "privacy", to: "/tools/remove-watermark", nameKey: "tools.removeWatermark.name", descKey: "home.bene.removeWatermark", iconName: "removeWatermark", accent: "#db2777", bg: "#fdf2f8" },
 
   // Docs
-  { cat: "doc", nameKey: "tools.pdf.name",          descKey: "home.bene.pdf",          iconName: "pdf",          accent: "#ea580c", to: "/tools/pdf" },
-  { cat: "doc", nameKey: "tools.pdfSummary.name",   descKey: "home.bene.pdfSummary",   iconName: "pdfSummary",   accent: "#dc2626", to: "/tools/pdf-summary" },
-  { cat: "doc", nameKey: "tools.ocr.name",          descKey: "home.bene.ocr",          iconName: "ocr",          accent: "#4f46e5", to: "/tools/ocr" },
-  { cat: "doc", nameKey: "tools.handwriting.name",  descKey: "home.bene.handwriting",  iconName: "handwriting",  accent: "#7c3aed", to: "/tools/handwriting" },
-  { cat: "doc", nameKey: "tools.imageToTable.name", descKey: "home.bene.imageToTable", iconName: "imageToTable", accent: "#0891b2", to: "/tools/image-to-table" },
+  { cat: "doc", to: "/tools/pdf",            nameKey: "tools.pdf.name",          descKey: "home.bene.pdf",          iconName: "pdf",          accent: "#ea580c", bg: "#fff7ed" },
+  { cat: "doc", to: "/tools/pdf-summary",    nameKey: "tools.pdfSummary.name",   descKey: "home.bene.pdfSummary",   iconName: "pdfSummary",   accent: "#dc2626", bg: "#fef2f2" },
+  { cat: "doc", to: "/tools/ocr",            nameKey: "tools.ocr.name",          descKey: "home.bene.ocr",          iconName: "ocr",          accent: "#4f46e5", bg: "#eef2ff" },
+  { cat: "doc", to: "/tools/handwriting",    nameKey: "tools.handwriting.name",  descKey: "home.bene.handwriting",  iconName: "handwriting",  accent: "#7c3aed", bg: "#f5f3ff" },
+  { cat: "doc", to: "/tools/image-to-table", nameKey: "tools.imageToTable.name", descKey: "home.bene.imageToTable", iconName: "imageToTable", accent: "#0d9488", bg: "#f0fdfa" },
 
-  // Image / Social
-  { cat: "image", nameKey: "tools.idPhoto.name",       descKey: "home.bene.idPhoto",       iconName: "idPhoto",       accent: "#d97706", to: "/tools/id-photo" },
-  { cat: "image", nameKey: "tools.removeBg.name",      descKey: "home.bene.removeBg",      iconName: "removeBg",      accent: "#7c3aed", to: "/tools/remove-bg" },
-  { cat: "image", nameKey: "tools.imageCompress.name", descKey: "home.bene.imageCompress", iconName: "imageCompress", accent: "#ea580c", to: "/tools/image-compress" },
-  { cat: "image", nameKey: "tools.upscale.name",       descKey: "home.bene.upscale",       iconName: "upscale",       accent: "#4f46e5", to: "/tools/upscale" },
-  { cat: "image", nameKey: "tools.palette.name",       descKey: "home.bene.palette",       iconName: "palette",       accent: "#db2777", to: "/tools/palette" },
+  // Image
+  { cat: "image", to: "/tools/id-photo",       nameKey: "tools.idPhoto.name",       descKey: "home.bene.idPhoto",       iconName: "idPhoto",       accent: "#d97706", bg: "#fffbeb" },
+  { cat: "image", to: "/tools/remove-bg",      nameKey: "tools.removeBg.name",      descKey: "home.bene.removeBg",      iconName: "removeBg",      accent: "#7c3aed", bg: "#f5f3ff" },
+  { cat: "image", to: "/tools/image-compress", nameKey: "tools.imageCompress.name", descKey: "home.bene.imageCompress", iconName: "imageCompress", accent: "#ea580c", bg: "#fff7ed" },
+  { cat: "image", to: "/tools/upscale",        nameKey: "tools.upscale.name",       descKey: "home.bene.upscale",       iconName: "upscale",       accent: "#4f46e5", bg: "#eef2ff" },
+  { cat: "image", to: "/tools/palette",        nameKey: "tools.palette.name",       descKey: "home.bene.palette",       iconName: "palette",       accent: "#db2777", bg: "#fdf2f8" },
 
   // Audio / Video
-  { cat: "av", nameKey: "tools.videoCompress.name", descKey: "home.bene.videoCompress", iconName: "videoCompress", accent: "#dc2626", to: "/tools/video-compress" },
-  { cat: "av", nameKey: "tools.videoToGif.name",    descKey: "home.bene.videoToGif",    iconName: "videoToGif",    accent: "#db2777", to: "/tools/video-to-gif" },
-  { cat: "av", nameKey: "tools.whisper.name",       descKey: "home.bene.whisper",       iconName: "whisper",       accent: "#0891b2", to: "/tools/whisper" },
+  { cat: "av", to: "/tools/video-compress", nameKey: "tools.videoCompress.name", descKey: "home.bene.videoCompress", iconName: "videoCompress", accent: "#dc2626", bg: "#fef2f2" },
+  { cat: "av", to: "/tools/video-to-gif",   nameKey: "tools.videoToGif.name",    descKey: "home.bene.videoToGif",    iconName: "videoToGif",    accent: "#db2777", bg: "#fdf2f8" },
+  { cat: "av", to: "/tools/whisper",        nameKey: "tools.whisper.name",       descKey: "home.bene.whisper",       iconName: "whisper",       accent: "#0891b2", bg: "#ecfeff" },
 
   // Dev
-  { cat: "dev", nameKey: "tools.jsonFormatter.name",   descKey: "home.bene.jsonFormatter",   iconName: "json",       accent: "#4f46e5", to: "/tools/json" },
-  { cat: "dev", nameKey: "tools.markdownPreview.name", descKey: "home.bene.markdownPreview", iconName: "markdown",   accent: "#0d9488", to: "/tools/markdown" },
-  { cat: "dev", nameKey: "tools.naming.name",          descKey: "home.bene.naming",          iconName: "naming",     accent: "#7c3aed", to: "/tools/naming" },
-  { cat: "dev", nameKey: "tools.cron.name",            descKey: "home.bene.cron",            iconName: "cron",       accent: "#059669", to: "/tools/cron" },
-  { cat: "dev", nameKey: "tools.timestamp.name",       descKey: "home.bene.timestamp",       iconName: "timestamp",  accent: "#db2777", to: "/tools/timestamp" },
-  { cat: "dev", nameKey: "tools.flowchart.name",       descKey: "home.bene.flowchart",       iconName: "flowchart",  accent: "#0d9488", to: "/tools/flowchart" },
-  { cat: "dev", nameKey: "tools.base64.name",          descKey: "home.bene.base64",          iconName: "base64",     accent: "#2563eb", to: "/tools/base64" },
-  { cat: "dev", nameKey: "tools.qrcode.name",          descKey: "home.bene.qrcode",          iconName: "qrcode",     accent: "#0f172a", to: "/tools/qrcode" },
+  { cat: "dev", to: "/tools/json",      nameKey: "tools.jsonFormatter.name",   descKey: "home.bene.jsonFormatter",   iconName: "json",       accent: "#4f46e5", bg: "#eef2ff" },
+  { cat: "dev", to: "/tools/markdown",  nameKey: "tools.markdownPreview.name", descKey: "home.bene.markdownPreview", iconName: "markdown",   accent: "#0d9488", bg: "#f0fdfa" },
+  { cat: "dev", to: "/tools/naming",    nameKey: "tools.naming.name",          descKey: "home.bene.naming",          iconName: "naming",     accent: "#7c3aed", bg: "#f5f3ff" },
+  { cat: "dev", to: "/tools/cron",      nameKey: "tools.cron.name",            descKey: "home.bene.cron",            iconName: "cron",       accent: "#059669", bg: "#ecfdf5" },
+  { cat: "dev", to: "/tools/timestamp", nameKey: "tools.timestamp.name",       descKey: "home.bene.timestamp",       iconName: "timestamp",  accent: "#db2777", bg: "#fdf2f8" },
+  { cat: "dev", to: "/tools/flowchart", nameKey: "tools.flowchart.name",       descKey: "home.bene.flowchart",       iconName: "flowchart",  accent: "#0d9488", bg: "#f0fdfa" },
+  { cat: "dev", to: "/tools/base64",    nameKey: "tools.base64.name",          descKey: "home.bene.base64",          iconName: "base64",     accent: "#2563eb", bg: "#eff6ff" },
+  { cat: "dev", to: "/tools/qrcode",    nameKey: "tools.qrcode.name",          descKey: "home.bene.qrcode",          iconName: "qrcode",     accent: "#0f172a", bg: "#f1f5f9" },
 ];
 
 const TABS = [
-  { id: "all",     labelKey: "home.tab.all" },
-  { id: "privacy", labelKey: "home.cat.privacy" },
-  { id: "doc",     labelKey: "home.cat.doc" },
-  { id: "image",   labelKey: "home.cat.image" },
-  { id: "av",      labelKey: "home.cat.av" },
-  { id: "dev",     labelKey: "home.cat.dev" },
+  { id: "all",     labelKey: "home.tab.all",     emoji: "🎯" },
+  { id: "privacy", labelKey: "home.cat.privacy", emoji: "🔒" },
+  { id: "doc",     labelKey: "home.cat.doc",     emoji: "📄" },
+  { id: "image",   labelKey: "home.cat.image",   emoji: "🖼️" },
+  { id: "av",      labelKey: "home.cat.av",      emoji: "🎬" },
+  { id: "dev",     labelKey: "home.cat.dev",     emoji: "💻" },
 ];
 
 export default function Home() {
@@ -68,9 +69,7 @@ export default function Home() {
 
   const countByTab = useMemo(() => {
     const m = { all: ALL_TOOLS.length };
-    for (const tool of ALL_TOOLS) {
-      m[tool.cat] = (m[tool.cat] || 0) + 1;
-    }
+    for (const tool of ALL_TOOLS) m[tool.cat] = (m[tool.cat] || 0) + 1;
     return m;
   }, []);
 
@@ -83,82 +82,154 @@ export default function Home() {
         structuredData={schema.website({ url: "https://onetools.dev" })}
       />
 
-      {/* ── Hero — centered, big search focused (TinyWow style) ─ */}
+      {/* ── Hero with lime-tinted background ────────── */}
       <section
         style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          padding: "72px 24px 40px",
+          background:
+            "linear-gradient(180deg, #ecfccb 0%, #f7fee7 40%, #ffffff 100%)",
+          padding: "64px 24px 72px",
           textAlign: "center",
+          position: "relative",
+          overflow: "hidden",
         }}
       >
-        <h1
-          style={{
-            fontSize: "clamp(38px, 6vw, 64px)",
-            fontWeight: 700,
-            letterSpacing: -2.2,
-            lineHeight: 1.05,
-            color: "var(--text-primary)",
-            maxWidth: 820,
-            margin: "0 auto",
-          }}
-        >
-          {t("home.heroTitleA")}{" "}
-          <span style={{ color: "var(--brand-strong)" }}>
-            {t("home.heroTitleB")}
-          </span>
-        </h1>
-        <p
-          style={{
-            fontSize: 17.5,
-            color: "var(--text-secondary)",
-            marginTop: 18,
-            maxWidth: 560,
-            margin: "18px auto 0",
-            lineHeight: 1.55,
-            fontWeight: 400,
-            letterSpacing: -0.2,
-          }}
-        >
-          {t("home.heroSub")}
-        </p>
-
-        {/* Prominent search */}
+        {/* Decorative blobs */}
         <div
+          aria-hidden
           style={{
-            marginTop: 36,
-            position: "relative",
-            maxWidth: 560,
-            margin: "36px auto 0",
+            position: "absolute",
+            top: -40,
+            left: "8%",
+            width: 140,
+            height: 140,
+            borderRadius: "50%",
+            background: "#a3e635",
+            opacity: 0.25,
+            filter: "blur(20px)",
           }}
-        >
-          <SearchIcon />
-          <input
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-            placeholder={t("home.searchPlaceholder")}
+        />
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            top: 40,
+            right: "6%",
+            width: 200,
+            height: 200,
+            borderRadius: "50%",
+            background: "#84cc16",
+            opacity: 0.15,
+            filter: "blur(40px)",
+          }}
+        />
+
+        <div style={{ maxWidth: 860, margin: "0 auto", position: "relative" }}>
+          <div
             style={{
-              width: "100%",
-              padding: "16px 18px 16px 50px",
-              borderRadius: 14,
-              border: "1px solid var(--border-strong)",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              padding: "6px 14px",
+              borderRadius: 999,
               background: "#ffffff",
-              fontSize: 15,
-              color: "var(--text-primary)",
-              outline: "none",
+              border: "1px solid #d9f99d",
+              fontSize: 12.5,
+              color: "#4d7c0f",
+              fontWeight: 600,
+              marginBottom: 24,
+              boxShadow: "0 1px 2px rgba(0,0,0,0.03)",
+            }}
+          >
+            <span style={{ fontSize: 14 }}>✨</span>
+            {t("home.eyebrow")}
+          </div>
+
+          <h1
+            style={{
+              fontSize: "clamp(44px, 7vw, 78px)",
+              fontWeight: 800,
+              letterSpacing: -3,
+              lineHeight: 1,
+              color: "#0f172a",
+            }}
+          >
+            {t("home.heroTitleA")}{" "}
+            <span
+              style={{
+                display: "inline-block",
+                background: "#c1ed3e",
+                padding: "0 14px",
+                borderRadius: 12,
+                transform: "rotate(-1.5deg)",
+                boxShadow: "0 4px 0 rgba(77, 124, 15, 0.3)",
+              }}
+            >
+              {t("home.heroTitleB")}
+            </span>
+          </h1>
+          <p
+            style={{
+              fontSize: 18,
+              color: "#334155",
+              marginTop: 22,
+              maxWidth: 560,
+              margin: "22px auto 0",
+              lineHeight: 1.5,
+              fontWeight: 500,
               letterSpacing: -0.15,
-              boxShadow: "var(--shadow-md)",
-              transition: "border-color 0.15s ease, box-shadow 0.15s ease",
             }}
-            onFocus={(e) => {
-              e.target.style.borderColor = "var(--brand)";
-              e.target.style.boxShadow = "var(--shadow-glow)";
+          >
+            {t("home.heroSub")}
+          </p>
+
+          {/* Big search */}
+          <div
+            style={{
+              marginTop: 36,
+              position: "relative",
+              maxWidth: 580,
+              margin: "36px auto 0",
             }}
-            onBlur={(e) => {
-              e.target.style.borderColor = "var(--border-strong)";
-              e.target.style.boxShadow = "var(--shadow-md)";
+          >
+            <SearchIcon />
+            <input
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              placeholder={t("home.searchPlaceholder")}
+              style={{
+                width: "100%",
+                padding: "18px 20px 18px 56px",
+                borderRadius: 999,
+                border: "2px solid #0f172a",
+                background: "#ffffff",
+                fontSize: 15,
+                color: "#0f172a",
+                outline: "none",
+                letterSpacing: -0.15,
+                boxShadow: "0 4px 0 #0f172a",
+                fontWeight: 500,
+              }}
+              onFocus={(e) => {
+                e.target.style.boxShadow = "0 4px 0 #65a30d";
+                e.target.style.borderColor = "#65a30d";
+              }}
+              onBlur={(e) => {
+                e.target.style.boxShadow = "0 4px 0 #0f172a";
+                e.target.style.borderColor = "#0f172a";
+              }}
+            />
+          </div>
+
+          <div
+            style={{
+              marginTop: 16,
+              fontSize: 12.5,
+              color: "#64748b",
+              fontWeight: 500,
             }}
-          />
+          >
+            {t("home.heroFoot", { n: ALL_TOOLS.length })}
+          </div>
         </div>
       </section>
 
@@ -168,7 +239,7 @@ export default function Home() {
           position: "sticky",
           top: 0,
           zIndex: 20,
-          background: "rgba(255,255,255,0.9)",
+          background: "rgba(255,255,255,0.95)",
           backdropFilter: "saturate(180%) blur(12px)",
           WebkitBackdropFilter: "saturate(180%) blur(12px)",
           borderBottom: "1px solid var(--border-light)",
@@ -178,11 +249,11 @@ export default function Home() {
           style={{
             maxWidth: 1200,
             margin: "0 auto",
-            padding: "16px 24px",
+            padding: "18px 24px",
             display: "flex",
             justifyContent: "center",
             flexWrap: "wrap",
-            gap: 8,
+            gap: 10,
           }}
         >
           {TABS.map((tab) => {
@@ -192,35 +263,40 @@ export default function Home() {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 style={{
-                  padding: "8px 16px",
+                  padding: "9px 16px",
                   borderRadius: 999,
                   border: active
-                    ? "1px solid var(--brand-strong)"
-                    : "1px solid var(--border)",
-                  background: active ? "var(--brand-strong)" : "#ffffff",
-                  color: active ? "#ffffff" : "var(--text-secondary)",
-                  fontSize: 13,
-                  fontWeight: 600,
+                    ? "2px solid #0f172a"
+                    : "2px solid transparent",
+                  background: active ? "#c1ed3e" : "#f6f7f9",
+                  color: "#0f172a",
+                  fontSize: 13.5,
+                  fontWeight: 700,
                   cursor: "pointer",
                   letterSpacing: -0.1,
                   display: "inline-flex",
                   alignItems: "center",
-                  gap: 7,
+                  gap: 8,
                   transition: "all 0.15s ease",
-                  boxShadow: active ? "var(--shadow-sm)" : "none",
+                  boxShadow: active ? "0 3px 0 #0f172a" : "none",
+                }}
+                onMouseEnter={(e) => {
+                  if (!active) e.currentTarget.style.background = "#eef0f3";
+                }}
+                onMouseLeave={(e) => {
+                  if (!active) e.currentTarget.style.background = "#f6f7f9";
                 }}
               >
+                <span style={{ fontSize: 15 }}>{tab.emoji}</span>
                 {t(tab.labelKey)}
                 <span
                   style={{
                     fontSize: 11,
                     padding: "1px 7px",
                     borderRadius: 999,
-                    background: active
-                      ? "rgba(255,255,255,0.22)"
-                      : "var(--bg-subtle)",
-                    color: active ? "#ffffff" : "var(--text-muted)",
-                    fontWeight: 600,
+                    background: active ? "#0f172a" : "#ffffff",
+                    color: active ? "#c1ed3e" : "var(--text-muted)",
+                    fontWeight: 700,
                     fontFamily: "var(--font-mono)",
                   }}
                 >
@@ -237,7 +313,7 @@ export default function Home() {
         style={{
           maxWidth: 1200,
           margin: "0 auto",
-          padding: "40px 24px 80px",
+          padding: "40px 24px 96px",
         }}
       >
         {filtered.length === 0 ? (
@@ -256,15 +332,16 @@ export default function Home() {
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
-              gap: 14,
+              gap: 16,
             }}
           >
             {filtered.map((tool, i) => (
-              <GridCard
+              <PastelCard
                 key={i}
                 to={tool.to}
                 icon={tool.iconName}
                 accent={tool.accent}
+                bg={tool.bg}
                 name={t(tool.nameKey)}
                 desc={t(tool.descKey)}
               />
@@ -276,52 +353,54 @@ export default function Home() {
   );
 }
 
-function GridCard({ to, icon, accent, name, desc }) {
+function PastelCard({ to, icon, accent, bg, name, desc }) {
   return (
     <Link
       to={to}
       style={{
         textDecoration: "none",
         display: "block",
-        padding: "22px 20px",
-        borderRadius: 16,
-        background: "#ffffff",
-        border: "1px solid var(--border)",
-        transition: "all 0.18s ease",
+        padding: "22px 20px 20px",
+        borderRadius: 20,
+        background: bg,
+        border: "2px solid transparent",
+        transition: "all 0.15s ease",
+        position: "relative",
       }}
       onMouseEnter={(e) => {
         const el = e.currentTarget;
-        el.style.borderColor = accent;
-        el.style.boxShadow = `0 8px 24px -8px ${accent}40, 0 0 0 1px ${accent}33`;
-        el.style.transform = "translateY(-3px)";
+        el.style.borderColor = "#0f172a";
+        el.style.transform = "translate(-2px, -2px)";
+        el.style.boxShadow = "4px 4px 0 #0f172a";
       }}
       onMouseLeave={(e) => {
         const el = e.currentTarget;
-        el.style.borderColor = "var(--border)";
+        el.style.borderColor = "transparent";
+        el.style.transform = "translate(0, 0)";
         el.style.boxShadow = "none";
-        el.style.transform = "translateY(0)";
       }}
     >
       <div
         style={{
-          width: 54,
-          height: 54,
-          borderRadius: 14,
-          background: `${accent}14`,
+          width: 56,
+          height: 56,
+          borderRadius: 16,
+          background: "#ffffff",
           color: accent,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           marginBottom: 14,
+          border: `2px solid ${accent}22`,
         }}
       >
-        <ToolIcon name={icon} size={28} />
+        <ToolIcon name={icon} size={30} />
       </div>
       <div
         style={{
-          fontSize: 15.5,
-          fontWeight: 600,
-          color: "var(--text-primary)",
+          fontSize: 16,
+          fontWeight: 700,
+          color: "#0f172a",
           letterSpacing: -0.3,
           marginBottom: 6,
         }}
@@ -331,8 +410,8 @@ function GridCard({ to, icon, accent, name, desc }) {
       <div
         style={{
           fontSize: 13,
-          color: "var(--text-muted)",
-          lineHeight: 1.55,
+          color: "#475569",
+          lineHeight: 1.5,
           fontWeight: 400,
           letterSpacing: -0.05,
           display: "-webkit-box",
@@ -350,22 +429,22 @@ function GridCard({ to, icon, accent, name, desc }) {
 function SearchIcon() {
   return (
     <svg
-      width="20"
-      height="20"
-      viewBox="0 0 20 20"
+      width="22"
+      height="22"
+      viewBox="0 0 22 22"
       fill="none"
-      stroke="var(--text-muted)"
-      strokeWidth="2"
+      stroke="#0f172a"
+      strokeWidth="2.2"
       strokeLinecap="round"
       style={{
         position: "absolute",
-        left: 17,
+        left: 20,
         top: "50%",
         transform: "translateY(-50%)",
       }}
     >
-      <circle cx="9" cy="9" r="6" />
-      <path d="M14 14l4 4" />
+      <circle cx="10" cy="10" r="6.5" />
+      <path d="M15 15l5 5" />
     </svg>
   );
 }

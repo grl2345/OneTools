@@ -25,14 +25,14 @@
       "privacy": "隐私",
       "dev": "开发"
     },
-    "eyebrow": "24 件日常小事，一站搞定",
+    "eyebrow": "24 件日常工具，一站搞定",
     "pageTitle": "工具广场",
     "pageSub": "{{n}} 个工具 · 按分类浏览或搜索",
     "pageSubMatch": "匹配 {{n}} / {{total}} 件",
     "searchPlaceholder": "搜索工具……",
     "noResults": "没有找到相关工具。换个关键词试试？",
     "heroTitle": "5 件你本来要花钱的事，免费在浏览器里做完",
-    "heroSub": "PDF、图片、视频、音频、开发者日常——24 件常用工具，一个网站全搞定。",
+    "heroSub": "PDF、图片、视频、音频、开发者日常——常用小事，一个网站里轻松搞定。",
     "paink": {
       "idPhoto": "一张生活照，交付可用的证件照",
       "removeWatermark": "不想看见的那一块，让它消失",
@@ -78,11 +78,12 @@
       "base64": "粘进来自动判断是要编还是要解",
       "qrcode": "生成或扫描二维码，识别 Wi-Fi / 名片等格式"
     },
-    "heroTitleA": "简洁、好用的",
-    "heroTitleB": "免登录工具箱。",
+    "heroTitleA": "一个",
+    "heroTitleB": "工具箱",
     "tab": {
       "all": "全部"
-    }
+    },
+    "heroFoot": "共 {{n}} 件工具 · 打开即用 · 无需注册"
   },
   "tools": {
     "jsonFormatter": {
