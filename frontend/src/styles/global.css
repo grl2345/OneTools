@@ -385,3 +385,10 @@ a {
   color: var(--brand);
 }
 .legal-prose strong { color: var(--text-primary); font-weight: 600; }
+
+/* ── Sidebar + main layout, responsive ─────────── */
+.app-mobile-nav { display: none; }
+@media (max-width: 900px) {
+  .app-sidebar { display: none; }
+  .app-mobile-nav { display: block; }
+}
