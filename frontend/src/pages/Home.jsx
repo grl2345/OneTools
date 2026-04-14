@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import ToolIcon from "../components/ToolIcon";
 import SEO, { schema } from "../components/SEO";
+import FaqSection from "../components/FaqSection";
 
 const ALL_TOOLS = [
   { cat: "image",   to: "/tools/remove-watermark", nameKey: "tools.removeWatermark.name", descKey: "home.bene.removeWatermark", iconName: "removeWatermark", accent: "#ec4899" },
@@ -492,11 +493,20 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── FAQ ─── */}
+      <section style={{ maxWidth: 860, margin: "64px auto 0", padding: "0 24px" }}>
+        <FaqSection
+          title={t("faq.title")}
+          items={t("faq.home", { returnObjects: true })}
+          path="/"
+        />
+      </section>
+
       {/* ── CTA band ─── */}
       <section
         style={{
           maxWidth: 960,
-          margin: "72px auto 80px",
+          margin: "32px auto 80px",
           padding: "48px 24px",
           borderRadius: 24,
           background:

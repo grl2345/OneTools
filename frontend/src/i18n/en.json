@@ -8,23 +8,12 @@
     "github": "GitHub"
   },
   "home": {
-    "title": "Toolbox",
-    "subtitle": "Tools that respect your attention.",
-    "liveTools": "Available Tools",
-    "upcomingTools": "Coming Soon",
-    "upcomingDesc": "One new tool every week",
-    "heroBadge": "v1.0 · {{n}} tools live",
-    "heroBadgeNew": "New",
-    "statTools": "tools",
-    "statUploads": "uploads",
-    "statSignup": "signup",
-    "statFree": "free forever",
+    "title": "AI Watermark & Background Remover",
+    "subtitle": "Free online AI watermark remover and background remover. All processing happens in your browser.",
     "cat": {
-      "text": "Text & Data",
       "doc": "Document",
       "image": "Image",
       "av": "Audio & Video",
-      "util": "Utilities",
       "privacy": "Privacy",
       "dev": "Developer"
     },
@@ -67,33 +56,9 @@
       "tryWatermark": "Remove Watermark",
       "tryBg": "Remove Background"
     },
-    "secondaryEyebrow": "24 everyday tools, one place",
-    "pageTitle": "Tools",
-    "pageSub": "{{n}} tools · browse by category or search",
-    "pageSubMatch": "{{n}} of {{total}} match",
     "searchPlaceholder": "Search tools...",
     "noResults": "No matching tools. Try a different keyword.",
-    "heroTitle": "5 things you'd normally pay for, done free in your browser",
-    "heroSub": "PDF, image, video, audio, developer daily — everyday small jobs, all done in one site.",
-    "paink": {
-      "idPhoto": "A casual photo in, a usable ID photo out",
-      "removeWatermark": "That one distracting spot — gone",
-      "pdfSummary": "50 pages, tell me the important parts",
-      "videoCompress": "A video that's too big to send, right-sized",
-      "fileEncrypt": "One password, locks any file"
-    },
-    "scene": {
-      "privacy": "When the file is sensitive",
-      "privacy_sub": "IDs, contracts, personal docs — handle them and leave no trace",
-      "doc": "When the documents are piling up",
-      "doc_sub": "Long reports surface their shape; scans become editable text again",
-      "social": "When you have to send it out",
-      "social_sub": "Paperwork, social media, résumé images — fit to go, good to look at, passes review",
-      "av": "When the media is too large",
-      "av_sub": "Meeting audio read as text; big videos trimmed to the right size",
-      "dev": "When you're writing code",
-      "dev_sub": "30-second jobs shouldn't need three browser tabs"
-    },
+    "heroSub": "Free online AI watermark remover and background remover. Runs entirely in your browser — your images stay private.",
     "bene": {
       "fileEncrypt": "Pick a file, set a password — the same password opens it. That simple.",
       "exif": "Photos carry where and on what they were shot. See it, strip it before sharing.",
@@ -124,8 +89,7 @@
     "heroTitleB": "Remover",
     "tab": {
       "all": "All"
-    },
-    "heroFoot": "{{n}} tools · open and use · no signup"
+    }
   },
   "tools": {
     "jsonFormatter": {
@@ -682,15 +646,6 @@
       "notImage": "Please choose an image file"
     }
   },
-  "upcoming": {
-    "regexTester": "Regex Tester",
-    "base64Codec": "Base64 Codec",
-    "jwtDecoder": "JWT Decoder",
-    "hashGenerator": "Hash Generator",
-    "urlParser": "URL Parser",
-    "diffChecker": "Diff Checker",
-    "comingSoon": "Coming soon"
-  },
   "features": {
     "instant": "Instant",
     "instantDesc": "Formats as you type",
@@ -739,55 +694,30 @@
       "body": "<h2>What we make</h2><p>OneTools is a <strong>browser-local developer toolkit</strong> for engineers and content creators. Compared to traditional \"online tools\" sites, our differentiators are:</p><ul><li><strong>Privacy first</strong>: Anything that can run locally, will. Image compression, background removal, watermark removal, Markdown preview, timestamp conversion — all of these run entirely inside your browser.</li><li><strong>AI-augmented where it matters</strong>: For tasks that genuinely need semantic understanding (JSON natural-language query, Markdown rewrite), we route through a lightweight Edge Function to open-source LLMs for a fluid experience.</li><li><strong>Open source and free</strong>: The code lives on GitHub — anyone can audit, contribute, or fork.</li></ul><h2>Stack</h2><ul><li>Frontend: React 18 + Vite + react-router</li><li>AI backend: Vercel Edge Functions (Node.js Runtime), calling OpenAI-compatible APIs (Groq by default)</li><li>Client-side AI: onnxruntime-web (inpainting), @imgly/background-removal, chrono-node (time parsing), marked (Markdown)</li></ul><h2>Tools</h2><ul><li><a href=\"/tools/json\">JSON formatter · AI query · Schema inference</a></li><li><a href=\"/tools/markdown\">Live Markdown preview · AI rewrite</a></li><li><a href=\"/tools/image-compress\">Image compression (JPEG / WebP / PNG)</a></li><li><a href=\"/tools/timestamp\">Timestamp ↔ date · natural-language parsing</a></li><li><a href=\"/tools/remove-bg\">AI background remover</a></li><li><a href=\"/tools/remove-watermark\">AI watermark remover (local inference)</a></li></ul><h2>License</h2><p>MIT — see <a href=\"https://github.com/grl2345/OneTools\" target=\"_blank\" rel=\"noopener\">GitHub repo</a>. Issues and Pull Requests welcome.</p><h2>Contact</h2><p>For bugs, collaboration, or suggestions, please use GitHub Issues.</p>"
     }
   },
-  "sidebar": {
-    "sec_home": "Browse",
-    "sec_cat": "Categories",
-    "sec_site": "Site",
-    "all": "All Tools"
-  },
-  "cmp": {
-    "title": "Compared to the usual alternatives",
-    "sub": "Take a familiar job — remove a watermark, or produce an ID photo. Here's how the common routes look side by side.",
-    "studio": "Photo / print shop",
-    "r_price": "Price",
-    "r_signup": "Account required",
-    "r_upload": "Where the file goes",
-    "r_offline": "Works offline",
-    "r_batch": "Batch processing",
-    "ot.price": "Free forever",
-    "ot.signup": "No",
-    "ot.upload": "Stays on this device",
-    "ot.offline": "For most tools, yes",
-    "ot.batch": "Supported",
-    "removebg.price": "$9/mo or $0.2/image",
-    "removebg.signup": "Yes",
-    "removebg.upload": "To the provider",
-    "removebg.offline": "No",
-    "removebg.batch": "Paid tiers",
-    "photoshop.price": "$22/mo subscription",
-    "photoshop.signup": "Adobe ID",
-    "photoshop.upload": "Local / Creative Cloud",
-    "photoshop.offline": "Yes",
-    "photoshop.batch": "Yes",
-    "chatgpt.price": "$20/mo",
-    "chatgpt.signup": "Yes",
-    "chatgpt.upload": "To the provider",
-    "chatgpt.offline": "No",
-    "chatgpt.batch": "Limited",
-    "studio.price": "$5-15 per session",
-    "studio.signup": "In person",
-    "studio.upload": "They keep a record",
-    "studio.offline": "N/A",
-    "studio.batch": "No",
-    "r_access": "How to get it",
-    "ot.access": "Open the page and use",
-    "removebg.access": "Subscription / per-image",
-    "photoshop.access": "Paid subscription",
-    "chatgpt.access": "Subscription",
-    "studio.access": "Visit a shop"
-  },
   "faq": {
     "title": "Frequently asked questions",
+    "home": [
+      {
+        "q": "Does OneTools actually upload my image?",
+        "a": "No. Both the watermark remover and the background remover run entirely in your browser using on-device AI (WebAssembly). Your files never leave your computer."
+      },
+      {
+        "q": "How is this different from Photoshop or online services?",
+        "a": "No subscription, no sign-up, no watermark on the output. You get results in seconds without sending anything to a server — and nothing to install."
+      },
+      {
+        "q": "Which image formats are supported?",
+        "a": "JPG, PNG and WEBP up to about 20 MB. Output is a transparent PNG (for cutouts) or full-quality PNG (for watermark removal)."
+      },
+      {
+        "q": "Does it work on phones?",
+        "a": "Yes. Modern Chrome, Safari and Firefox on iOS and Android are supported. A mid-range phone processes a typical image in 5–15 seconds."
+      },
+      {
+        "q": "Can I use the output commercially?",
+        "a": "You keep the rights to the images you process. Make sure you own the original content — removing watermarks from copyrighted material you do not own is not allowed."
+      }
+    ],
     "idPhoto": [
       {
         "q": "Is it really free with no hidden paywall?",

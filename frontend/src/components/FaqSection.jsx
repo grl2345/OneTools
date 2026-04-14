@@ -55,11 +55,11 @@ export default function FaqSection({ title, items, path }) {
         </div>
         <div
           style={{
-            background: "#ffffff",
+            background: "var(--bg-card)",
             border: "1px solid var(--border)",
             borderRadius: 14,
             overflow: "hidden",
-            boxShadow: "var(--shadow-sm)",
+            boxShadow: "var(--shadow-md)",
           }}
         >
           {items.map((it, i) => (
@@ -76,7 +76,7 @@ export default function FaqSection({ title, items, path }) {
                   width: "100%",
                   textAlign: "left",
                   padding: "16px 20px",
-                  background: open === i ? "#fafbfc" : "#ffffff",
+                  background: open === i ? "rgba(168,85,247,0.08)" : "transparent",
                   border: "none",
                   cursor: "pointer",
                   display: "flex",

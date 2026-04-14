@@ -8,23 +8,12 @@
     "github": "GitHub"
   },
   "home": {
-    "title": "工具箱",
-    "subtitle": "精选工具，用心做事。",
-    "liveTools": "可用工具",
-    "upcomingTools": "即将推出",
-    "upcomingDesc": "每周上线一个新工具",
-    "heroBadge": "v1.0 · {{n}} 个工具已上线",
-    "heroBadgeNew": "新",
-    "statTools": "工具",
-    "statUploads": "上传",
-    "statSignup": "注册",
-    "statFree": "永久免费",
+    "title": "AI 去水印 & 智能抠图",
+    "subtitle": "免费在线 AI 去水印 & 抠图工具，全流程在你的浏览器里完成。",
     "cat": {
-      "text": "文本与数据",
       "doc": "文档",
       "image": "图片",
       "av": "音视频",
-      "util": "实用工具",
       "privacy": "隐私",
       "dev": "开发"
     },
@@ -67,33 +56,9 @@
       "tryWatermark": "去水印",
       "tryBg": "抠图"
     },
-    "secondaryEyebrow": "24 件日常工具，一站搞定",
-    "pageTitle": "工具广场",
-    "pageSub": "{{n}} 个工具 · 按分类浏览或搜索",
-    "pageSubMatch": "匹配 {{n}} / {{total}} 件",
     "searchPlaceholder": "搜索工具……",
     "noResults": "没有找到相关工具。换个关键词试试？",
-    "heroTitle": "5 件你本来要花钱的事，免费在浏览器里做完",
-    "heroSub": "PDF、图片、视频、音频、开发者日常——常用小事，一个网站里轻松搞定。",
-    "paink": {
-      "idPhoto": "一张生活照，交付可用的证件照",
-      "removeWatermark": "不想看见的那一块，让它消失",
-      "pdfSummary": "50 页材料，先告诉我重点",
-      "videoCompress": "太大的视频，让它刚好能发出去",
-      "fileEncrypt": "一个密码，锁住任何文件"
-    },
-    "scene": {
-      "privacy": "当文件敏感时",
-      "privacy_sub": "身份证、合同、涉密文件——处理完不留痕迹",
-      "doc": "当文档堆成山时",
-      "doc_sub": "让长报告先给你看见结构，让扫描件变回可编辑的文字",
-      "social": "当要发出去时",
-      "social_sub": "证件办理、社交媒体、简历配图——出得去、看得好、过得去审核",
-      "av": "当声音视频太大时",
-      "av_sub": "会议录音直接读成文字，大视频缩进合适的尺寸",
-      "dev": "当你正在写代码时",
-      "dev_sub": "日常 30 秒能解决的小事，不要再打开三个网站"
-    },
+    "heroSub": "免费在线 AI 去水印 & 一键抠图，全流程在你的浏览器里完成——图片永远属于你。",
     "bene": {
       "fileEncrypt": "选一个文件，设一个密码——打开需要同一个密码，就这么简单",
       "exif": "照片里藏着拍摄地点和设备，分享前先看一眼并抹掉",
@@ -124,8 +89,7 @@
     "heroTitleB": "一键抠图",
     "tab": {
       "all": "全部"
-    },
-    "heroFoot": "共 {{n}} 件工具 · 打开即用 · 无需注册"
+    }
   },
   "tools": {
     "jsonFormatter": {
@@ -682,15 +646,6 @@
       "notImage": "请选择图片文件"
     }
   },
-  "upcoming": {
-    "regexTester": "正则测试",
-    "base64Codec": "Base64 编解码",
-    "jwtDecoder": "JWT 解码",
-    "hashGenerator": "哈希生成",
-    "urlParser": "URL 解析",
-    "diffChecker": "文本对比",
-    "comingSoon": "即将推出"
-  },
   "features": {
     "instant": "即时处理",
     "instantDesc": "输入即格式化",
@@ -739,55 +694,30 @@
       "body": "<h2>产品定位</h2><p>OneTools 是一个开发者和内容创作者的<strong>浏览器本地工具集</strong>。区别于传统的 \"在线工具\" 站点，本站最大的差异点是：</p><ul><li><strong>隐私优先</strong>：能本地跑的绝不上传。图片压缩、抠图、去水印、Markdown 渲染、时间戳转换——这些都完全在你的浏览器里运行。</li><li><strong>AI 能力增强</strong>：对于需要语义理解的场景（JSON 自然语言查询、Markdown 智能改写），我们通过轻量级的 Edge Function 转发到开源大模型，保持体验流畅。</li><li><strong>开源免费</strong>：代码托管在 GitHub，任何人都能审计、贡献、fork。</li></ul><h2>技术栈</h2><ul><li>前端：React 18 + Vite + react-router</li><li>AI 后端：Vercel Edge Functions（Node.js Runtime），调用 Groq / OpenAI 兼容接口</li><li>客户端 AI：onnxruntime-web（图像修复）、@imgly/background-removal（抠图）、chrono-node（时间解析）、marked（Markdown）</li></ul><h2>工具清单</h2><ul><li><a href=\"/tools/json\">JSON 格式化 · AI 查询 · Schema 推断</a></li><li><a href=\"/tools/markdown\">Markdown 实时预览 · AI 改写</a></li><li><a href=\"/tools/image-compress\">图片压缩（JPEG / WebP / PNG）</a></li><li><a href=\"/tools/timestamp\">时间戳 ↔ 日期 · 自然语言解析</a></li><li><a href=\"/tools/remove-bg\">AI 智能抠图</a></li><li><a href=\"/tools/remove-watermark\">AI 去水印（本地推理）</a></li></ul><h2>开源协议</h2><p>本项目以 MIT 协议开源：<a href=\"https://github.com/grl2345/OneTools\" target=\"_blank\" rel=\"noopener\">GitHub 仓库</a>。欢迎提 Issue 或 Pull Request。</p><h2>联系我们</h2><p>问题反馈 / 合作 / 建议请通过 GitHub Issues 提交。</p>"
     }
   },
-  "sidebar": {
-    "sec_home": "浏览",
-    "sec_cat": "分类",
-    "sec_site": "站点",
-    "all": "所有工具"
-  },
-  "cmp": {
-    "title": "和常见替代方案比一比",
-    "sub": "同样一件事——比如去掉视频里的水印，或者做一张证件照——你可以选择的路径有这些。",
-    "studio": "照相馆 / 打印店",
-    "r_price": "价格",
-    "r_signup": "是否需要账号",
-    "r_upload": "文件去往何处",
-    "r_offline": "断网能否使用",
-    "r_batch": "批量处理",
-    "ot.price": "永久免费",
-    "ot.signup": "不需要",
-    "ot.upload": "只留在这台设备",
-    "ot.offline": "大多数工具可以",
-    "ot.batch": "支持",
-    "removebg.price": "$9 / 月或 $0.2 / 张",
-    "removebg.signup": "需要",
-    "removebg.upload": "上传到服务商",
-    "removebg.offline": "否",
-    "removebg.batch": "付费档支持",
-    "photoshop.price": "$22 / 月订阅",
-    "photoshop.signup": "Adobe 账号",
-    "photoshop.upload": "保存在本地 / 云端",
-    "photoshop.offline": "可以",
-    "photoshop.batch": "支持",
-    "chatgpt.price": "$20 / 月",
-    "chatgpt.signup": "需要",
-    "chatgpt.upload": "上传到服务商",
-    "chatgpt.offline": "否",
-    "chatgpt.batch": "有限",
-    "studio.price": "20-50 元 / 次",
-    "studio.signup": "到店",
-    "studio.upload": "留存底片 / 档案",
-    "studio.offline": "不适用",
-    "studio.batch": "不适用",
-    "r_access": "获取方式",
-    "ot.access": "打开网页即用",
-    "removebg.access": "需订阅 / 按张付费",
-    "photoshop.access": "需付费订阅",
-    "chatgpt.access": "需订阅",
-    "studio.access": "去线下店"
-  },
   "faq": {
     "title": "常见问题",
+    "home": [
+      {
+        "q": "OneTools 会把我的图片上传到服务器吗？",
+        "a": "不会。去水印和抠图都在你的浏览器里运行（WebAssembly 本地 AI），图片全程不会离开你的电脑。"
+      },
+      {
+        "q": "和 Photoshop 或在线付费服务相比有什么不同？",
+        "a": "不用订阅、不用注册、输出不带任何附加水印。所有处理在本地完成，几秒出结果，无需安装软件。"
+      },
+      {
+        "q": "支持哪些图片格式？",
+        "a": "支持 JPG、PNG、WEBP，单张建议 20MB 以内。抠图输出透明背景 PNG，去水印输出无损 PNG。"
+      },
+      {
+        "q": "手机能用吗？",
+        "a": "可以。iOS / Android 上的 Chrome、Safari、Firefox 新版本都支持，中端机型单张处理大约 5–15 秒。"
+      },
+      {
+        "q": "处理后的图片能商用吗？",
+        "a": "图片的版权仍归原作者所有。请确保你有处理权——去除他人受版权保护作品的水印是被禁止的。"
+      }
+    ],
     "idPhoto": [
       {
         "q": "是完全免费吗？真的没有隐藏付费？",
