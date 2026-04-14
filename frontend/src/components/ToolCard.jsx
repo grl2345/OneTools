@@ -50,41 +50,30 @@ export default function ToolCard({
       onMouseEnter={(e) => {
         if (!comingSoon) {
           const el = e.currentTarget;
-          el.style.borderColor = accent;
-          el.style.boxShadow = `0 12px 28px -12px ${accent}52, 0 0 0 1px ${accent}2e`;
-          el.style.transform = "translateY(-2px)";
-          const ic = el.querySelector("[data-icon-wrap]");
-          if (ic) {
-            ic.style.boxShadow = `0 8px 20px -6px ${accent}aa`;
-          }
+          el.style.borderColor = "#84cc16";
+          el.style.boxShadow = "0 0 0 1px #84cc16, 0 4px 14px -4px rgba(132,204,22,0.3)";
+          el.style.background = "#fafffb";
         }
       }}
       onMouseLeave={(e) => {
         const el = e.currentTarget;
         el.style.borderColor = "var(--border)";
         el.style.boxShadow = "none";
-        el.style.transform = "translateY(0)";
-        const ic = el.querySelector("[data-icon-wrap]");
-        if (ic) {
-          ic.style.boxShadow = `0 2px 6px -2px ${accent}55`;
-        }
+        el.style.background = "#ffffff";
       }}
     >
       <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
         <div
-          data-icon-wrap
           style={{
             width: 38,
             height: 38,
             borderRadius: 10,
-            background: `linear-gradient(135deg, ${accent}, ${accent}cc)`,
-            color: "#ffffff",
+            background: `${accent}14`,
+            color: accent,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             flexShrink: 0,
-            boxShadow: `0 2px 6px -2px ${accent}55`,
-            transition: "box-shadow 0.18s ease",
           }}
         >
           <ToolIcon name={iconName} size={19} />

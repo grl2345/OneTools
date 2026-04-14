@@ -97,13 +97,7 @@ export default function Home() {
       />
       <div style={{ maxWidth: 1120, margin: "0 auto", padding: "0 28px" }}>
         {/* ── Hero ─────────────────────────────────── */}
-        <section
-          style={{
-            padding: "96px 0 32px",
-            position: "relative",
-          }}
-        >
-          {/* Soft eyebrow with gradient highlight */}
+        <section style={{ padding: "88px 0 32px" }}>
           <div
             style={{
               display: "inline-flex",
@@ -121,8 +115,8 @@ export default function Home() {
               style={{
                 padding: "3px 9px",
                 borderRadius: 999,
-                background: "var(--gradient-brand)",
-                color: "#fff",
+                background: "#84cc16",
+                color: "#1a2e05",
                 fontSize: 10.5,
                 fontWeight: 700,
                 letterSpacing: 0.4,
@@ -153,14 +147,7 @@ export default function Home() {
           >
             {t("home.heroTitleA")}
             <br />
-            <span
-              style={{
-                background: "var(--gradient-brand)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
+            <span style={{ color: "var(--brand-strong)" }}>
               {t("home.heroTitleB")}
             </span>
           </h1>
@@ -178,12 +165,12 @@ export default function Home() {
             {t("home.heroSub")}
           </p>
 
-          {/* Painkiller spotlight — hero-weight featured row */}
+          {/* Painkiller spotlight — Aloom-style flat card row */}
           <div
             style={{
-              marginTop: 40,
+              marginTop: 36,
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))",
               gap: 10,
             }}
           >
@@ -193,66 +180,78 @@ export default function Home() {
                 to={p.to}
                 style={{
                   textDecoration: "none",
-                  padding: "18px 16px",
-                  borderRadius: 14,
+                  padding: "16px 16px",
+                  borderRadius: 12,
                   background: "#ffffff",
                   border: "1px solid var(--border)",
                   display: "flex",
                   flexDirection: "column",
-                  gap: 12,
-                  transition: "all 0.18s ease",
+                  gap: 10,
+                  transition: "all 0.15s ease",
                   position: "relative",
-                  overflow: "hidden",
                 }}
                 onMouseEnter={(e) => {
                   const el = e.currentTarget;
-                  el.style.transform = "translateY(-2px)";
-                  el.style.borderColor = p.accent;
-                  el.style.boxShadow = `0 12px 28px -12px ${p.accent}44, 0 0 0 1px ${p.accent}2e`;
+                  el.style.borderColor = "#84cc16";
+                  el.style.boxShadow = "0 0 0 1px #84cc16, 0 4px 14px -4px rgba(132,204,22,0.3)";
+                  el.style.background = "#fafffb";
                 }}
                 onMouseLeave={(e) => {
                   const el = e.currentTarget;
-                  el.style.transform = "translateY(0)";
                   el.style.borderColor = "var(--border)";
                   el.style.boxShadow = "none";
+                  el.style.background = "#ffffff";
                 }}
               >
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <div
+                    style={{
+                      width: 36,
+                      height: 36,
+                      borderRadius: 9,
+                      background: `${p.accent}14`,
+                      color: p.accent,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <ToolIcon name={p.iconName} size={18} />
+                  </div>
+                  <span
+                    style={{
+                      padding: "3px 9px",
+                      borderRadius: 999,
+                      background: "#ecfccb",
+                      color: "#4d7c0f",
+                      fontSize: 10,
+                      fontWeight: 600,
+                      letterSpacing: 0.2,
+                      border: "1px solid #d9f99d",
+                    }}
+                  >
+                    POPULAR
+                  </span>
+                </div>
                 <div
                   style={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: 10,
-                    background: `linear-gradient(135deg, ${p.accent}, ${p.accent}cc)`,
-                    color: "#ffffff",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    boxShadow: `0 4px 14px -4px ${p.accent}66`,
+                    fontSize: 14,
+                    fontWeight: 600,
+                    color: "var(--text-primary)",
+                    letterSpacing: -0.2,
+                    marginTop: 4,
                   }}
                 >
-                  <ToolIcon name={p.iconName} size={20} />
+                  {t(p.nameKey)}
                 </div>
-                <div>
-                  <div
-                    style={{
-                      fontSize: 14,
-                      fontWeight: 600,
-                      color: "var(--text-primary)",
-                      letterSpacing: -0.2,
-                      marginBottom: 2,
-                    }}
-                  >
-                    {t(p.nameKey)}
-                  </div>
-                  <div
-                    style={{
-                      fontSize: 12,
-                      color: "var(--text-muted)",
-                      lineHeight: 1.45,
-                    }}
-                  >
-                    {t(p.taglineKey)}
-                  </div>
+                <div
+                  style={{
+                    fontSize: 12,
+                    color: "var(--text-muted)",
+                    lineHeight: 1.5,
+                  }}
+                >
+                  {t(p.taglineKey)}
                 </div>
               </Link>
             ))}
@@ -494,10 +493,10 @@ function ComparisonTable() {
                     ...cell,
                     textAlign: "left",
                     fontWeight: 700,
-                    color: "#ffffff",
+                    color: "#1a2e05",
                     fontSize: 13.5,
                     letterSpacing: -0.15,
-                    background: "var(--gradient-brand)",
+                    background: "#84cc16",
                   }}
                 >
                   OneTools
@@ -537,9 +536,9 @@ function ComparisonTable() {
                   <td
                     style={{
                       ...cell,
-                      color: "var(--brand-strong)",
+                      color: "var(--brand-dark)",
                       fontWeight: 600,
-                      background: "rgba(79, 70, 229, 0.04)",
+                      background: "#f7fee7",
                     }}
                   >
                     {t(r.ot)}

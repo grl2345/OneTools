@@ -5,38 +5,38 @@
 }
 
 :root {
-  /* ── Surfaces (subtly warm + layered) ─────────── */
-  --bg: #f7f8fb;
+  /* ── Surfaces (cleaner white, Aloom-like) ─────── */
+  --bg: #ffffff;
   --bg-elevated: #ffffff;
   --bg-card: #ffffff;
-  --bg-subtle: #eef0f6;
-  --bg-input: #f7f8fa;
+  --bg-subtle: #f6f7f9;
+  --bg-input: #f8f9fb;
 
-  /* Hairline borders (slightly richer) */
+  /* Hairline borders */
   --border: rgba(15, 23, 42, 0.09);
-  --border-strong: rgba(15, 23, 42, 0.16);
+  --border-strong: rgba(15, 23, 42, 0.18);
   --border-light: rgba(15, 23, 42, 0.05);
 
-  /* Text ramp — slate family, higher contrast */
-  --text-primary: #0b1020;
-  --text-secondary: #374151;
-  --text-muted: #596277;
-  --text-faint: #8a91a3;
+  /* Text ramp — slate family */
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --text-faint: #94a3b8;
 
-  /* Brand — deeper, more confident indigo */
-  --brand: #4f46e5;
-  --brand-2: #7c3aed;
-  --brand-3: #db2777;
-  --brand-strong: #4338ca;
-  --brand-soft: rgba(79, 70, 229, 0.1);
-  --brand-border: rgba(79, 70, 229, 0.22);
+  /* Brand — lime-green (single confident accent) */
+  --brand: #84cc16;           /* lime-500 */
+  --brand-strong: #65a30d;    /* lime-600 — text on white */
+  --brand-dark: #4d7c0f;      /* lime-700 */
+  --brand-soft: #f7fee7;      /* lime-50 */
+  --brand-tint: #ecfccb;      /* lime-100 */
+  --brand-border: rgba(132, 204, 22, 0.3);
 
-  /* Category accents — saturated but mature (tailwind 600 tier) */
-  --cat-privacy: #059669;
-  --cat-doc:     #ea580c;
-  --cat-social:  #7c3aed;
-  --cat-av:      #0891b2;
-  --cat-dev:     #4f46e5;
+  /* Category accents (flat, saturated, tailwind 500–600) */
+  --cat-privacy: #059669;   /* emerald-600 */
+  --cat-doc:     #ea580c;   /* orange-600  */
+  --cat-social:  #7c3aed;   /* violet-600  */
+  --cat-av:      #0891b2;   /* cyan-600    */
+  --cat-dev:     #4f46e5;   /* indigo-600  */
 
   /* System accents */
   --blue:   #2563eb;
@@ -46,33 +46,24 @@
   --rose:   #e11d48;
   --orange: #ea580c;
   --amber:  #d97706;
-  --green:  #059669;
+  --green:  #16a34a;
   --teal:   #0d9488;
   --cyan:   #0891b2;
   --red:    #dc2626;
 
-  /* Signature gradient — richer, more saturated */
+  /* Brand gradient kept for very specific uses (not global) */
   --gradient-brand:
-    linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #db2777 100%);
-  --gradient-brand-soft:
-    linear-gradient(135deg,
-      rgba(79, 70, 229, 0.14) 0%,
-      rgba(124, 58, 237, 0.12) 50%,
-      rgba(219, 39, 119, 0.10) 100%);
+    linear-gradient(135deg, #a3e635 0%, #65a30d 100%);
 
-  /* Ambient page glow — placed behind content in body::before */
-  --glow-indigo: rgba(79, 70, 229, 0.09);
-  --glow-violet: rgba(124, 58, 237, 0.06);
-
-  /* Shadows — deeper, more dimensional */
+  /* Shadows — crisp, not glowy */
   --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04),
     0 0 0 1px rgba(15, 23, 42, 0.04);
-  --shadow-md: 0 4px 16px -4px rgba(15, 23, 42, 0.08),
+  --shadow-md: 0 4px 14px -3px rgba(15, 23, 42, 0.08),
     0 0 0 1px rgba(15, 23, 42, 0.05);
-  --shadow-lg: 0 18px 48px -12px rgba(15, 23, 42, 0.16),
+  --shadow-lg: 0 16px 40px -12px rgba(15, 23, 42, 0.14),
     0 0 0 1px rgba(15, 23, 42, 0.05);
-  --shadow-brand: 0 12px 36px -12px rgba(79, 70, 229, 0.32);
-  --shadow-glow: 0 0 0 4px rgba(79, 70, 229, 0.14);
+  --shadow-brand: 0 8px 24px -8px rgba(101, 163, 13, 0.4);
+  --shadow-glow: 0 0 0 4px rgba(132, 204, 22, 0.18);
 
   /* Typography */
   --font-sans:
@@ -90,20 +81,11 @@
   --max-width: 1180px;
 }
 
-/* Ambient gradient wash — gives the page some atmosphere */
 body {
   position: relative;
+  background: var(--bg);
 }
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background:
-    radial-gradient(ellipse 90% 60% at 50% -5%, var(--glow-indigo), transparent 60%),
-    radial-gradient(ellipse 50% 35% at 85% 0%, var(--glow-violet), transparent 70%);
-}
+/* Ambient wash removed — Aloom-style is pure white */
 #root { position: relative; z-index: 1; }
 
 html, body {

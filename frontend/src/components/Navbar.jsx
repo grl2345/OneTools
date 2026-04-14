@@ -31,8 +31,8 @@ export default function Navbar() {
         }}
       >
         <svg width="22" height="22" viewBox="0 0 22 22" fill="none" style={{ flexShrink: 0 }}>
-          <circle cx="11" cy="11" r="9.25" stroke="var(--text-primary)" strokeWidth="1.8" />
-          <circle cx="11" cy="11" r="3" fill="#5b5bf5" />
+          <circle cx="11" cy="11" r="10" fill="#84cc16" />
+          <circle cx="11" cy="11" r="4" fill="#ffffff" />
         </svg>
         <span
           style={{
