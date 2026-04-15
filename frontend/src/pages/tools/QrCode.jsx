@@ -131,8 +131,8 @@ export default function QrCode() {
     setScanResult(null); setScanError(null);
   };
 
-  const panel = { background: "#ffffff", border: "1px solid var(--border)", borderRadius: "var(--radius)", overflow: "hidden", boxShadow: "var(--shadow-md)" };
-  const panelHeader = { padding: "10px 14px", fontSize: 12, color: "var(--text-secondary)", fontWeight: 500, borderBottom: "1px solid var(--border-light)", background: "#fafbfc", display: "flex", justifyContent: "space-between", alignItems: "center", letterSpacing: -0.1 };
+  const panel = { background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: "var(--radius)", overflow: "hidden", boxShadow: "var(--shadow-md)" };
+  const panelHeader = { padding: "10px 14px", fontSize: 12, color: "var(--text-secondary)", fontWeight: 500, borderBottom: "1px solid var(--border-light)", background: "var(--bg-subtle)", display: "flex", justifyContent: "space-between", alignItems: "center", letterSpacing: -0.1 };
 
   return (
     <>
@@ -164,7 +164,7 @@ export default function QrCode() {
               <button key={m} onClick={() => setMode(m)}
                 style={{
                   padding: "6px 16px", borderRadius: 999, border: "none",
-                  background: mode === m ? "var(--text-primary)" : "transparent",
+                  background: mode === m ? "var(--brand)" : "transparent",
                   color: mode === m ? "#fff" : "var(--text-secondary)",
                   fontSize: 12.5, fontWeight: 600, cursor: "pointer",
                 }}>
@@ -188,7 +188,7 @@ export default function QrCode() {
                     width: "100%", minHeight: 140,
                     padding: 14, border: "1px solid var(--border)", borderRadius: "var(--radius-sm)",
                     fontFamily: "var(--font-mono)", fontSize: 13, lineHeight: 1.6,
-                    background: "#fafbfc", color: "var(--text-primary)", resize: "vertical",
+                    background: "var(--bg-subtle)", color: "var(--text-primary)", resize: "vertical",
                   }}
                 />
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginTop: 14 }}>
@@ -202,7 +202,7 @@ export default function QrCode() {
                           style={{
                             padding: "5px 10px", borderRadius: "var(--radius-sm)",
                             border: ec === l ? "1px solid var(--brand)" : "1px solid var(--border)",
-                            background: ec === l ? "rgba(91,91,245,0.08)" : "#ffffff",
+                            background: ec === l ? "rgba(91,91,245,0.08)" : "var(--bg-card)",
                             color: ec === l ? "var(--brand)" : "var(--text-secondary)",
                             fontSize: 12, fontWeight: 600, flex: 1,
                           }}>
@@ -245,13 +245,13 @@ export default function QrCode() {
                 {qrDataUrl && (
                   <div style={{ display: "flex", gap: 4 }}>
                     <button onClick={() => downloadQr("png")}
-                      style={{ padding: "4px 10px", borderRadius: 999, border: "1px solid var(--border)", background: "#ffffff", color: "var(--text-secondary)", fontSize: 11 }}>
+                      style={{ padding: "4px 10px", borderRadius: 999, border: "1px solid var(--border)", background: "var(--bg-card)", color: "var(--text-secondary)", fontSize: 11 }}>
                       ⬇ PNG
                     </button>
                   </div>
                 )}
               </div>
-              <div style={{ padding: 24, display: "flex", alignItems: "center", justifyContent: "center", minHeight: 320, background: "#f3f4f7" }}>
+              <div style={{ padding: 24, display: "flex", alignItems: "center", justifyContent: "center", minHeight: 320, background: "var(--bg-elevated)" }}>
                 {genError ? (
                   <div style={{ color: "var(--red)", fontSize: 12.5 }}>{genError}</div>
                 ) : qrDataUrl ? (
@@ -281,7 +281,7 @@ export default function QrCode() {
                   padding: "80px 24px", textAlign: "center",
                   borderRadius: "var(--radius)",
                   border: `2px dashed ${dragging ? "var(--brand)" : "var(--border-strong)"}`,
-                  background: dragging ? "rgba(91,91,245,0.06)" : "#ffffff",
+                  background: dragging ? "rgba(91,91,245,0.06)" : "var(--bg-card)",
                   cursor: "pointer", boxShadow: "var(--shadow-sm)",
                 }}
               >
@@ -299,11 +299,11 @@ export default function QrCode() {
                   <div style={panelHeader}>
                     <span>{t("tools.qrcode.originalImage")}</span>
                     <button onClick={resetScan}
-                      style={{ padding: "4px 10px", borderRadius: 999, border: "1px solid var(--border)", background: "#ffffff", color: "var(--text-secondary)", fontSize: 11 }}>
+                      style={{ padding: "4px 10px", borderRadius: 999, border: "1px solid var(--border)", background: "var(--bg-card)", color: "var(--text-secondary)", fontSize: 11 }}>
                       {t("tools.qrcode.replace")}
                     </button>
                   </div>
-                  <div style={{ padding: 16, display: "flex", alignItems: "center", justifyContent: "center", background: "#f3f4f7", minHeight: 300 }}>
+                  <div style={{ padding: 16, display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg-elevated)", minHeight: 300 }}>
                     <img src={scanPreview} alt="" style={{ maxWidth: "100%", maxHeight: 380, objectFit: "contain" }} />
                   </div>
                 </div>
@@ -322,7 +322,7 @@ export default function QrCode() {
                       <>
                         <div style={{
                           padding: 12, borderRadius: "var(--radius-sm)",
-                          background: "#fafbfc", border: "1px solid var(--border)",
+                          background: "var(--bg-subtle)", border: "1px solid var(--border)",
                           fontFamily: "var(--font-mono)", fontSize: 12.5, lineHeight: 1.6,
                           wordBreak: "break-all", marginBottom: 12,
                         }}>
@@ -330,12 +330,12 @@ export default function QrCode() {
                         </div>
                         <div style={{ display: "flex", gap: 8, marginBottom: 14 }}>
                           <button onClick={copyResult}
-                            style={{ padding: "6px 14px", borderRadius: 999, border: "1px solid var(--border)", background: copied ? "rgba(16,185,129,0.1)" : "#ffffff", color: copied ? "var(--green)" : "var(--text-secondary)", fontSize: 12, fontWeight: 500 }}>
+                            style={{ padding: "6px 14px", borderRadius: 999, border: "1px solid var(--border)", background: copied ? "rgba(16,185,129,0.1)" : "var(--bg-card)", color: copied ? "var(--green)" : "var(--text-secondary)", fontSize: 12, fontWeight: 500 }}>
                             {copied ? "✓ " + t("tools.qrcode.copied") : t("tools.qrcode.copy")}
                           </button>
                           {scanResult.classification.kind === "url" && (
                             <a href={scanResult.text} target="_blank" rel="noopener noreferrer"
-                              style={{ padding: "6px 14px", borderRadius: 999, border: "1px solid var(--border)", background: "#ffffff", color: "var(--brand)", fontSize: 12, fontWeight: 500, textDecoration: "none" }}>
+                              style={{ padding: "6px 14px", borderRadius: 999, border: "1px solid var(--border)", background: "var(--bg-card)", color: "var(--brand)", fontSize: 12, fontWeight: 500, textDecoration: "none" }}>
                               ↗ {t("tools.qrcode.openUrl")}
                             </a>
                           )}

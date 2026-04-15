@@ -65,8 +65,8 @@ export default function ImageToTable() {
     setFile(null); setPreview(null); setResult(null); setError(null);
   };
 
-  const panel = { background: "#ffffff", border: "1px solid var(--border)", borderRadius: "var(--radius)", overflow: "hidden", boxShadow: "var(--shadow-md)" };
-  const panelHeader = { padding: "10px 14px", fontSize: 12, color: "var(--text-secondary)", fontWeight: 500, borderBottom: "1px solid var(--border-light)", background: "#fafbfc", display: "flex", justifyContent: "space-between", alignItems: "center", letterSpacing: -0.1 };
+  const panel = { background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: "var(--radius)", overflow: "hidden", boxShadow: "var(--shadow-md)" };
+  const panelHeader = { padding: "10px 14px", fontSize: 12, color: "var(--text-secondary)", fontWeight: 500, borderBottom: "1px solid var(--border-light)", background: "var(--bg-subtle)", display: "flex", justifyContent: "space-between", alignItems: "center", letterSpacing: -0.1 };
 
   return (
     <>
@@ -104,7 +104,7 @@ export default function ImageToTable() {
               marginTop: 28, padding: "80px 24px", textAlign: "center",
               borderRadius: "var(--radius)",
               border: `2px dashed ${dragging ? "var(--brand)" : "var(--border-strong)"}`,
-              background: dragging ? "rgba(91,91,245,0.06)" : "#ffffff",
+              background: dragging ? "rgba(91,91,245,0.06)" : "var(--bg-card)",
               cursor: "pointer", boxShadow: "var(--shadow-sm)",
             }}
           >
@@ -121,7 +121,7 @@ export default function ImageToTable() {
             <div style={{ padding: "24px 0 14px", display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
               <div style={{ flex: 1 }} />
               <button onClick={reset}
-                style={{ padding: "8px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-strong)", background: "#ffffff", color: "var(--text-primary)", fontSize: 12.5, fontWeight: 500 }}>
+                style={{ padding: "8px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-strong)", background: "var(--bg-card)", color: "var(--text-primary)", fontSize: 12.5, fontWeight: 500 }}>
                 {t("tools.imageToTable.replace")}
               </button>
               <button onClick={run} disabled={loading}
@@ -131,11 +131,11 @@ export default function ImageToTable() {
               {result && (
                 <>
                   <button onClick={copyCsv}
-                    style={{ padding: "8px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border)", background: copied ? "rgba(16,185,129,0.1)" : "#ffffff", color: copied ? "var(--green)" : "var(--text-secondary)", fontSize: 12.5, fontWeight: 500 }}>
+                    style={{ padding: "8px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border)", background: copied ? "rgba(16,185,129,0.1)" : "var(--bg-card)", color: copied ? "var(--green)" : "var(--text-secondary)", fontSize: 12.5, fontWeight: 500 }}>
                     {copied ? "✓ " + t("tools.imageToTable.copied") : "⎘ CSV"}
                   </button>
                   <button onClick={downloadCsv}
-                    style={{ padding: "8px 14px", borderRadius: "var(--radius-sm)", border: "none", background: "var(--text-primary)", color: "#fff", fontSize: 12.5, fontWeight: 600 }}>
+                    style={{ padding: "8px 14px", borderRadius: "var(--radius-sm)", border: "none", background: "var(--brand)", color: "#fff", fontSize: 12.5, fontWeight: 600 }}>
                     ⬇ CSV
                   </button>
                 </>
@@ -153,7 +153,7 @@ export default function ImageToTable() {
                 <div style={panelHeader}>
                   <span>{t("tools.imageToTable.original")}</span>
                 </div>
-                <div style={{ padding: 16, minHeight: 360, display: "flex", alignItems: "center", justifyContent: "center", background: "#f3f4f7" }}>
+                <div style={{ padding: 16, minHeight: 360, display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg-elevated)" }}>
                   <img src={preview} alt="" style={{ maxWidth: "100%", maxHeight: 520, objectFit: "contain" }} />
                 </div>
               </div>
@@ -170,13 +170,13 @@ export default function ImageToTable() {
                     <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12.5 }}>
                       {result.headers?.length > 0 && (
                         <thead>
-                          <tr style={{ background: "#fafbfc", borderBottom: "1px solid var(--border)" }}>
+                          <tr style={{ background: "var(--bg-subtle)", borderBottom: "1px solid var(--border)" }}>
                             {result.headers.map((h, i) => (
                               <th key={i} style={{
                                 textAlign: "left", padding: "10px 12px",
                                 fontSize: 11, fontWeight: 700, color: "var(--text-secondary)",
                                 textTransform: "uppercase", letterSpacing: 0.5,
-                                position: "sticky", top: 0, background: "#fafbfc",
+                                position: "sticky", top: 0, background: "var(--bg-subtle)",
                               }}>
                                 {h}
                               </th>

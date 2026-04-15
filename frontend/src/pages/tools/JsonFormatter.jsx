@@ -249,7 +249,7 @@ export default function JsonFormatter() {
     padding: "6px 12px",
     borderRadius: "var(--radius-sm)",
     border: "1px solid var(--border)",
-    background: active ? "var(--text-primary)" : "#ffffff",
+    background: active ? "var(--brand)" : "var(--bg-card)",
     color: active ? "#fff" : "var(--text-secondary)",
     fontSize: 12.5,
     fontWeight: 500,
@@ -261,7 +261,7 @@ export default function JsonFormatter() {
   });
 
   const panel = (danger) => ({
-    background: "#ffffff",
+    background: "var(--bg-card)",
     border: `1px solid ${danger ? "rgba(239,68,68,0.35)" : "var(--border)"}`,
     borderRadius: "var(--radius)",
     overflow: "hidden",
@@ -278,7 +278,7 @@ export default function JsonFormatter() {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    background: "#fafbfc",
+    background: "var(--bg-subtle)",
     letterSpacing: -0.1,
   };
 
@@ -525,7 +525,7 @@ export default function JsonFormatter() {
           style={{
             padding: 18,
             borderRadius: "var(--radius)",
-            background: "#ffffff",
+            background: "var(--bg-card)",
             border: "1px solid var(--border)",
             boxShadow: "var(--shadow-md)",
             position: "relative",
@@ -652,7 +652,7 @@ export default function JsonFormatter() {
                   padding: "10px 14px",
                   borderRadius: "var(--radius-sm)",
                   border: "1px solid var(--border-strong)",
-                  background: "#ffffff",
+                  background: "var(--bg-card)",
                   fontSize: 14,
                   color: "var(--text-primary)",
                   outline: "none",
@@ -1027,7 +1027,7 @@ export default function JsonFormatter() {
             style={{
               padding: 18,
               borderRadius: "var(--radius)",
-              background: "#ffffff",
+              background: "var(--bg-card)",
               border: "1px solid var(--border)",
               boxShadow: "var(--shadow-sm)",
               transition: "all 0.2s ease",

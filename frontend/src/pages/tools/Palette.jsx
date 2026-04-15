@@ -223,8 +223,8 @@ export default function Palette() {
     setFile(null); setPreview(null); setColors([]); setError(null);
   };
 
-  const panel = { background: "#ffffff", border: "1px solid var(--border)", borderRadius: "var(--radius)", overflow: "hidden", boxShadow: "var(--shadow-md)" };
-  const panelHeader = { padding: "10px 14px", fontSize: 12, color: "var(--text-secondary)", fontWeight: 500, borderBottom: "1px solid var(--border-light)", background: "#fafbfc", display: "flex", justifyContent: "space-between", alignItems: "center", letterSpacing: -0.1 };
+  const panel = { background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: "var(--radius)", overflow: "hidden", boxShadow: "var(--shadow-md)" };
+  const panelHeader = { padding: "10px 14px", fontSize: 12, color: "var(--text-secondary)", fontWeight: 500, borderBottom: "1px solid var(--border-light)", background: "var(--bg-subtle)", display: "flex", justifyContent: "space-between", alignItems: "center", letterSpacing: -0.1 };
 
   return (
     <>
@@ -262,7 +262,7 @@ export default function Palette() {
               marginTop: 28, padding: "80px 24px", textAlign: "center",
               borderRadius: "var(--radius)",
               border: `2px dashed ${dragging ? "var(--brand)" : "var(--border-strong)"}`,
-              background: dragging ? "rgba(91,91,245,0.06)" : "#ffffff",
+              background: dragging ? "rgba(91,91,245,0.06)" : "var(--bg-card)",
               cursor: "pointer", boxShadow: "var(--shadow-sm)",
             }}
           >
@@ -279,7 +279,7 @@ export default function Palette() {
                   style={{
                     padding: "5px 12px", borderRadius: 999,
                     border: k === n ? "1px solid var(--text-primary)" : "1px solid var(--border)",
-                    background: k === n ? "var(--text-primary)" : "#ffffff",
+                    background: k === n ? "var(--brand)" : "var(--bg-card)",
                     color: k === n ? "#fff" : "var(--text-secondary)",
                     fontSize: 11.5, fontWeight: 500,
                   }}>
@@ -288,15 +288,15 @@ export default function Palette() {
               ))}
               <div style={{ flex: 1 }} />
               <button onClick={copyAllHex}
-                style={{ padding: "7px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border)", background: copied === "all-hex" ? "rgba(16,185,129,0.1)" : "#ffffff", color: copied === "all-hex" ? "var(--green)" : "var(--text-secondary)", fontSize: 12.5, fontWeight: 500 }}>
+                style={{ padding: "7px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border)", background: copied === "all-hex" ? "rgba(16,185,129,0.1)" : "var(--bg-card)", color: copied === "all-hex" ? "var(--green)" : "var(--text-secondary)", fontSize: 12.5, fontWeight: 500 }}>
                 {copied === "all-hex" ? "✓" : "⎘"} {t("tools.palette.copyAll")}
               </button>
               <button onClick={downloadSwatch}
-                style={{ padding: "7px 14px", borderRadius: "var(--radius-sm)", border: "none", background: "var(--text-primary)", color: "#fff", fontSize: 12.5, fontWeight: 600 }}>
+                style={{ padding: "7px 14px", borderRadius: "var(--radius-sm)", border: "none", background: "var(--brand)", color: "#fff", fontSize: 12.5, fontWeight: 600 }}>
                 ⬇ PNG
               </button>
               <button onClick={reset}
-                style={{ padding: "7px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-strong)", background: "#ffffff", color: "var(--text-primary)", fontSize: 12.5, fontWeight: 500 }}>
+                style={{ padding: "7px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-strong)", background: "var(--bg-card)", color: "var(--text-primary)", fontSize: 12.5, fontWeight: 500 }}>
                 {t("tools.palette.replace")}
               </button>
             </div>
@@ -304,7 +304,7 @@ export default function Palette() {
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1.3fr", gap: 14, paddingBottom: 30 }}>
               <div style={panel}>
                 <div style={panelHeader}>{t("tools.palette.source")}</div>
-                <div style={{ padding: 16, display: "flex", alignItems: "center", justifyContent: "center", background: "#f3f4f7", minHeight: 360 }}>
+                <div style={{ padding: 16, display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg-elevated)", minHeight: 360 }}>
                   <img src={preview} alt="" style={{ maxWidth: "100%", maxHeight: 480, objectFit: "contain" }} />
                 </div>
               </div>
@@ -336,21 +336,21 @@ export default function Palette() {
                           <div style={{ display: "flex", gap: 6, alignItems: "center", fontSize: 12.5 }}>
                             <span style={{ flex: 1, fontFamily: "var(--font-mono)", fontWeight: 600, color: "var(--text-primary)" }}>{c.hex}</span>
                             <button onClick={() => copyColor("hex", c)}
-                              style={{ padding: "2px 8px", borderRadius: 999, border: "1px solid var(--border)", background: copied === c.hex + "hex" ? "rgba(16,185,129,0.1)" : "#ffffff", color: copied === c.hex + "hex" ? "var(--green)" : "var(--text-secondary)", fontSize: 10 }}>
+                              style={{ padding: "2px 8px", borderRadius: 999, border: "1px solid var(--border)", background: copied === c.hex + "hex" ? "rgba(16,185,129,0.1)" : "var(--bg-card)", color: copied === c.hex + "hex" ? "var(--green)" : "var(--text-secondary)", fontSize: 10 }}>
                               {copied === c.hex + "hex" ? "✓" : "⎘"}
                             </button>
                           </div>
                           <div style={{ display: "flex", gap: 6, alignItems: "center", fontSize: 11, marginTop: 4, color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
                             <span style={{ flex: 1 }}>{c.rgbStr}</span>
                             <button onClick={() => copyColor("rgb", c)}
-                              style={{ padding: "1px 6px", borderRadius: 999, border: "1px solid var(--border)", background: copied === c.hex + "rgb" ? "rgba(16,185,129,0.1)" : "#ffffff", color: copied === c.hex + "rgb" ? "var(--green)" : "var(--text-muted)", fontSize: 9 }}>
+                              style={{ padding: "1px 6px", borderRadius: 999, border: "1px solid var(--border)", background: copied === c.hex + "rgb" ? "rgba(16,185,129,0.1)" : "var(--bg-card)", color: copied === c.hex + "rgb" ? "var(--green)" : "var(--text-muted)", fontSize: 9 }}>
                               {copied === c.hex + "rgb" ? "✓" : "⎘"}
                             </button>
                           </div>
                           <div style={{ display: "flex", gap: 6, alignItems: "center", fontSize: 11, marginTop: 2, color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
                             <span style={{ flex: 1 }}>{c.hsl}</span>
                             <button onClick={() => copyColor("hsl", c)}
-                              style={{ padding: "1px 6px", borderRadius: 999, border: "1px solid var(--border)", background: copied === c.hex + "hsl" ? "rgba(16,185,129,0.1)" : "#ffffff", color: copied === c.hex + "hsl" ? "var(--green)" : "var(--text-muted)", fontSize: 9 }}>
+                              style={{ padding: "1px 6px", borderRadius: 999, border: "1px solid var(--border)", background: copied === c.hex + "hsl" ? "rgba(16,185,129,0.1)" : "var(--bg-card)", color: copied === c.hex + "hsl" ? "var(--green)" : "var(--text-muted)", fontSize: 9 }}>
                               {copied === c.hex + "hsl" ? "✓" : "⎘"}
                             </button>
                           </div>

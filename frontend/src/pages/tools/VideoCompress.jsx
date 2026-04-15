@@ -180,8 +180,8 @@ export default function VideoCompress() {
     ? Math.round((1 - resultBlob.size / file.size) * 100)
     : 0;
 
-  const panel = { background: "#ffffff", border: "1px solid var(--border)", borderRadius: "var(--radius)", overflow: "hidden", boxShadow: "var(--shadow-md)" };
-  const panelHeader = { padding: "10px 14px", fontSize: 12, color: "var(--text-secondary)", fontWeight: 500, borderBottom: "1px solid var(--border-light)", background: "#fafbfc", display: "flex", justifyContent: "space-between", alignItems: "center", letterSpacing: -0.1 };
+  const panel = { background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: "var(--radius)", overflow: "hidden", boxShadow: "var(--shadow-md)" };
+  const panelHeader = { padding: "10px 14px", fontSize: 12, color: "var(--text-secondary)", fontWeight: 500, borderBottom: "1px solid var(--border-light)", background: "var(--bg-subtle)", display: "flex", justifyContent: "space-between", alignItems: "center", letterSpacing: -0.1 };
 
   return (
     <>
@@ -228,7 +228,7 @@ export default function VideoCompress() {
               style={{
                 padding: "12px 14px", borderRadius: "var(--radius-sm)",
                 border: preset === p.id ? "1px solid var(--brand)" : "1px solid var(--border)",
-                background: preset === p.id ? "rgba(91,91,245,0.06)" : "#ffffff",
+                background: preset === p.id ? "rgba(91,91,245,0.06)" : "var(--bg-card)",
                 textAlign: "left", cursor: stage ? "not-allowed" : "pointer",
               }}>
               <div style={{ fontSize: 13, fontWeight: 600, color: preset === p.id ? "var(--brand)" : "var(--text-primary)", marginBottom: 3 }}>
@@ -251,7 +251,7 @@ export default function VideoCompress() {
               padding: "80px 24px", textAlign: "center",
               borderRadius: "var(--radius)",
               border: `2px dashed ${dragging ? "var(--brand)" : "var(--border-strong)"}`,
-              background: dragging ? "rgba(91,91,245,0.06)" : "#ffffff",
+              background: dragging ? "rgba(91,91,245,0.06)" : "var(--bg-card)",
               cursor: "pointer", boxShadow: "var(--shadow-sm)",
             }}
           >
@@ -274,7 +274,7 @@ export default function VideoCompress() {
                 </div>
               </div>
               <button onClick={reset}
-                style={{ padding: "8px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-strong)", background: "#ffffff", color: "var(--text-primary)", fontSize: 12.5, fontWeight: 500 }}>
+                style={{ padding: "8px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-strong)", background: "var(--bg-card)", color: "var(--text-primary)", fontSize: 12.5, fontWeight: 500 }}>
                 {t("tools.videoCompress.replace")}
               </button>
               <button onClick={compress} disabled={!!stage}
@@ -290,7 +290,7 @@ export default function VideoCompress() {
                  "✦ " + t("tools.videoCompress.compress")}
               </button>
               <button onClick={download} disabled={!resultBlob}
-                style={{ padding: "8px 18px", borderRadius: "var(--radius-sm)", border: "none", background: resultBlob ? "var(--text-primary)" : "#d8d8e0", color: "#fff", fontSize: 13, fontWeight: 600, boxShadow: resultBlob ? "0 4px 14px rgba(10,11,16,0.2)" : "none" }}>
+                style={{ padding: "8px 18px", borderRadius: "var(--radius-sm)", border: "none", background: resultBlob ? "var(--brand)" : "#d8d8e0", color: "#fff", fontSize: 13, fontWeight: 600, boxShadow: resultBlob ? "0 4px 14px rgba(10,11,16,0.2)" : "none" }}>
                 ⬇ MP4
               </button>
             </div>

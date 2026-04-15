@@ -148,8 +148,8 @@ export default function VideoToGif() {
     setStage(null); setError(null); setProgress(0);
   };
 
-  const panel = { background: "#ffffff", border: "1px solid var(--border)", borderRadius: "var(--radius)", overflow: "hidden", boxShadow: "var(--shadow-md)" };
-  const panelHeader = { padding: "10px 14px", fontSize: 12, color: "var(--text-secondary)", fontWeight: 500, borderBottom: "1px solid var(--border-light)", background: "#fafbfc", display: "flex", justifyContent: "space-between", alignItems: "center", letterSpacing: -0.1 };
+  const panel = { background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: "var(--radius)", overflow: "hidden", boxShadow: "var(--shadow-md)" };
+  const panelHeader = { padding: "10px 14px", fontSize: 12, color: "var(--text-secondary)", fontWeight: 500, borderBottom: "1px solid var(--border-light)", background: "var(--bg-subtle)", display: "flex", justifyContent: "space-between", alignItems: "center", letterSpacing: -0.1 };
 
   return (
     <>
@@ -187,7 +187,7 @@ export default function VideoToGif() {
               marginTop: 28, padding: "80px 24px", textAlign: "center",
               borderRadius: "var(--radius)",
               border: `2px dashed ${dragging ? "var(--brand)" : "var(--border-strong)"}`,
-              background: dragging ? "rgba(91,91,245,0.06)" : "#ffffff",
+              background: dragging ? "rgba(91,91,245,0.06)" : "var(--bg-card)",
               cursor: "pointer", boxShadow: "var(--shadow-sm)",
             }}
           >
@@ -249,7 +249,7 @@ export default function VideoToGif() {
                             style={{
                               flex: 1, padding: "5px 0", borderRadius: 6,
                               border: fps === n ? "1px solid var(--brand)" : "1px solid var(--border)",
-                              background: fps === n ? "rgba(91,91,245,0.08)" : "#ffffff",
+                              background: fps === n ? "rgba(91,91,245,0.08)" : "var(--bg-card)",
                               color: fps === n ? "var(--brand)" : "var(--text-secondary)",
                               fontSize: 11.5, fontWeight: 600,
                             }}>
@@ -268,7 +268,7 @@ export default function VideoToGif() {
                             style={{
                               flex: 1, padding: "5px 0", borderRadius: 6,
                               border: width === n ? "1px solid var(--brand)" : "1px solid var(--border)",
-                              background: width === n ? "rgba(91,91,245,0.08)" : "#ffffff",
+                              background: width === n ? "rgba(91,91,245,0.08)" : "var(--bg-card)",
                               color: width === n ? "var(--brand)" : "var(--text-secondary)",
                               fontSize: 11, fontWeight: 600,
                             }}>
@@ -281,7 +281,7 @@ export default function VideoToGif() {
 
                   <div style={{ display: "flex", gap: 8, marginTop: 16 }}>
                     <button onClick={reset}
-                      style={{ padding: "8px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-strong)", background: "#ffffff", color: "var(--text-primary)", fontSize: 12.5, fontWeight: 500 }}>
+                      style={{ padding: "8px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-strong)", background: "var(--bg-card)", color: "var(--text-primary)", fontSize: 12.5, fontWeight: 500 }}>
                       {t("tools.videoToGif.replace")}
                     </button>
                     <button onClick={convert} disabled={!!stage}
@@ -324,7 +324,7 @@ export default function VideoToGif() {
                       {formatSize(resultBlob.size)}
                     </span>
                     <button onClick={download}
-                      style={{ padding: "4px 12px", borderRadius: 999, border: "none", background: "var(--text-primary)", color: "#fff", fontSize: 11.5, fontWeight: 600 }}>
+                      style={{ padding: "4px 12px", borderRadius: 999, border: "none", background: "var(--brand)", color: "#fff", fontSize: 11.5, fontWeight: 600 }}>
                       ⬇ GIF
                     </button>
                   </div>

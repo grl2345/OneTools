@@ -171,8 +171,8 @@ export default function Whisper() {
     URL.revokeObjectURL(a.href);
   };
 
-  const panel = { background: "#ffffff", border: "1px solid var(--border)", borderRadius: "var(--radius)", overflow: "hidden", boxShadow: "var(--shadow-md)" };
-  const panelHeader = { padding: "10px 14px", fontSize: 12, color: "var(--text-secondary)", fontWeight: 500, borderBottom: "1px solid var(--border-light)", background: "#fafbfc", display: "flex", justifyContent: "space-between", alignItems: "center", letterSpacing: -0.1 };
+  const panel = { background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: "var(--radius)", overflow: "hidden", boxShadow: "var(--shadow-md)" };
+  const panelHeader = { padding: "10px 14px", fontSize: 12, color: "var(--text-secondary)", fontWeight: 500, borderBottom: "1px solid var(--border-light)", background: "var(--bg-subtle)", display: "flex", justifyContent: "space-between", alignItems: "center", letterSpacing: -0.1 };
 
   const srtText = result ? toSrt(result.chunks) : "";
 
@@ -222,7 +222,7 @@ export default function Whisper() {
               style={{
                 padding: "5px 12px", borderRadius: 999,
                 border: modelId === m.id ? "1px solid var(--text-primary)" : "1px solid var(--border)",
-                background: modelId === m.id ? "var(--text-primary)" : "#ffffff",
+                background: modelId === m.id ? "var(--brand)" : "var(--bg-card)",
                 color: modelId === m.id ? "#fff" : "var(--text-secondary)",
                 fontSize: 11.5, fontWeight: 500,
                 cursor: stage ? "not-allowed" : "pointer",
@@ -242,7 +242,7 @@ export default function Whisper() {
               padding: "80px 24px", textAlign: "center",
               borderRadius: "var(--radius)",
               border: `2px dashed ${dragging ? "var(--brand)" : "var(--border-strong)"}`,
-              background: dragging ? "rgba(91,91,245,0.06)" : "#ffffff",
+              background: dragging ? "rgba(91,91,245,0.06)" : "var(--bg-card)",
               cursor: "pointer", boxShadow: "var(--shadow-sm)",
             }}
           >
@@ -264,7 +264,7 @@ export default function Whisper() {
                 </div>
               </div>
               <button onClick={reset}
-                style={{ padding: "8px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-strong)", background: "#ffffff", color: "var(--text-primary)", fontSize: 12.5, fontWeight: 500 }}>
+                style={{ padding: "8px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-strong)", background: "var(--bg-card)", color: "var(--text-primary)", fontSize: 12.5, fontWeight: 500 }}>
                 {t("tools.whisper.replace")}
               </button>
               <button onClick={transcribe} disabled={!!stage}
@@ -340,7 +340,7 @@ export default function Whisper() {
                       <button key={m} onClick={() => setViewMode(m)}
                         style={{
                           padding: "4px 10px", borderRadius: 999, border: "none",
-                          background: viewMode === m ? "var(--text-primary)" : "transparent",
+                          background: viewMode === m ? "var(--brand)" : "transparent",
                           color: viewMode === m ? "#fff" : "var(--text-secondary)",
                           fontSize: 11, fontWeight: 600, cursor: "pointer",
                         }}>
@@ -354,11 +354,11 @@ export default function Whisper() {
                     {viewMode === "text" && (
                       <>
                         <button onClick={() => copyText("text", result.text)}
-                          style={{ padding: "4px 10px", borderRadius: 999, border: "1px solid var(--border)", background: copied === "text" ? "rgba(16,185,129,0.1)" : "#ffffff", color: copied === "text" ? "var(--green)" : "var(--text-secondary)", fontSize: 11 }}>
+                          style={{ padding: "4px 10px", borderRadius: 999, border: "1px solid var(--border)", background: copied === "text" ? "rgba(16,185,129,0.1)" : "var(--bg-card)", color: copied === "text" ? "var(--green)" : "var(--text-secondary)", fontSize: 11 }}>
                           {copied === "text" ? "✓" : "⎘"} TXT
                         </button>
                         <button onClick={() => download("transcript.txt", result.text, "text/plain")}
-                          style={{ padding: "4px 10px", borderRadius: 999, border: "1px solid var(--border)", background: "#ffffff", color: "var(--text-secondary)", fontSize: 11 }}>
+                          style={{ padding: "4px 10px", borderRadius: 999, border: "1px solid var(--border)", background: "var(--bg-card)", color: "var(--text-secondary)", fontSize: 11 }}>
                           ⬇ TXT
                         </button>
                       </>
@@ -366,11 +366,11 @@ export default function Whisper() {
                     {viewMode === "srt" && (
                       <>
                         <button onClick={() => copyText("srt", srtText)}
-                          style={{ padding: "4px 10px", borderRadius: 999, border: "1px solid var(--border)", background: copied === "srt" ? "rgba(16,185,129,0.1)" : "#ffffff", color: copied === "srt" ? "var(--green)" : "var(--text-secondary)", fontSize: 11 }}>
+                          style={{ padding: "4px 10px", borderRadius: 999, border: "1px solid var(--border)", background: copied === "srt" ? "rgba(16,185,129,0.1)" : "var(--bg-card)", color: copied === "srt" ? "var(--green)" : "var(--text-secondary)", fontSize: 11 }}>
                           {copied === "srt" ? "✓" : "⎘"} SRT
                         </button>
                         <button onClick={() => download("subtitles.srt", srtText, "text/plain")}
-                          style={{ padding: "4px 10px", borderRadius: 999, border: "1px solid var(--border)", background: "#ffffff", color: "var(--text-secondary)", fontSize: 11 }}>
+                          style={{ padding: "4px 10px", borderRadius: 999, border: "1px solid var(--border)", background: "var(--bg-card)", color: "var(--text-secondary)", fontSize: 11 }}>
                           ⬇ SRT
                         </button>
                       </>

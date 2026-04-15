@@ -8,7 +8,7 @@ const btn = (active) => ({
   padding: "6px 12px",
   borderRadius: "var(--radius-sm)",
   border: "1px solid var(--border)",
-  background: active ? "var(--text-primary)" : "#ffffff",
+  background: active ? "var(--brand)" : "var(--bg-card)",
   color: active ? "#fff" : "var(--text-secondary)",
   fontSize: 12.5,
   fontWeight: 500,
@@ -17,7 +17,7 @@ const btn = (active) => ({
 });
 
 const panel = {
-  background: "#ffffff",
+  background: "var(--bg-card)",
   border: "1px solid var(--border)",
   borderRadius: "var(--radius)",
   overflow: "hidden",
@@ -30,7 +30,7 @@ const panelHeader = {
   color: "var(--text-secondary)",
   fontWeight: 500,
   borderBottom: "1px solid var(--border-light)",
-  background: "#fafbfc",
+  background: "var(--bg-subtle)",
   letterSpacing: -0.1,
 };
 

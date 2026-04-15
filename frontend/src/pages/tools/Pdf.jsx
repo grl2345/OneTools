@@ -170,8 +170,8 @@ export default function Pdf() {
     }
   };
 
-  const panel = { background: "#ffffff", border: "1px solid var(--border)", borderRadius: "var(--radius)", overflow: "hidden", boxShadow: "var(--shadow-md)" };
-  const panelHeader = { padding: "10px 14px", fontSize: 12, color: "var(--text-secondary)", fontWeight: 500, borderBottom: "1px solid var(--border-light)", background: "#fafbfc", letterSpacing: -0.1, display: "flex", justifyContent: "space-between", alignItems: "center" };
+  const panel = { background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: "var(--radius)", overflow: "hidden", boxShadow: "var(--shadow-md)" };
+  const panelHeader = { padding: "10px 14px", fontSize: 12, color: "var(--text-secondary)", fontWeight: 500, borderBottom: "1px solid var(--border-light)", background: "var(--bg-subtle)", letterSpacing: -0.1, display: "flex", justifyContent: "space-between", alignItems: "center" };
 
   return (
     <>
@@ -203,7 +203,7 @@ export default function Pdf() {
               <button key={m} onClick={() => { setMode(m); reset(); }}
                 style={{
                   padding: "6px 14px", borderRadius: 999, border: "none",
-                  background: mode === m ? "var(--text-primary)" : "transparent",
+                  background: mode === m ? "var(--brand)" : "transparent",
                   color: mode === m ? "#fff" : "var(--text-secondary)",
                   fontSize: 12, fontWeight: 600, cursor: "pointer",
                 }}>
@@ -227,7 +227,7 @@ export default function Pdf() {
                   padding: "80px 24px", textAlign: "center",
                   borderRadius: "var(--radius)",
                   border: "2px dashed var(--border-strong)",
-                  background: "#ffffff", cursor: "pointer", boxShadow: "var(--shadow-sm)",
+                  background: "var(--bg-card)", cursor: "pointer", boxShadow: "var(--shadow-sm)",
                 }}>
                 <div style={{ fontSize: 32, marginBottom: 12 }}>📑</div>
                 <div style={{ fontSize: 15, fontWeight: 600, marginBottom: 4 }}>
@@ -243,7 +243,7 @@ export default function Pdf() {
                   <div style={panelHeader}>
                     <span>{t("tools.pdf.filesList")} · {files.length}</span>
                     <button onClick={() => inputRef.current?.click()}
-                      style={{ padding: "4px 10px", borderRadius: 999, border: "1px solid var(--border)", background: "#ffffff", color: "var(--text-secondary)", fontSize: 11, fontWeight: 500 }}>
+                      style={{ padding: "4px 10px", borderRadius: 999, border: "1px solid var(--border)", background: "var(--bg-card)", color: "var(--text-secondary)", fontSize: 11, fontWeight: 500 }}>
                       + {t("tools.pdf.addMore")}
                     </button>
                   </div>
@@ -258,7 +258,7 @@ export default function Pdf() {
                           {formatSize(f.size)}
                         </span>
                         <button onClick={() => removeFile(i)}
-                          style={{ padding: "2px 8px", borderRadius: 999, border: "1px solid var(--border)", background: "#ffffff", color: "var(--text-muted)", fontSize: 11 }}>
+                          style={{ padding: "2px 8px", borderRadius: 999, border: "1px solid var(--border)", background: "var(--bg-card)", color: "var(--text-muted)", fontSize: 11 }}>
                           ✕
                         </button>
                       </li>
@@ -267,7 +267,7 @@ export default function Pdf() {
                 </div>
                 <div style={{ display: "flex", gap: 10 }}>
                   <button onClick={reset}
-                    style={{ padding: "8px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-strong)", background: "#ffffff", color: "var(--text-primary)", fontSize: 12.5, fontWeight: 500 }}>
+                    style={{ padding: "8px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-strong)", background: "var(--bg-card)", color: "var(--text-primary)", fontSize: 12.5, fontWeight: 500 }}>
                     {t("tools.pdf.clear")}
                   </button>
                   <button onClick={mergePdfs} disabled={files.length < 2 || working}
@@ -295,7 +295,7 @@ export default function Pdf() {
                   padding: "80px 24px", textAlign: "center",
                   borderRadius: "var(--radius)",
                   border: "2px dashed var(--border-strong)",
-                  background: "#ffffff", cursor: "pointer", boxShadow: "var(--shadow-sm)",
+                  background: "var(--bg-card)", cursor: "pointer", boxShadow: "var(--shadow-sm)",
                 }}>
                 <div style={{ fontSize: 32, marginBottom: 12 }}>{mode === "extract" ? "📄" : "✂︎"}</div>
                 <div style={{ fontSize: 15, fontWeight: 600, marginBottom: 4 }}>
@@ -315,7 +315,7 @@ export default function Pdf() {
                     </div>
                   </div>
                   <button onClick={reset}
-                    style={{ padding: "7px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-strong)", background: "#ffffff", color: "var(--text-primary)", fontSize: 12.5, fontWeight: 500 }}>
+                    style={{ padding: "7px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-strong)", background: "var(--bg-card)", color: "var(--text-primary)", fontSize: 12.5, fontWeight: 500 }}>
                     {t("tools.pdf.replace")}
                   </button>
                 </div>
@@ -330,7 +330,7 @@ export default function Pdf() {
                         flex: 1, minWidth: 260,
                         padding: "10px 14px", borderRadius: "var(--radius-sm)",
                         border: "1px solid var(--border-strong)",
-                        background: "#ffffff", fontSize: 13.5,
+                        background: "var(--bg-card)", fontSize: 13.5,
                         fontFamily: "var(--font-mono)",
                       }}
                     />
@@ -390,7 +390,7 @@ export default function Pdf() {
               </div>
             </div>
             <button onClick={() => download(result)}
-              style={{ padding: "8px 18px", borderRadius: "var(--radius-sm)", border: "none", background: "var(--text-primary)", color: "#fff", fontSize: 13, fontWeight: 600, boxShadow: "0 4px 14px rgba(10,11,16,0.2)" }}>
+              style={{ padding: "8px 18px", borderRadius: "var(--radius-sm)", border: "none", background: "var(--brand)", color: "#fff", fontSize: 13, fontWeight: 600, boxShadow: "0 4px 14px rgba(10,11,16,0.2)" }}>
               ⬇ {t("tools.pdf.download")}
             </button>
           </div>
@@ -402,7 +402,7 @@ export default function Pdf() {
             <div style={panelHeader}>
               <span>{t("tools.pdf.splitResults")} · {splitResults.length}</span>
               <button onClick={downloadAll}
-                style={{ padding: "5px 12px", borderRadius: 999, border: "none", background: "var(--text-primary)", color: "#fff", fontSize: 11.5, fontWeight: 600 }}>
+                style={{ padding: "5px 12px", borderRadius: 999, border: "none", background: "var(--brand)", color: "#fff", fontSize: 11.5, fontWeight: 600 }}>
                 ⬇ {t("tools.pdf.downloadAll")}
               </button>
             </div>
@@ -414,7 +414,7 @@ export default function Pdf() {
                     {formatSize(r.blob.size)}
                   </span>
                   <button onClick={() => download(r)}
-                    style={{ padding: "3px 10px", borderRadius: 999, border: "1px solid var(--border)", background: "#ffffff", color: "var(--text-secondary)", fontSize: 11 }}>
+                    style={{ padding: "3px 10px", borderRadius: 999, border: "1px solid var(--border)", background: "var(--bg-card)", color: "var(--text-secondary)", fontSize: 11 }}>
                     ⬇
                   </button>
                 </li>

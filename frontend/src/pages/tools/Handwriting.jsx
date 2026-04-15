@@ -48,8 +48,8 @@ export default function Handwriting() {
     setFile(null); setPreview(null); setResult(null); setError(null);
   };
 
-  const panel = { background: "#ffffff", border: "1px solid var(--border)", borderRadius: "var(--radius)", overflow: "hidden", boxShadow: "var(--shadow-md)" };
-  const panelHeader = { padding: "10px 14px", fontSize: 12, color: "var(--text-secondary)", fontWeight: 500, borderBottom: "1px solid var(--border-light)", background: "#fafbfc", display: "flex", justifyContent: "space-between", alignItems: "center", letterSpacing: -0.1 };
+  const panel = { background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: "var(--radius)", overflow: "hidden", boxShadow: "var(--shadow-md)" };
+  const panelHeader = { padding: "10px 14px", fontSize: 12, color: "var(--text-secondary)", fontWeight: 500, borderBottom: "1px solid var(--border-light)", background: "var(--bg-subtle)", display: "flex", justifyContent: "space-between", alignItems: "center", letterSpacing: -0.1 };
 
   return (
     <>
@@ -87,7 +87,7 @@ export default function Handwriting() {
               marginTop: 28, padding: "80px 24px", textAlign: "center",
               borderRadius: "var(--radius)",
               border: `2px dashed ${dragging ? "var(--brand)" : "var(--border-strong)"}`,
-              background: dragging ? "rgba(91,91,245,0.06)" : "#ffffff",
+              background: dragging ? "rgba(91,91,245,0.06)" : "var(--bg-card)",
               cursor: "pointer", boxShadow: "var(--shadow-sm)",
             }}
           >
@@ -104,7 +104,7 @@ export default function Handwriting() {
             <div style={{ padding: "24px 0 14px", display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
               <div style={{ flex: 1 }} />
               <button onClick={reset}
-                style={{ padding: "8px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-strong)", background: "#ffffff", color: "var(--text-primary)", fontSize: 12.5, fontWeight: 500 }}>
+                style={{ padding: "8px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-strong)", background: "var(--bg-card)", color: "var(--text-primary)", fontSize: 12.5, fontWeight: 500 }}>
                 {t("tools.handwriting.replace")}
               </button>
               <button onClick={run} disabled={loading}
@@ -124,7 +124,7 @@ export default function Handwriting() {
                 <div style={panelHeader}>
                   <span>{t("tools.handwriting.original")}</span>
                 </div>
-                <div style={{ padding: 16, minHeight: 360, display: "flex", alignItems: "center", justifyContent: "center", background: "#f3f4f7" }}>
+                <div style={{ padding: 16, minHeight: 360, display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg-elevated)" }}>
                   <img src={preview} alt="" style={{ maxWidth: "100%", maxHeight: 480, objectFit: "contain" }} />
                 </div>
               </div>
@@ -142,7 +142,7 @@ export default function Handwriting() {
                     <button onClick={copy} style={{
                       padding: "4px 10px", borderRadius: 999,
                       border: "1px solid var(--border)",
-                      background: copied ? "rgba(16,185,129,0.1)" : "#ffffff",
+                      background: copied ? "rgba(16,185,129,0.1)" : "var(--bg-card)",
                       color: copied ? "var(--green)" : "var(--text-secondary)",
                       fontSize: 11, fontWeight: 500,
                     }}>
@@ -154,7 +154,7 @@ export default function Handwriting() {
                   {result?.text || (loading ? "..." : <span style={{ color: "var(--text-muted)", fontSize: 13 }}>{t("tools.handwriting.waiting")}</span>)}
                 </div>
                 {result?.notes && (
-                  <div style={{ padding: "10px 14px", borderTop: "1px solid var(--border-light)", background: "#fafbfc", fontSize: 11.5, color: "var(--text-muted)" }}>
+                  <div style={{ padding: "10px 14px", borderTop: "1px solid var(--border-light)", background: "var(--bg-subtle)", fontSize: 11.5, color: "var(--text-muted)" }}>
                     ℹ︎ {result.notes}
                   </div>
                 )}

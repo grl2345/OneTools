@@ -131,8 +131,8 @@ export default function ExifTool() {
 
   const risks = rows.filter((r) => r.risk);
 
-  const panel = { background: "#ffffff", border: "1px solid var(--border)", borderRadius: "var(--radius)", overflow: "hidden", boxShadow: "var(--shadow-md)" };
-  const panelHeader = { padding: "10px 14px", fontSize: 12, color: "var(--text-secondary)", fontWeight: 500, borderBottom: "1px solid var(--border-light)", background: "#fafbfc", display: "flex", justifyContent: "space-between", alignItems: "center", letterSpacing: -0.1 };
+  const panel = { background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: "var(--radius)", overflow: "hidden", boxShadow: "var(--shadow-md)" };
+  const panelHeader = { padding: "10px 14px", fontSize: 12, color: "var(--text-secondary)", fontWeight: 500, borderBottom: "1px solid var(--border-light)", background: "var(--bg-subtle)", display: "flex", justifyContent: "space-between", alignItems: "center", letterSpacing: -0.1 };
 
   return (
     <>
@@ -170,7 +170,7 @@ export default function ExifTool() {
               marginTop: 28, padding: "80px 24px", textAlign: "center",
               borderRadius: "var(--radius)",
               border: `2px dashed ${dragging ? "var(--brand)" : "var(--border-strong)"}`,
-              background: dragging ? "rgba(91,91,245,0.06)" : "#ffffff",
+              background: dragging ? "rgba(91,91,245,0.06)" : "var(--bg-card)",
               cursor: "pointer", boxShadow: "var(--shadow-sm)",
             }}
           >
@@ -213,7 +213,7 @@ export default function ExifTool() {
                 </div>
               </div>
               <button onClick={reset}
-                style={{ padding: "8px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-strong)", background: "#ffffff", color: "var(--text-primary)", fontSize: 12.5, fontWeight: 500 }}>
+                style={{ padding: "8px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-strong)", background: "var(--bg-card)", color: "var(--text-primary)", fontSize: 12.5, fontWeight: 500 }}>
                 {t("tools.exif.replace")}
               </button>
               <button onClick={stripExif}
@@ -222,7 +222,7 @@ export default function ExifTool() {
               </button>
               {cleanedBlob && (
                 <button onClick={download}
-                  style={{ padding: "8px 18px", borderRadius: "var(--radius-sm)", border: "none", background: "var(--text-primary)", color: "#fff", fontSize: 13, fontWeight: 600, boxShadow: "0 4px 14px rgba(10,11,16,0.2)" }}>
+                  style={{ padding: "8px 18px", borderRadius: "var(--radius-sm)", border: "none", background: "var(--brand)", color: "#fff", fontSize: 13, fontWeight: 600, boxShadow: "0 4px 14px rgba(10,11,16,0.2)" }}>
                   ⬇ {t("tools.exif.download")}
                 </button>
               )}
@@ -240,7 +240,7 @@ export default function ExifTool() {
                   <span>{t("tools.exif.preview")}</span>
                   {cleanedBlob && <span style={{ color: "var(--green)", fontSize: 11 }}>✓ {t("tools.exif.stripped")}</span>}
                 </div>
-                <div style={{ padding: 16, minHeight: 300, display: "flex", alignItems: "center", justifyContent: "center", background: "#f3f4f7" }}>
+                <div style={{ padding: 16, minHeight: 300, display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg-elevated)" }}>
                   <img src={cleanedUrl || preview} alt="" style={{ maxWidth: "100%", maxHeight: 420, objectFit: "contain" }} />
                 </div>
               </div>

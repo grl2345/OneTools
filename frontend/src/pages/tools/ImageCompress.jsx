@@ -141,7 +141,7 @@ export default function ImageCompress() {
     padding: "6px 12px",
     borderRadius: "var(--radius-sm)",
     border: "1px solid var(--border)",
-    background: active ? "var(--text-primary)" : "#ffffff",
+    background: active ? "var(--brand)" : "var(--bg-card)",
     color: active ? "#fff" : "var(--text-secondary)",
     fontSize: 12.5,
     fontWeight: 500,
@@ -150,7 +150,7 @@ export default function ImageCompress() {
   });
 
   const panel = {
-    background: "#ffffff",
+    background: "var(--bg-card)",
     border: "1px solid var(--border)",
     borderRadius: "var(--radius)",
     overflow: "hidden",
@@ -166,7 +166,7 @@ export default function ImageCompress() {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    background: "#fafbfc",
+    background: "var(--bg-subtle)",
     letterSpacing: -0.1,
   };
 
@@ -291,7 +291,7 @@ export default function ImageCompress() {
             padding: "10px 18px",
             borderRadius: "var(--radius-sm)",
             border: "none",
-            background: file ? "#ffffff" : "var(--gradient-brand)",
+            background: file ? "var(--bg-card)" : "var(--gradient-brand)",
             color: file ? "var(--text-primary)" : "#fff",
             fontSize: 13,
             fontWeight: 600,
@@ -331,7 +331,7 @@ export default function ImageCompress() {
             textAlign: "center",
             borderRadius: "var(--radius)",
             border: `2px dashed ${dragging ? "var(--brand)" : "var(--border-strong)"}`,
-            background: dragging ? "rgba(91,91,245,0.06)" : "#ffffff",
+            background: dragging ? "rgba(91,91,245,0.06)" : "var(--bg-card)",
             color: "var(--text-secondary)",
             cursor: "pointer",
             transition: "all 0.2s ease",
@@ -460,7 +460,7 @@ export default function ImageCompress() {
               padding: "10px 20px",
               borderRadius: 999,
               border: "none",
-              background: "var(--text-primary)",
+              background: "var(--brand)",
               color: "#fff",
               fontSize: 13,
               fontWeight: 600,
@@ -507,7 +507,7 @@ const inputStyle = {
   padding: "8px 12px",
   borderRadius: "var(--radius-sm)",
   border: "1px solid var(--border)",
-  background: "#ffffff",
+  background: "var(--bg-card)",
   fontSize: 13,
   fontFamily: "var(--font-mono)",
   color: "var(--text-primary)",

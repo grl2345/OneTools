@@ -141,7 +141,7 @@ export default function Flowchart() {
   };
 
   const panel = {
-    background: "#ffffff",
+    background: "var(--bg-card)",
     border: "1px solid var(--border)",
     borderRadius: "var(--radius)",
     overflow: "hidden",
@@ -153,7 +153,7 @@ export default function Flowchart() {
     color: "var(--text-secondary)",
     fontWeight: 500,
     borderBottom: "1px solid var(--border-light)",
-    background: "#fafbfc",
+    background: "var(--bg-subtle)",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
@@ -163,7 +163,7 @@ export default function Flowchart() {
     padding: "5px 10px",
     borderRadius: 999,
     border: "1px solid var(--border)",
-    background: active ? "var(--text-primary)" : "#ffffff",
+    background: active ? "var(--brand)" : "var(--bg-card)",
     color: active ? "#fff" : "var(--text-secondary)",
     fontSize: 11.5,
     fontWeight: 500,
@@ -208,7 +208,7 @@ export default function Flowchart() {
                 padding: "12px 16px",
                 borderRadius: "var(--radius-sm)",
                 border: "1px solid var(--border-strong)",
-                background: "#ffffff",
+                background: "var(--bg-card)",
                 fontSize: 14,
                 color: "var(--text-primary)",
                 outline: "none",

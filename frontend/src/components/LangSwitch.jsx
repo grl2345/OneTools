@@ -14,12 +14,12 @@ export default function LangSwitch() {
     <button
       onClick={toggle}
       onMouseEnter={(e) => {
-        e.currentTarget.style.background = "#f3f4f7";
+        e.currentTarget.style.background = "var(--bg-card-hover)";
         e.currentTarget.style.borderColor = "var(--border-strong)";
         e.currentTarget.style.color = "var(--text-primary)";
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.background = "#ffffff";
+        e.currentTarget.style.background = "var(--bg-card)";
         e.currentTarget.style.borderColor = "var(--border)";
         e.currentTarget.style.color = "var(--text-secondary)";
       }}
@@ -27,7 +27,7 @@ export default function LangSwitch() {
         padding: "5px 12px",
         borderRadius: 999,
         border: "1px solid var(--border)",
-        background: "#ffffff",
+        background: "var(--bg-card)",
         color: "var(--text-secondary)",
         fontSize: 12,
         fontWeight: 500,

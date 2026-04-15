@@ -142,7 +142,7 @@ export default function NamingAssistant() {
         {/* Input */}
         <div
           style={{
-            background: "#fff",
+            background: "var(--bg-card)",
             border: "1px solid var(--border)",
             borderRadius: "var(--radius)",
             padding: 20,
@@ -207,7 +207,7 @@ export default function NamingAssistant() {
                   padding: "4px 10px",
                   borderRadius: 999,
                   border: "1px solid var(--border)",
-                  background: "#fff",
+                  background: "var(--bg-card)",
                   fontSize: 12,
                   color: "var(--text-secondary)",
                   cursor: "pointer",
@@ -318,7 +318,7 @@ export default function NamingAssistant() {
                   key={i}
                   onClick={() => handleCopy(item.name, i)}
                   style={{
-                    background: "#fff",
+                    background: "var(--bg-card)",
                     border: "1px solid var(--border)",
                     borderRadius: "var(--radius)",
                     padding: "16px 18px",

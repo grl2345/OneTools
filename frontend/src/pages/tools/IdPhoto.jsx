@@ -172,14 +172,14 @@ export default function IdPhoto() {
   };
 
   const panel = {
-    background: "#ffffff", border: "1px solid var(--border)",
+    background: "var(--bg-card)", border: "1px solid var(--border)",
     borderRadius: "var(--radius)", overflow: "hidden",
     boxShadow: "var(--shadow-md)",
   };
   const panelHeader = {
     padding: "10px 14px", fontSize: 12, color: "var(--text-secondary)",
     fontWeight: 500, borderBottom: "1px solid var(--border-light)",
-    background: "#fafbfc", display: "flex", justifyContent: "space-between",
+    background: "var(--bg-subtle)", display: "flex", justifyContent: "space-between",
     alignItems: "center", letterSpacing: -0.1,
   };
 
@@ -233,7 +233,7 @@ export default function IdPhoto() {
               marginTop: 28, padding: "80px 24px", textAlign: "center",
               borderRadius: "var(--radius)",
               border: `2px dashed ${dragging ? "var(--brand)" : "var(--border-strong)"}`,
-              background: dragging ? "rgba(91,91,245,0.06)" : "#ffffff",
+              background: dragging ? "rgba(91,91,245,0.06)" : "var(--bg-card)",
               cursor: "pointer", boxShadow: "var(--shadow-sm)",
               transition: "all 0.2s ease",
             }}
@@ -262,7 +262,7 @@ export default function IdPhoto() {
                     style={{
                       padding: "5px 10px", borderRadius: 999,
                       border: sizeId === s.id ? "1px solid var(--text-primary)" : "1px solid var(--border)",
-                      background: sizeId === s.id ? "var(--text-primary)" : "#ffffff",
+                      background: sizeId === s.id ? "var(--brand)" : "var(--bg-card)",
                       color: sizeId === s.id ? "#fff" : "var(--text-secondary)",
                       fontSize: 11.5, fontWeight: 500,
                     }}>
@@ -293,7 +293,7 @@ export default function IdPhoto() {
               <button onClick={resetAll}
                 style={{
                   padding: "8px 16px", borderRadius: "var(--radius-sm)",
-                  border: "1px solid var(--border-strong)", background: "#ffffff",
+                  border: "1px solid var(--border-strong)", background: "var(--bg-card)",
                   color: "var(--text-primary)", fontSize: 13, fontWeight: 500,
                 }}>
                 {t("tools.idPhoto.reset")}
@@ -302,7 +302,7 @@ export default function IdPhoto() {
                 style={{
                   padding: "8px 18px", borderRadius: "var(--radius-sm)",
                   border: "none",
-                  background: resultBlob ? "var(--text-primary)" : "#d8d8e0",
+                  background: resultBlob ? "var(--brand)" : "#d8d8e0",
                   color: "#fff", fontSize: 13, fontWeight: 600,
                   boxShadow: resultBlob ? "0 4px 14px rgba(10,11,16,0.2)" : "none",
                 }}>
@@ -335,7 +335,7 @@ export default function IdPhoto() {
                 <div style={{
                   padding: 16, minHeight: 360,
                   display: "flex", alignItems: "center", justifyContent: "center",
-                  background: "#f3f4f7",
+                  background: "var(--bg-elevated)",
                 }}>
                   {resultUrl ? (
                     <img src={resultUrl} alt="" style={{ maxHeight: 420, boxShadow: "0 4px 16px rgba(0,0,0,0.15)" }} />

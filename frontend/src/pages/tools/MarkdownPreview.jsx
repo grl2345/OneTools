@@ -191,7 +191,7 @@ export default function MarkdownPreview() {
     padding: "6px 12px",
     borderRadius: "var(--radius-sm)",
     border: "1px solid var(--border)",
-    background: active ? "var(--text-primary)" : "#ffffff",
+    background: active ? "var(--brand)" : "var(--bg-card)",
     color: active ? "#fff" : "var(--text-secondary)",
     fontSize: 12.5,
     fontWeight: 500,
@@ -203,7 +203,7 @@ export default function MarkdownPreview() {
   });
 
   const panel = {
-    background: "#ffffff",
+    background: "var(--bg-card)",
     border: "1px solid var(--border)",
     borderRadius: "var(--radius)",
     overflow: "hidden",
@@ -219,7 +219,7 @@ export default function MarkdownPreview() {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    background: "#fafbfc",
+    background: "var(--bg-subtle)",
     letterSpacing: -0.1,
   };
 
@@ -362,7 +362,7 @@ export default function MarkdownPreview() {
           marginBottom: 12,
           padding: "10px 14px",
           borderRadius: "var(--radius)",
-          background: hasSel ? "#ffffff" : "rgba(255,255,255,0.6)",
+          background: hasSel ? "var(--bg-card)" : "var(--bg-elevated)",
           border: "1px solid var(--border)",
           boxShadow: hasSel ? "var(--shadow-md)" : "var(--shadow-sm)",
           display: "flex",
@@ -446,7 +446,7 @@ export default function MarkdownPreview() {
               padding: "5px 12px",
               borderRadius: 999,
               border: "1px solid var(--border)",
-              background: "#ffffff",
+              background: "var(--bg-card)",
               color: "var(--text-secondary)",
               fontSize: 11.5,
               fontWeight: 500,
@@ -548,7 +548,7 @@ export default function MarkdownPreview() {
               height: 540,
               overflow: "auto",
               padding: "20px 24px",
-              background: "#ffffff",
+              background: "var(--bg-card)",
               color: "var(--text-primary)",
               fontSize: 14.5,
               lineHeight: 1.7,
@@ -598,7 +598,7 @@ export default function MarkdownPreview() {
             style={{
               padding: 18,
               borderRadius: "var(--radius)",
-              background: "#ffffff",
+              background: "var(--bg-card)",
               border: "1px solid var(--border)",
               boxShadow: "var(--shadow-sm)",
               transition: "all 0.2s ease",

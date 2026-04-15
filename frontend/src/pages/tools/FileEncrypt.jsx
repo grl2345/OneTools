@@ -195,7 +195,7 @@ export default function FileEncrypt() {
               <button key={m} onClick={() => { setMode(m); reset(); }}
                 style={{
                   padding: "6px 18px", borderRadius: 999, border: "none",
-                  background: mode === m ? "var(--text-primary)" : "transparent",
+                  background: mode === m ? "var(--brand)" : "transparent",
                   color: mode === m ? "#fff" : "var(--text-secondary)",
                   fontSize: 12.5, fontWeight: 600, cursor: "pointer",
                 }}>
@@ -218,7 +218,7 @@ export default function FileEncrypt() {
               padding: "80px 24px", textAlign: "center",
               borderRadius: "var(--radius)",
               border: `2px dashed ${dragging ? "var(--brand)" : "var(--border-strong)"}`,
-              background: dragging ? "rgba(91,91,245,0.06)" : "#ffffff",
+              background: dragging ? "rgba(91,91,245,0.06)" : "var(--bg-card)",
               cursor: "pointer", boxShadow: "var(--shadow-sm)",
             }}
           >
@@ -242,12 +242,12 @@ export default function FileEncrypt() {
                 </div>
               </div>
               <button onClick={reset}
-                style={{ padding: "7px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-strong)", background: "#ffffff", color: "var(--text-primary)", fontSize: 12.5, fontWeight: 500 }}>
+                style={{ padding: "7px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-strong)", background: "var(--bg-card)", color: "var(--text-primary)", fontSize: 12.5, fontWeight: 500 }}>
                 {t("tools.fileEncrypt.replace")}
               </button>
             </div>
 
-            <div style={{ background: "#ffffff", border: "1px solid var(--border)", borderRadius: "var(--radius)", boxShadow: "var(--shadow-md)", padding: 20, marginBottom: 16 }}>
+            <div style={{ background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: "var(--radius)", boxShadow: "var(--shadow-md)", padding: 20, marginBottom: 16 }}>
               <label style={{ fontSize: 11.5, color: "var(--text-muted)", fontWeight: 500, display: "block", marginBottom: 6 }}>
                 {t("tools.fileEncrypt.password")}
               </label>
@@ -260,15 +260,15 @@ export default function FileEncrypt() {
                     flex: 1, padding: "10px 14px", borderRadius: "var(--radius-sm)",
                     border: "1px solid var(--border-strong)", fontSize: 14,
                     fontFamily: showPw ? "var(--font-mono)" : "inherit",
-                    background: "#fafbfc", color: "var(--text-primary)",
+                    background: "var(--bg-subtle)", color: "var(--text-primary)",
                   }} />
                 <button onClick={() => setShowPw(!showPw)}
-                  style={{ padding: "10px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border)", background: "#ffffff", color: "var(--text-secondary)", fontSize: 12.5 }}>
+                  style={{ padding: "10px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border)", background: "var(--bg-card)", color: "var(--text-secondary)", fontSize: 12.5 }}>
                   {showPw ? "🙈" : "👁"}
                 </button>
                 {mode === "encrypt" && (
                   <button onClick={generatePassword}
-                    style={{ padding: "10px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border)", background: "#ffffff", color: "var(--brand)", fontSize: 12, fontWeight: 600 }}>
+                    style={{ padding: "10px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border)", background: "var(--bg-card)", color: "var(--brand)", fontSize: 12, fontWeight: 600 }}>
                     🎲 {t("tools.fileEncrypt.generate")}
                   </button>
                 )}
@@ -304,7 +304,7 @@ export default function FileEncrypt() {
                       width: "100%", padding: "10px 14px", borderRadius: "var(--radius-sm)",
                       border: `1px solid ${confirmPw && password !== confirmPw ? "var(--red)" : "var(--border-strong)"}`,
                       fontSize: 14, fontFamily: showPw ? "var(--font-mono)" : "inherit",
-                      background: "#fafbfc",
+                      background: "var(--bg-subtle)",
                     }} />
                 </>
               )}
@@ -346,7 +346,7 @@ export default function FileEncrypt() {
                   </div>
                 </div>
                 <button onClick={download}
-                  style={{ padding: "8px 20px", borderRadius: "var(--radius-sm)", border: "none", background: "var(--text-primary)", color: "#fff", fontSize: 13, fontWeight: 600 }}>
+                  style={{ padding: "8px 20px", borderRadius: "var(--radius-sm)", border: "none", background: "var(--brand)", color: "#fff", fontSize: 13, fontWeight: 600 }}>
                   ⬇ {t("tools.fileEncrypt.download")}
                 </button>
               </div>

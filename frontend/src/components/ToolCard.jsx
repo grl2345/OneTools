@@ -8,7 +8,7 @@ const tagStyle = {
   fontWeight: 500,
   border: "1px solid var(--border)",
   color: "var(--text-muted)",
-  background: "#fafbfd",
+  background: "var(--bg-subtle)",
   letterSpacing: -0.05,
   whiteSpace: "nowrap",
   lineHeight: "16px",
@@ -36,7 +36,7 @@ export default function ToolCard({
         position: "relative",
         padding: "16px 18px",
         borderRadius: 14,
-        background: "#ffffff",
+        background: "var(--bg-card)",
         border: "1px solid var(--border)",
         opacity: comingSoon ? 0.5 : 1,
         cursor: comingSoon ? "default" : "pointer",
@@ -50,16 +50,16 @@ export default function ToolCard({
       onMouseEnter={(e) => {
         if (!comingSoon) {
           const el = e.currentTarget;
-          el.style.borderColor = "#84cc16";
-          el.style.boxShadow = "0 0 0 1px #84cc16, 0 4px 14px -4px rgba(132,204,22,0.3)";
-          el.style.background = "#fafffb";
+          el.style.borderColor = "var(--brand)";
+          el.style.boxShadow = "0 0 0 1px var(--brand), 0 4px 14px -4px rgba(168,85,247,0.3)";
+          el.style.background = "var(--bg-card-hover)";
         }
       }}
       onMouseLeave={(e) => {
         const el = e.currentTarget;
         el.style.borderColor = "var(--border)";
         el.style.boxShadow = "none";
-        el.style.background = "#ffffff";
+        el.style.background = "var(--bg-card)";
       }}
     >
       <div style={{ display: "flex", alignItems: "center", gap: 12 }}>

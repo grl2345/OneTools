@@ -49,12 +49,12 @@ export default function Ocr() {
     setFile(null); setPreview(null); setResult(null); setError(null);
   };
 
-  const panel = { background: "#ffffff", border: "1px solid var(--border)", borderRadius: "var(--radius)", overflow: "hidden", boxShadow: "var(--shadow-md)" };
-  const panelHeader = { padding: "10px 14px", fontSize: 12, color: "var(--text-secondary)", fontWeight: 500, borderBottom: "1px solid var(--border-light)", background: "#fafbfc", display: "flex", justifyContent: "space-between", alignItems: "center", letterSpacing: -0.1 };
+  const panel = { background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: "var(--radius)", overflow: "hidden", boxShadow: "var(--shadow-md)" };
+  const panelHeader = { padding: "10px 14px", fontSize: 12, color: "var(--text-secondary)", fontWeight: 500, borderBottom: "1px solid var(--border-light)", background: "var(--bg-subtle)", display: "flex", justifyContent: "space-between", alignItems: "center", letterSpacing: -0.1 };
   const toggleBtn = (active) => ({
     padding: "5px 12px", borderRadius: 999,
     border: "none",
-    background: active ? "var(--text-primary)" : "transparent",
+    background: active ? "var(--brand)" : "transparent",
     color: active ? "#fff" : "var(--text-secondary)",
     fontSize: 11.5, fontWeight: 600, cursor: "pointer",
   });
@@ -96,7 +96,7 @@ export default function Ocr() {
               marginTop: 28, padding: "80px 24px", textAlign: "center",
               borderRadius: "var(--radius)",
               border: `2px dashed ${dragging ? "var(--brand)" : "var(--border-strong)"}`,
-              background: dragging ? "rgba(91,91,245,0.06)" : "#ffffff",
+              background: dragging ? "rgba(91,91,245,0.06)" : "var(--bg-card)",
               cursor: "pointer", boxShadow: "var(--shadow-sm)",
             }}
           >
@@ -121,7 +121,7 @@ export default function Ocr() {
               </div>
               <div style={{ flex: 1 }} />
               <button onClick={reset}
-                style={{ padding: "8px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-strong)", background: "#ffffff", color: "var(--text-primary)", fontSize: 12.5, fontWeight: 500 }}>
+                style={{ padding: "8px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-strong)", background: "var(--bg-card)", color: "var(--text-primary)", fontSize: 12.5, fontWeight: 500 }}>
                 {t("tools.ocr.replace")}
               </button>
               <button onClick={run} disabled={loading}
@@ -141,7 +141,7 @@ export default function Ocr() {
                 <div style={panelHeader}>
                   <span>{t("tools.ocr.original")}</span>
                 </div>
-                <div style={{ padding: 16, minHeight: 360, display: "flex", alignItems: "center", justifyContent: "center", background: "#f3f4f7" }}>
+                <div style={{ padding: 16, minHeight: 360, display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg-elevated)" }}>
                   <img src={preview} alt="" style={{ maxWidth: "100%", maxHeight: 420, objectFit: "contain" }} />
                 </div>
               </div>
@@ -158,7 +158,7 @@ export default function Ocr() {
                     <button onClick={copy} style={{
                       padding: "4px 10px", borderRadius: 999,
                       border: "1px solid var(--border)",
-                      background: copied ? "rgba(16,185,129,0.1)" : "#ffffff",
+                      background: copied ? "rgba(16,185,129,0.1)" : "var(--bg-card)",
                       color: copied ? "var(--green)" : "var(--text-secondary)",
                       fontSize: 11, fontWeight: 500,
                     }}>

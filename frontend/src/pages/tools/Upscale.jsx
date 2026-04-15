@@ -160,8 +160,8 @@ export default function Upscale() {
     a.click();
   };
 
-  const panel = { background: "#ffffff", border: "1px solid var(--border)", borderRadius: "var(--radius)", overflow: "hidden", boxShadow: "var(--shadow-md)" };
-  const panelHeader = { padding: "10px 14px", fontSize: 12, color: "var(--text-secondary)", fontWeight: 500, borderBottom: "1px solid var(--border-light)", background: "#fafbfc", display: "flex", justifyContent: "space-between", alignItems: "center", letterSpacing: -0.1 };
+  const panel = { background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: "var(--radius)", overflow: "hidden", boxShadow: "var(--shadow-md)" };
+  const panelHeader = { padding: "10px 14px", fontSize: 12, color: "var(--text-secondary)", fontWeight: 500, borderBottom: "1px solid var(--border-light)", background: "var(--bg-subtle)", display: "flex", justifyContent: "space-between", alignItems: "center", letterSpacing: -0.1 };
 
   return (
     <>
@@ -207,7 +207,7 @@ export default function Upscale() {
               style={{
                 padding: "5px 12px", borderRadius: 999,
                 border: modelId === m.id ? "1px solid var(--text-primary)" : "1px solid var(--border)",
-                background: modelId === m.id ? "var(--text-primary)" : "#ffffff",
+                background: modelId === m.id ? "var(--brand)" : "var(--bg-card)",
                 color: modelId === m.id ? "#fff" : "var(--text-secondary)",
                 fontSize: 11.5, fontWeight: 500,
                 cursor: stage ? "not-allowed" : "pointer",
@@ -227,7 +227,7 @@ export default function Upscale() {
               padding: "80px 24px", textAlign: "center",
               borderRadius: "var(--radius)",
               border: `2px dashed ${dragging ? "var(--brand)" : "var(--border-strong)"}`,
-              background: dragging ? "rgba(91,91,245,0.06)" : "#ffffff",
+              background: dragging ? "rgba(91,91,245,0.06)" : "var(--bg-card)",
               cursor: "pointer", boxShadow: "var(--shadow-sm)",
             }}
           >
@@ -255,7 +255,7 @@ export default function Upscale() {
                   <button onClick={() => setView("before")}
                     style={{
                       padding: "4px 12px", borderRadius: 999, border: "none",
-                      background: view === "before" ? "var(--text-primary)" : "transparent",
+                      background: view === "before" ? "var(--brand)" : "transparent",
                       color: view === "before" ? "#fff" : "var(--text-secondary)",
                       fontSize: 11.5, fontWeight: 600, cursor: "pointer",
                     }}>
@@ -264,7 +264,7 @@ export default function Upscale() {
                   <button onClick={() => setView("after")}
                     style={{
                       padding: "4px 12px", borderRadius: 999, border: "none",
-                      background: view === "after" ? "var(--text-primary)" : "transparent",
+                      background: view === "after" ? "var(--brand)" : "transparent",
                       color: view === "after" ? "#fff" : "var(--text-secondary)",
                       fontSize: 11.5, fontWeight: 600, cursor: "pointer",
                     }}>
@@ -273,7 +273,7 @@ export default function Upscale() {
                 </div>
               )}
               <button onClick={reset}
-                style={{ padding: "8px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-strong)", background: "#ffffff", color: "var(--text-primary)", fontSize: 12.5, fontWeight: 500 }}>
+                style={{ padding: "8px 14px", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-strong)", background: "var(--bg-card)", color: "var(--text-primary)", fontSize: 12.5, fontWeight: 500 }}>
                 {t("tools.upscale.replace")}
               </button>
               <button onClick={run} disabled={!!stage}
@@ -289,7 +289,7 @@ export default function Upscale() {
                  "✦ " + t("tools.upscale.upscale")}
               </button>
               <button onClick={download} disabled={!resultBlob}
-                style={{ padding: "8px 18px", borderRadius: "var(--radius-sm)", border: "none", background: resultBlob ? "var(--text-primary)" : "#d8d8e0", color: "#fff", fontSize: 13, fontWeight: 600, boxShadow: resultBlob ? "0 4px 14px rgba(10,11,16,0.2)" : "none" }}>
+                style={{ padding: "8px 18px", borderRadius: "var(--radius-sm)", border: "none", background: resultBlob ? "var(--brand)" : "#d8d8e0", color: "#fff", fontSize: 13, fontWeight: 600, boxShadow: resultBlob ? "0 4px 14px rgba(10,11,16,0.2)" : "none" }}>
                 ⬇ {t("tools.upscale.download")}
               </button>
             </div>

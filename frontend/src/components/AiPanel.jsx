@@ -38,7 +38,7 @@ export default function AiPanel({
   const wrap = {
     padding: compact ? 14 : 18,
     borderRadius: "var(--radius)",
-    background: "#ffffff",
+    background: "var(--bg-card)",
     border: "1px solid var(--border)",
     boxShadow: "var(--shadow-md)",
     position: "relative",

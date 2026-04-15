@@ -128,7 +128,7 @@ export default function CronTool() {
             display: "inline-flex",
             borderRadius: 999,
             border: "1px solid var(--border)",
-            background: "#fff",
+            background: "var(--bg-card)",
             padding: 3,
             marginBottom: 16,
             boxShadow: "var(--shadow-sm)",
@@ -147,7 +147,7 @@ export default function CronTool() {
                 padding: "7px 18px",
                 borderRadius: 999,
                 border: "none",
-                background: mode === m ? "var(--text-primary)" : "transparent",
+                background: mode === m ? "var(--brand)" : "transparent",
                 color: mode === m ? "#fff" : "var(--text-secondary)",
                 fontSize: 13,
                 fontWeight: 600,
@@ -164,7 +164,7 @@ export default function CronTool() {
         {/* Input Card */}
         <div
           style={{
-            background: "#fff",
+            background: "var(--bg-card)",
             border: "1px solid var(--border)",
             borderRadius: "var(--radius)",
             padding: 20,
@@ -233,7 +233,7 @@ export default function CronTool() {
                   padding: "4px 10px",
                   borderRadius: 999,
                   border: "1px solid var(--border)",
-                  background: "#fff",
+                  background: "var(--bg-card)",
                   fontSize: 12,
                   color: "var(--text-secondary)",
                   cursor: "pointer",
@@ -315,7 +315,7 @@ export default function CronTool() {
             {result.cron && (
               <div
                 style={{
-                  background: "#fff",
+                  background: "var(--bg-card)",
                   border: "1px solid var(--border)",
                   borderRadius: "var(--radius)",
                   padding: 20,
@@ -347,7 +347,7 @@ export default function CronTool() {
                       padding: "4px 12px",
                       borderRadius: 999,
                       border: "1px solid var(--border)",
-                      background: "#fff",
+                      background: "var(--bg-card)",
                       fontSize: 12,
                       fontWeight: 500,
                       color: copiedCron
@@ -432,7 +432,7 @@ export default function CronTool() {
             {result.explanation && (
               <div
                 style={{
-                  background: "#fff",
+                  background: "var(--bg-card)",
                   border: "1px solid var(--border)",
                   borderRadius: "var(--radius)",
                   padding: 20,
@@ -469,7 +469,7 @@ export default function CronTool() {
             {result.next_5 && result.next_5.length > 0 && (
               <div
                 style={{
-                  background: "#fff",
+                  background: "var(--bg-card)",
                   border: "1px solid var(--border)",
                   borderRadius: "var(--radius)",
                   padding: 20,

@@ -116,7 +116,7 @@ export default function PdfSummary() {
   };
 
   const panel = {
-    background: "#ffffff",
+    background: "var(--bg-card)",
     border: "1px solid var(--border)",
     borderRadius: "var(--radius)",
     overflow: "hidden",
@@ -128,7 +128,7 @@ export default function PdfSummary() {
     color: "var(--text-secondary)",
     fontWeight: 500,
     borderBottom: "1px solid var(--border-light)",
-    background: "#fafbfc",
+    background: "var(--bg-subtle)",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
@@ -216,7 +216,7 @@ export default function PdfSummary() {
               border: `2px dashed ${
                 dragging ? "var(--brand)" : "var(--border-strong)"
               }`,
-              background: dragging ? "rgba(91,91,245,0.06)" : "#ffffff",
+              background: dragging ? "rgba(91,91,245,0.06)" : "var(--bg-card)",
               cursor: "pointer",
               boxShadow: "var(--shadow-sm)",
               transition: "all 0.2s ease",
@@ -278,7 +278,7 @@ export default function PdfSummary() {
                   padding: "7px 14px",
                   borderRadius: "var(--radius-sm)",
                   border: "1px solid var(--border-strong)",
-                  background: "#ffffff",
+                  background: "var(--bg-card)",
                   color: "var(--text-primary)",
                   fontSize: 12.5,
                   fontWeight: 500,
@@ -553,7 +553,7 @@ export default function PdfSummary() {
                         overflow: "auto",
                         fontFamily: "var(--font-mono)",
                         fontSize: 11.5,
-                        background: "#fafbfc",
+                        background: "var(--bg-subtle)",
                         padding: 10,
                         borderRadius: 6,
                       }}
