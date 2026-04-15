@@ -20,9 +20,9 @@
 
   /* Text ramp (light on dark) */
   --text-primary: #ffffff;
-  --text-secondary: #cbd0e0;
-  --text-muted: #8a90a8;
-  --text-faint: #5c6278;
+  --text-secondary: #e3e7f0;
+  --text-muted: #b0b6ca;
+  --text-faint: #848aa0;
 
   /* Brand — purple / pink gradient */
   --brand: #a855f7;
