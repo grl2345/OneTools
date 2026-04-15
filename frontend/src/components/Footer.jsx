@@ -77,7 +77,7 @@ export default function Footer() {
               style={{
                 fontSize: 16,
                 fontWeight: 700,
-                color: "#ffffff",
+                color: "var(--text-primary)",
                 letterSpacing: -0.4,
               }}
             >

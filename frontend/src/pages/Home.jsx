@@ -153,7 +153,7 @@ export default function Home() {
               fontWeight: 800,
               letterSpacing: -2.5,
               lineHeight: 1.05,
-              color: "#ffffff",
+              color: "var(--text-primary)",
               marginBottom: 18,
             }}
           >
@@ -432,7 +432,7 @@ export default function Home() {
                   padding: "8px 16px",
                   borderRadius: 999,
                   border: active ? "1px solid transparent" : "1px solid var(--border)",
-                  background: active ? "var(--gradient-brand)" : "rgba(255,255,255,0.03)",
+                  background: active ? "var(--gradient-brand)" : "rgba(10, 11, 20, 0.03)",
                   color: active ? "#fff" : "var(--text-secondary)",
                   fontSize: 13,
                   fontWeight: active ? 600 : 500,
@@ -520,7 +520,7 @@ export default function Home() {
             fontSize: "clamp(28px, 3.5vw, 38px)",
             fontWeight: 800,
             letterSpacing: -1.2,
-            color: "#ffffff",
+            color: "var(--text-primary)",
           }}
         >
           {t("home.ctaBand.title")}
@@ -567,7 +567,7 @@ function TrustPill({ icon, label }) {
         gap: 6,
         padding: "5px 12px",
         borderRadius: 999,
-        background: "rgba(255, 255, 255, 0.04)",
+        background: "rgba(10, 11, 20, 0.04)",
         border: "1px solid var(--border)",
       }}
     >
@@ -597,7 +597,7 @@ function SectionTitle({ eyebrow, title, sub }) {
           fontSize: "clamp(28px, 4vw, 42px)",
           fontWeight: 800,
           letterSpacing: -1.4,
-          color: "#ffffff",
+          color: "var(--text-primary)",
           lineHeight: 1.1,
         }}
       >
@@ -627,7 +627,7 @@ function StepCard({ num, title, desc }) {
       style={{
         padding: "22px 20px",
         borderRadius: 16,
-        background: "rgba(255,255,255,0.03)",
+        background: "rgba(10, 11, 20, 0.03)",
         border: "1px solid var(--border)",
       }}
     >
@@ -653,7 +653,7 @@ function StepCard({ num, title, desc }) {
         style={{
           fontSize: 16,
           fontWeight: 700,
-          color: "#ffffff",
+          color: "var(--text-primary)",
           letterSpacing: -0.2,
           marginBottom: 6,
         }}
@@ -717,7 +717,7 @@ function HeroFeature({ to, titleKey, descKey, ctaKey, gradient, accent, t, icon 
         style={{
           fontSize: 22,
           fontWeight: 800,
-          color: "#ffffff",
+          color: "var(--text-primary)",
           letterSpacing: -0.5,
           marginBottom: 8,
         }}
@@ -741,11 +741,11 @@ function HeroFeature({ to, titleKey, descKey, ctaKey, gradient, accent, t, icon 
           gap: 6,
           fontSize: 13,
           fontWeight: 600,
-          color: "#ffffff",
+          color: "var(--text-primary)",
           padding: "6px 14px",
           borderRadius: 999,
-          background: "rgba(255, 255, 255, 0.1)",
-          border: "1px solid rgba(255,255,255,0.18)",
+          background: "rgba(10, 11, 20, 0.06)",
+          border: "1px solid var(--border-strong)",
         }}
       >
         {t(ctaKey)} →
@@ -800,7 +800,7 @@ function DarkToolCard({ to, icon, accent, name, desc }) {
         style={{
           fontSize: 15,
           fontWeight: 700,
-          color: "#ffffff",
+          color: "var(--text-primary)",
           letterSpacing: -0.2,
           marginBottom: 4,
         }}

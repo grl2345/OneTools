@@ -5,24 +5,24 @@
 }
 
 :root {
-  /* ── Dewatermark-inspired dark theme ─────── */
-  --bg: #0b0b14;
-  --bg-elevated: #13131f;
-  --bg-card: #15152a;
-  --bg-card-hover: #1c1c35;
-  --bg-subtle: #0f0f1c;
-  --bg-input: #1a1a2e;
+  /* ── Light theme ─────────────────────────── */
+  --bg: #f6f7fa;
+  --bg-elevated: #f0f2f7;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f4f5f9;
+  --bg-subtle: #fafbfd;
+  --bg-input: #ffffff;
 
   /* Borders */
-  --border: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.14);
-  --border-light: rgba(255, 255, 255, 0.05);
+  --border: rgba(10, 11, 20, 0.10);
+  --border-strong: rgba(10, 11, 20, 0.18);
+  --border-light: rgba(10, 11, 20, 0.05);
 
-  /* Text ramp (light on dark) */
-  --text-primary: #ffffff;
-  --text-secondary: #e3e7f0;
-  --text-muted: #b0b6ca;
-  --text-faint: #848aa0;
+  /* Text ramp (dark on light) */
+  --text-primary: #0a0b14;
+  --text-secondary: #374151;
+  --text-muted: #6b7280;
+  --text-faint: #9ca3af;
 
   /* Brand — purple / pink gradient */
   --brand: #a855f7;
@@ -64,12 +64,12 @@
     radial-gradient(900px 500px at 85% 10%, rgba(236, 72, 153, 0.18), transparent 60%),
     radial-gradient(700px 400px at 50% 60%, rgba(99, 102, 241, 0.14), transparent 65%);
 
-  /* Shadows tailored for dark surfaces */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 6px 18px -4px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(255, 255, 255, 0.04);
-  --shadow-lg: 0 20px 48px -12px rgba(0, 0, 0, 0.65),
-    0 0 0 1px rgba(255, 255, 255, 0.05);
+  /* Shadows tailored for light surfaces */
+  --shadow-sm: 0 1px 2px rgba(10, 11, 20, 0.05);
+  --shadow-md: 0 6px 18px -4px rgba(10, 11, 20, 0.10),
+    0 0 0 1px rgba(10, 11, 20, 0.03);
+  --shadow-lg: 0 20px 48px -12px rgba(10, 11, 20, 0.18),
+    0 0 0 1px rgba(10, 11, 20, 0.04);
   --shadow-brand: 0 10px 30px -8px rgba(168, 85, 247, 0.55);
   --shadow-pink: 0 10px 30px -8px rgba(236, 72, 153, 0.5);
   --shadow-glow: 0 0 0 4px rgba(168, 85, 247, 0.22);
@@ -119,8 +119,8 @@ body::before {
   height: 900px;
   z-index: -1;
   background:
-    radial-gradient(700px 380px at 20% 10%, rgba(168, 85, 247, 0.18), transparent 60%),
-    radial-gradient(700px 380px at 85% 15%, rgba(236, 72, 153, 0.14), transparent 60%);
+    radial-gradient(700px 380px at 20% 10%, rgba(168, 85, 247, 0.08), transparent 60%),
+    radial-gradient(700px 380px at 85% 15%, rgba(236, 72, 153, 0.06), transparent 60%);
   pointer-events: none;
 }
 
@@ -157,19 +157,19 @@ body::before {
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(10, 11, 20, 0.18);
   border: 2px solid transparent;
   background-clip: content-box;
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(10, 11, 20, 0.32);
   background-clip: content-box;
 }
 
 ::selection {
-  background: rgba(168, 85, 247, 0.35);
-  color: #ffffff;
+  background: rgba(168, 85, 247, 0.28);
+  color: var(--text-primary);
 }
 
 input, textarea {
@@ -248,7 +248,7 @@ a {
   padding: 12px 22px;
   border-radius: 999px;
   border: 1px solid var(--border-strong);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--bg-card);
   color: var(--text-primary);
   font-size: 14px;
   font-weight: 500;
@@ -256,8 +256,8 @@ a {
   transition: all 0.15s ease;
 }
 .btn-ghost:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.22);
+  background: var(--bg-card-hover);
+  border-color: rgba(10, 11, 20, 0.28);
 }
 
 .md-preview > *:first-child { margin-top: 0; }

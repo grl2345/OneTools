@@ -8,7 +8,7 @@ export default function Navbar() {
 
   const linkStyle = (active) => ({
     fontSize: 14,
-    color: active ? "#ffffff" : "var(--text-secondary)",
+    color: active ? "var(--text-primary)" : "var(--text-secondary)",
     fontWeight: active ? 600 : 500,
     letterSpacing: -0.1,
     textDecoration: "none",
@@ -27,7 +27,7 @@ export default function Navbar() {
         position: "sticky",
         top: 0,
         zIndex: 50,
-        background: "rgba(11, 11, 20, 0.78)",
+        background: "rgba(247, 248, 251, 0.82)",
         backdropFilter: "saturate(180%) blur(16px)",
         WebkitBackdropFilter: "saturate(180%) blur(16px)",
       }}
@@ -75,7 +75,7 @@ export default function Navbar() {
           style={{
             fontSize: 17,
             fontWeight: 700,
-            color: "#ffffff",
+            color: "var(--text-primary)",
             letterSpacing: -0.5,
           }}
         >

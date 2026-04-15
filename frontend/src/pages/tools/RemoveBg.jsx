@@ -154,7 +154,7 @@ export default function RemoveBg() {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    background: "rgba(255,255,255,0.02)",
+    background: "rgba(10, 11, 20, 0.02)",
     letterSpacing: -0.1,
   };
 
@@ -201,7 +201,7 @@ export default function RemoveBg() {
               fontWeight: 800,
               letterSpacing: -1.6,
               lineHeight: 1.05,
-              color: "#ffffff",
+              color: "var(--text-primary)",
             }}
           >
             {t("tools.removeBg.name")}
@@ -292,7 +292,7 @@ export default function RemoveBg() {
                   background:
                     bgColor === c.value
                       ? "var(--gradient-brand)"
-                      : "rgba(255,255,255,0.04)",
+                      : "rgba(10, 11, 20, 0.04)",
                   color:
                     bgColor === c.value ? "#fff" : "var(--text-secondary)",
                   fontSize: 11.5,
@@ -326,7 +326,7 @@ export default function RemoveBg() {
                 padding: "8px 16px",
                 borderRadius: "var(--radius-sm)",
                 border: "1px solid var(--border-strong)",
-                background: "rgba(255,255,255,0.04)",
+                background: "rgba(10, 11, 20, 0.04)",
                 color: "var(--text-primary)",
                 fontSize: 13,
                 fontWeight: 500,
@@ -341,7 +341,7 @@ export default function RemoveBg() {
                 padding: "8px 18px",
                 borderRadius: "var(--radius-sm)",
                 border: "none",
-                background: outBlob ? "var(--gradient-brand)" : "rgba(255,255,255,0.08)",
+                background: outBlob ? "var(--gradient-brand)" : "rgba(10, 11, 20, 0.08)",
                 color: outBlob ? "#fff" : "var(--text-faint)",
                 fontSize: 13,
                 fontWeight: 600,
@@ -390,7 +390,7 @@ export default function RemoveBg() {
             style={{
               fontSize: 15,
               fontWeight: 600,
-              color: "#ffffff",
+              color: "var(--text-primary)",
               marginBottom: 4,
               letterSpacing: -0.2,
             }}
