@@ -1,6 +1,36 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
+// Every tool, surfaced as a small footer sitemap row so each page has a
+// direct link to every other tool (helps crawler reach + internal
+// PageRank flow on a CSR site where the home grid isn't on /tools/*).
+const ALL_TOOL_LINKS = [
+  ["/tools/remove-watermark", "tools.removeWatermark.name"],
+  ["/tools/remove-bg",        "tools.removeBg.name"],
+  ["/tools/id-photo",         "tools.idPhoto.name"],
+  ["/tools/image-compress",   "tools.imageCompress.name"],
+  ["/tools/upscale",          "tools.upscale.name"],
+  ["/tools/palette",          "tools.palette.name"],
+  ["/tools/file-encrypt",     "tools.fileEncrypt.name"],
+  ["/tools/exif",             "tools.exif.name"],
+  ["/tools/pdf",              "tools.pdf.name"],
+  ["/tools/pdf-summary",      "tools.pdfSummary.name"],
+  ["/tools/ocr",              "tools.ocr.name"],
+  ["/tools/handwriting",      "tools.handwriting.name"],
+  ["/tools/image-to-table",   "tools.imageToTable.name"],
+  ["/tools/video-compress",   "tools.videoCompress.name"],
+  ["/tools/video-to-gif",     "tools.videoToGif.name"],
+  ["/tools/whisper",          "tools.whisper.name"],
+  ["/tools/json",             "tools.jsonFormatter.name"],
+  ["/tools/markdown",         "tools.markdownPreview.name"],
+  ["/tools/naming",           "tools.naming.name"],
+  ["/tools/cron",             "tools.cron.name"],
+  ["/tools/timestamp",        "tools.timestamp.name"],
+  ["/tools/flowchart",        "tools.flowchart.name"],
+  ["/tools/base64",           "tools.base64.name"],
+  ["/tools/qrcode",           "tools.qrcode.name"],
+];
+
 export default function Footer() {
   const { t } = useTranslation();
 
@@ -144,10 +174,51 @@ export default function Footer() {
         </div>
       </div>
 
-      <div
+      <nav
+        aria-label="All tools"
         style={{
           maxWidth: 1200,
           margin: "40px auto 0",
+          paddingTop: 24,
+          borderTop: "1px solid var(--border-light)",
+        }}
+      >
+        <div
+          style={{
+            ...colTitle,
+            marginBottom: 12,
+          }}
+        >
+          {t("nav.allTools")}
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "6px 14px",
+            fontSize: 12,
+          }}
+        >
+          {ALL_TOOL_LINKS.map(([to, key]) => (
+            <Link
+              key={to}
+              to={to}
+              style={{
+                color: "var(--text-muted)",
+                textDecoration: "none",
+                letterSpacing: -0.1,
+              }}
+            >
+              {t(key)}
+            </Link>
+          ))}
+        </div>
+      </nav>
+
+      <div
+        style={{
+          maxWidth: 1200,
+          margin: "24px auto 0",
           paddingTop: 24,
           borderTop: "1px solid var(--border-light)",
           display: "flex",

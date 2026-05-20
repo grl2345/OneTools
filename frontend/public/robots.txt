@@ -1,7 +1,23 @@
 User-agent: *
 Allow: /
+Disallow: /api/
 
-# Disallow API endpoints from being indexed
+# AI search engines (Perplexity, ChatGPT browse, Claude, Google AI Overviews).
+# Explicitly allow so they can cite our tool pages when answering queries.
+User-agent: GPTBot
+Allow: /
+Disallow: /api/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /api/
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /api/
+
+User-agent: Google-Extended
+Allow: /
 Disallow: /api/
 
 Sitemap: https://onetools.dev/sitemap.xml

@@ -1,32 +1,17 @@
 import { useState } from "react";
-import { Helmet } from "react-helmet-async";
 
 /**
- * SEO-friendly FAQ section. Renders a clean accordion visually, and emits
- * schema.org FAQPage JSON-LD so Google / AI search engines can parse Q&A
- * pairs directly. Great for ranking on long-tail "is this free / does it
- * upload / vs X" queries.
+ * SEO-friendly FAQ section. Renders a clean accordion visually. The
+ * schema.org FAQPage JSON-LD that used to live here is now baked into
+ * the prerendered HTML by scripts/prerender.js (so non-JS crawlers see
+ * it on first response). Emitting it here too would duplicate the
+ * structured data Google sees.
  */
-export default function FaqSection({ title, items, path }) {
+export default function FaqSection({ title, items }) {
   const [open, setOpen] = useState(0);
-
-  const structured = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: items.map((it) => ({
-      "@type": "Question",
-      name: it.q,
-      acceptedAnswer: { "@type": "Answer", text: it.a },
-    })),
-  };
 
   return (
     <>
-      <Helmet>
-        <script type="application/ld+json">
-          {JSON.stringify(structured)}
-        </script>
-      </Helmet>
       <section
         style={{
           width: "100%",
