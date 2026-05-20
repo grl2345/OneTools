@@ -7,7 +7,9 @@ import { useTranslation } from "react-i18next";
  * page to get unique SEO surfaces per route.
  */
 const SITE = "https://onetools.dev";
-const DEFAULT_IMAGE = `${SITE}/og-image.svg`;
+// Most social crawlers (Facebook/Twitter/WeChat) don't render SVG previews —
+// use a 1200x630 raster image as default. Falls back to SVG if PNG missing.
+const DEFAULT_IMAGE = `${SITE}/og-image.png`;
 
 export default function SEO({
   title,
@@ -46,11 +48,6 @@ export default function SEO({
       {description && <meta name="twitter:description" content={description} />}
       <meta name="twitter:image" content={ogImage} />
 
-      {/* Alternate languages */}
-      <link rel="alternate" hrefLang="zh" href={`${SITE}${path}`} />
-      <link rel="alternate" hrefLang="en" href={`${SITE}${path}`} />
-      <link rel="alternate" hrefLang="x-default" href={`${SITE}${path}`} />
-
       {/* Structured data */}
       {structuredData && (
         <script type="application/ld+json">
@@ -74,11 +71,6 @@ export const schema = {
     applicationCategory: "DeveloperApplication",
     operatingSystem: "Any (web-based)",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.9",
-      ratingCount: "12",
-    },
   }),
 
   website: ({ url = SITE }) => ({
