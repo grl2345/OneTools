@@ -138,6 +138,9 @@ export default function Footer() {
           >
             GitHub
           </a>
+          <a href="/sitemap.xml" style={linkStyle}>
+            Sitemap
+          </a>
         </div>
       </div>
 

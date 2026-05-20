@@ -1,0 +1,19 @@
+{
+  "name": "OneTools — Privacy-first Developer Tools",
+  "short_name": "OneTools",
+  "description": "Browser-local developer tools: JSON, Markdown, image compression, AI background/watermark removal, PDF, OCR — all runs in your browser.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#fafbfc",
+  "theme_color": "#a855f7",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
